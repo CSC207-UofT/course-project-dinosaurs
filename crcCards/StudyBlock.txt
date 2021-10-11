@@ -2,6 +2,7 @@ Class name: StudyBlock
 
 Responsibilities:
 * Creates a study block
+* Blocks off time in schedule/ calendar
 
 Collaborators:
 * TaskManager
