@@ -1,0 +1,8 @@
+Class name: CalendarItem
+
+ Responsibilities:
+ * Creates a calendar item
+
+ Collaborators:
+ * StudyBlock
+ * Lecture

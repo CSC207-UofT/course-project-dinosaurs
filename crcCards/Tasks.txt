@@ -1,0 +1,10 @@
+Class name: Tasks
+
+Responsibilities:
+* Holds due dates, workload, time estimates
+* Marked as complete and incomplete
+* Assignments, tasks
+
+Collaborators:
+* TaskManager
+*
