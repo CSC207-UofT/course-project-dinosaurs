@@ -2,6 +2,7 @@ Class name: CalendarItem
 
  Responsibilities:
  * Creates a calendar item
+ * Calendar items can include studyblocks, lectures, dates, holidays
 
  Collaborators:
  * StudyBlock
