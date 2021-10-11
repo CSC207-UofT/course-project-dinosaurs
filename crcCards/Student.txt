@@ -2,6 +2,7 @@ Class name: Student
 
 Responsibilities:
 * Stores a student's name, TaskManager, timetable, study method preferences
+* Stores when student has lectures, tutorials
 
 Collaborators:
 * StudyMethods
