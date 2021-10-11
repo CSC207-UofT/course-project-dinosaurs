@@ -1,0 +1,9 @@
+Class name:Task Manager
+
+Responsibilities:
+* Holds all tasks by priority
+* Keeps track of date
+* Mark past due date
+
+Collaborators:
+* Tasks

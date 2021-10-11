@@ -1,0 +1,8 @@
+Class name: ScheduleManager
+
+Responsibilities:
+* Manage Schedule (add/ remove)
+* Assess conflicts
+
+Collaborators:
+* Schedule

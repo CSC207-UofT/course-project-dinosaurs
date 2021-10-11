@@ -1,0 +1,8 @@
+Class name: StudyBlock
+
+Responsibilities:
+* Creates a study block
+
+Collaborators:
+* TaskManager
+* Scheduler
