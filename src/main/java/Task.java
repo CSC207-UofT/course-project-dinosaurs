@@ -47,10 +47,25 @@ public class Task {
     }
 
     /**
-     * TODO: Should we implement methods to change due date, importance, etc.?
-     * These attributes can change as time goes on but I don't know how useful
-     * this function would be.
+     * Changes the importance of a given task.
      */
+    public void setImportance(int newImportance){
+        this.importance = newImportance;
+    }
+
+    /**
+     * Changes the DueDate of a given task.
+     */
+    public void setDueDate(ZonedDateTime newDueDate){
+        this.dueDate = newDueDate;
+    }
+
+    /**
+     * Changes the weight of a given task.
+     */
+    public void setWeight(int Weight){
+        this.weight = Weight;
+    }
 
     /**
      * Changes the length of a given task in order to update the amount of time
