@@ -44,6 +44,7 @@ public class TaskManager {
      */
     public void changePriority(String priority){
         this.priority = priority;
+        sort();
 
     }
 
