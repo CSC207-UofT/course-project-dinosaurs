@@ -13,6 +13,8 @@ public class StudyMethod {
      * TODO move Pomodoro to constants
      */
     private static final ArrayList<Integer> POMODORO = new ArrayList<>(Arrays.asList(25, 5));
+    private static final ArrayList<Integer> DESKTIME = new ArrayList<>(Arrays.asList(52, 17));
+    private static final ArrayList<Integer> ULTRADIUM = new ArrayList<>(Arrays.asList(90, 0));
     private ArrayList<Integer> preferred_method;
 
     /**
@@ -33,6 +35,17 @@ public class StudyMethod {
         return this.preferred_method;
     }
 
+
+    /**
+     * Sets a preffered break time for .
+     * @param method the preffered break time for ULTRADIUM
+     * @return a new preferred_method[1] value
+     */
+    @Override
+    public setBreakTimeULTRA(Integer btime){
+        this.preferred_method.set(1,btime);
+    }
+
     /**
      * Sets a new preferred study method.
      * @param method The preferred study scheduling method
@@ -41,6 +54,14 @@ public class StudyMethod {
     public boolean setMethod(ArrayList<Integer> method) {
         if (method.equals(POMODORO)) {
             this.preferred_method = POMODORO;
+            return true;
+        }
+        if (method.equals(DESKTIME)) {
+            this.preferred_method = DESKTIME;
+            return true;
+        }
+        if (method.equals(ULTRADIUM)) {
+            this.preferred_method = ULTRADIUM;
             return true;
         }
         // TODO add more methods
