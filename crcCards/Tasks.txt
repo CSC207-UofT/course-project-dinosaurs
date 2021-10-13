@@ -4,6 +4,7 @@ Responsibilities:
 * Holds due dates, workload, time estimates
 * Marked as complete and incomplete
 * Assignments, tasks
+* Shows the weightage of each assignment
 
 Collaborators:
 * TaskManager
