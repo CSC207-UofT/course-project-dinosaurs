@@ -7,3 +7,4 @@ Responsibilities:
 Collaborators:
 * TaskManager
 * Scheduler
+* StudyMethods
