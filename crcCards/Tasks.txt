@@ -1,11 +1,10 @@
 Class name: Tasks
 
 Responsibilities:
-* Holds due dates, workload, time estimates
+* Holds due dates, length, importance of task
 * Marked as complete and incomplete
 * Assignments, tasks
 * Shows the weightage of each assignment
 
 Collaborators:
 * TaskManager
-*
