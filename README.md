@@ -1,6 +1,20 @@
-## Replace this README.md!
+#StudyPlanner
 
-This is a standard README.md file for you to replace. You'll want to include your own content here!
+This skeleton program runs a scenario of a Student creating a checklist to help
+plan their work on various tasks.
 
-MD (Markdown) files use [Markdown formatting](https://guides.github.com/features/mastering-markdown/): 
-these look very much like .txt files, so you can write them in a very similar way.
+Run Main.java located in /Controllers/ and the program will lead
+you through the next steps in the Command Line.
+
+All .java files are located in their relevant Clean Architecture
+categories to match our CRC cards.
+
+Thanks!
+
+#Creators - Team dinosaurs
+Pooja Ajit <br>
+Ken Bashualdo <br>
+Zoya Haroun <br>
+Paridhi Kshitij <br>
+Jeb Thomas-Mitchell <br>
+Eric Yin
