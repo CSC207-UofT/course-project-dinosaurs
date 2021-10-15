@@ -17,7 +17,7 @@ public class Checklist {
     public Checklist() {
         this.incomplete = new ArrayList<>();
         this.complete = new ArrayList<>();
-        this.priority = Constants.DUEDATE;
+        this.priority = Constants.DUE_DATE;
     }
 
 
@@ -67,7 +67,7 @@ public class Checklist {
      */
     public void sort() {
 
-        if (Objects.equals(this.priority, Constants.DUEDATE)) {
+        if (Objects.equals(this.priority, Constants.DUE_DATE)) {
             this.incomplete.sort(new DueDateComparator());
         }
 

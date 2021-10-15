@@ -16,7 +16,6 @@ public class StudyBlock {
     /**
      * Constructor for the BlockScheduler.
      *
-     * @param blockLength Length of desired StudyBlock in minutes. ADD after Phase 0
      * @param studyMethod Preferred study scheduling method.
      * @param checklist List of Tasks to be completed.
      */
@@ -32,7 +31,6 @@ public class StudyBlock {
     /**
      * Builds an ArrayList, <listTodo>, that incorporates the studyMethod and checklist.
      *
-     * @return a sorted listTODO
      */
     public void buildListTODO() {
         ArrayList<Task> task = this.checklist.getIncomplete();

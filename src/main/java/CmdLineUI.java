@@ -50,7 +50,7 @@ public class CmdLineUI {
      */
     public String studyMethodChooser() {
         System.out.println("Please enter number for preferred Study Method: ");
-        System.out.println("1. Pomodoro (25 min on, 5 min off");
+        System.out.println("1. Pomodoro (25 min on, 5 min off)");
         Scanner scanner = new Scanner(System.in);
         String response = scanner.nextLine();
         while (!response.equals("1")) {
@@ -68,7 +68,7 @@ public class CmdLineUI {
      * @return int in minutes of study time
      */
     public int lengthChooser() {
-        System.out.println("Please enter the length of your study time in minutes (ints only");
+        System.out.println("Please enter the length of your study time in minutes (ints only)");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
         }

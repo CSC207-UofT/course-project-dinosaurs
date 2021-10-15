@@ -29,15 +29,15 @@ public class Main {
         String methodChoice = ui.studyMethodChooser();
         // possible choices "POMODORO"
         // TODO check methodChoice is a valid StudyMethod
-        ArrayList<Integer> methodChosen = ExampleData.methodMap.get(methodChoice);
+        StudyMethod methodChosen = new StudyMethod(ExampleData.methodMap.get(methodChoice));
 
         // get user input for length of time
         int lengthChoice = ui.lengthChooser();
 
         // create a new StudyBlock with given params
         // TODO refactor based on Ken's StudyBlock params
-        StudyBlock newBlock = new StudyBlock(lengthChoice, methodChosen,
-                taskList, priorityChoice);
+        StudyBlock newBlock = new StudyBlock(methodChosen,
+                taskList);
 
         // pass StudyBlock to Presenter to print
         Presenter<StudyBlock> blockPresenter = new Presenter<>();
