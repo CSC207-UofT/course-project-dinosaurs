@@ -4,5 +4,5 @@ Responsibilities:
 * Holds different methods of study based on study duration and priorities.
 
 Collaborators:
-* StudyBlock
-* Student
+* UseCases.StudyBlock
+* Entities.Student

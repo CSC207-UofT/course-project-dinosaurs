@@ -1,8 +1,4 @@
-package constants;
-
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+package Constants;
 
 /**
  * This class holds all the constants.

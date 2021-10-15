@@ -1,3 +1,10 @@
+package Constants;
+
+import Entities.Checklist;
+import Entities.Student;
+import Entities.Task;
+import UseCases.TaskManager;
+
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -9,7 +16,7 @@ public class ExampleData {
      * TODO move program files into named packages so this can be moved to Constants
      */
 
-    //default Student
+    //default Entities.Student
     public static final Student DEFAULT_STUDENT = new Student();
     public static Map<String, Student> studentMap;
     static {
@@ -45,7 +52,7 @@ public class ExampleData {
         newManager.addTask(t4);
     }
 
-    // default StudyMethod
+    // default Entities.StudyMethod
     private static final ArrayList<Integer> POMODORO = new ArrayList<>(Arrays.asList(25, 5));
     public static Map<String, ArrayList<Integer>> methodMap;
     static {

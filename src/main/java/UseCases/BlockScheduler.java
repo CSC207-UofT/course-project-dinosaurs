@@ -3,22 +3,22 @@
 //
 //public class BlockScheduler {
 //    /**
-//     * Schedules a StudyBlock based on the selected blockLength,
+//     * Schedules a UseCases.StudyBlock based on the selected blockLength,
 //     * studyMethod, chosenTasks, and priorityType.
 //
-//     * Creates a new StudyBlock with Tasks by Priority
+//     * Creates a new UseCases.StudyBlock with Tasks by Priority
 //     * TODO figure out how to represent, with breaks splitting task chunks appropriately
-//     * @return Prioritized StudyBlock of specified blockLength.
+//     * @return Prioritized UseCases.StudyBlock of specified blockLength.
 //     */
-//    public void schedule(StudyBlock targetBlock) {
-//        List<Task> taskList = targetBlock.getTasks();
-//        StudyBlock newBlock = new StudyBlock();
+//    public void schedule(UseCases.StudyBlock targetBlock) {
+//        List<Entities.Task> taskList = targetBlock.getTasks();
+//        UseCases.StudyBlock newBlock = new UseCases.StudyBlock();
 //        int totalLength = 0;
-//        // TODO TaskManager sorts taskList by priorityType
+//        // TODO UseCases.TaskManager sorts taskList by priorityType
 //
 //        while (totalLength < targetBlock.getLength()) {
 //            // TODO implement all below
-//            for (Task task : chosenTasks) {
+//            for (Entities.Task task : chosenTasks) {
 //                targetBlock.add(task);
 //                targetBlock.addLength(task.getLength());
 //                // add break time to total time TODO this isn't correct

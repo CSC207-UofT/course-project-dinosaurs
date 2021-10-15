@@ -1,11 +1,14 @@
-import constants.Constants;
+package Entities;
+
+import Constants.Constants;
+import HelperFunctions.DueDateComparator;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class Checklist {
     /**
-     * A Checklist which stores all the completed and incomplete
+     * A Entities.Checklist which stores all the completed and incomplete
      * tasks and keeps the completed tasks sorted based on priority.
      * Default priority is by due date.
      */
@@ -22,12 +25,12 @@ public class Checklist {
 
 
     /**
-     * Adds a task into the Checklist. Then sorts the task based on
+     * Adds a task into the Entities.Checklist. Then sorts the task based on
      * current priority status.
      *
-     * @param task The task to be added into the Checklist.
+     * @param task The task to be added into the Entities.Checklist.
      * @return Returns true iff the task was successfully added and sorted
-     * into the Checklist.
+     * into the Entities.Checklist.
      */
     public boolean addTask(Task task) {
         boolean added = this.incomplete.add(task);
@@ -61,7 +64,7 @@ public class Checklist {
 
     /**
      * Sorts the current incomplete list based on the current priority
-     * of the Checklist.
+     * of the Entities.Checklist.
      * TODO: Add cases for different priorities.
      * TODO: A hashmap would be a much more efficient way of accessing this.
      */
@@ -74,7 +77,7 @@ public class Checklist {
     }
 
     /**
-     * Accesses the completed list of tasks in the Checklist.
+     * Accesses the completed list of tasks in the Entities.Checklist.
      *
      * @return The completed list of tasks.
      */
@@ -83,7 +86,7 @@ public class Checklist {
     }
 
     /**
-     * Accesses the incomplete list of tasks in the Checklist.
+     * Accesses the incomplete list of tasks in the Entities.Checklist.
      *
      * @return The incomplete list of tasks.
      */

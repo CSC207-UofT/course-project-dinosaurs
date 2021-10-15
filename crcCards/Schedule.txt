@@ -4,5 +4,5 @@ Responsibilities:
 * Contains CalendarItem Day by day
 
 Collaborators:
-* TaskManager
+* UseCases.TaskManager
 * ScheduleManager

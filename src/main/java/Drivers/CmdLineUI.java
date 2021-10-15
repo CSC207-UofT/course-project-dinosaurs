@@ -1,19 +1,21 @@
+package Drivers;
+
 import java.util.*;
 
 public class CmdLineUI {
     /**
-     * Basic command line interface to log in an existing Student.
-     * @return string that matches the key of a valid Student
+     * Basic command line interface to log in an existing Entities.Student.
+     * @return string that matches the key of a valid Entities.Student
      */
     public String studentLogin() {
-        System.out.println("Login as Default Student: Y/N?");
+        System.out.println("Login as Default Entities.Student: Y/N?");
         Scanner scanner = new Scanner(System.in);
         String response = scanner.nextLine();
         while (!response.equals("Y")) {
             System.out.println("Please choose Y.");
             response = scanner.nextLine();
         }
-        // TODO a way to createStudent, check Student is valid in Main
+        // TODO a way to createStudent, check Entities.Student is valid in Controllers.Main
         return "DEFAULT_STUDENT";
     }
 

@@ -1,7 +1,9 @@
+package Entities;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-// TODO needs toString to work with TodoList/TaskManager toString
+// TODO needs toString to work with TodoList/UseCases.TaskManager toString
 // TODO needs getters and setters (to work with BlockScheduler)
 
 public class Task {
@@ -77,7 +79,7 @@ public class Task {
     /**
      * Changes the length of a given task in order to update the amount of time
      * left for a given task. I felt this was an important feature because
-     * this would definitely change things for a TaskManager using length priority.
+     * this would definitely change things for a UseCases.TaskManager using length priority.
      */
 
     public void setLength(int newLength){

@@ -1,9 +1,9 @@
-Class name: Student
+Class name: Entities.Student
 
 Responsibilities:
-* Stores a student's name, TaskManager, timetable, study method preferences
+* Stores a student's name, UseCases.TaskManager, timetable, study method preferences
 * Stores when student has lectures, tutorials
 
 Collaborators:
 * StudyMethods
-* TaskManager
+* UseCases.TaskManager

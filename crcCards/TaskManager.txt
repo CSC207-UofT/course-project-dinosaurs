@@ -1,4 +1,4 @@
-Class name:Task Manager
+Class name:Entities.Task Manager
 
 Responsibilities:
 * Holds all tasks by priority
