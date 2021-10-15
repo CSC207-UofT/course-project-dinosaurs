@@ -1,9 +1,11 @@
+import Entities.Task;
+import UseCases.StudyBlock;
+
 import java.util.*;
-import java.time.ZonedDateTime;
 
 public class BlockScheduler {
     /**
-     * Creates a new StudyBlock based on the selected blockLength,
+     * Creates a new UseCases.StudyBlock based on the selected blockLength,
      * studyMethod, chosenTasks, and priorityType.
      */
     private double maxLength;
@@ -15,7 +17,7 @@ public class BlockScheduler {
     /**
      * Constructor for the BlockScheduler.
      *
-     * @param blockLength Time of desired StudyBlock in minutes.
+     * @param blockLength Time of desired UseCases.StudyBlock in minutes.
      * @param studyMethod Preferred study scheduling method.
      * @param chosenTasks List of Tasks to be completed.
      * @param priorityType How the Tasks will be prioritized.
@@ -29,14 +31,14 @@ public class BlockScheduler {
     }
 
     /**
-     * Schedules a new StudyBlock.
+     * Schedules a new UseCases.StudyBlock.
      * TODO figure out how to represent, with breaks splitting task chunks appropriately
-     * @return Prioritized StudyBlock of specified blockLength.
+     * @return Prioritized UseCases.StudyBlock of specified blockLength.
      */
     public StudyBlock schedule() {
         StudyBlock newBlock = new StudyBlock();
         List<Task> taskList = new ArrayList<>(this.chosenTasks); // shallow copy should be okay?
-        // TODO TaskManager sorts taskList by priorityType
+        // TODO UseCases.TaskManager sorts taskList by priorityType
 
         while (newBlock.length() < this.maxLength) {
             // TODO implement all below

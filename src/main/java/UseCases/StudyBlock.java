@@ -1,9 +1,11 @@
+package UseCases;
+
 import java.util.ArrayList;
 
 public class StudyBlock {
     /**
-     * TODO implement StudyBlock
-     * Creates a new StudyBlock based on the selected blockLength,
+     * TODO implement UseCases.StudyBlock
+     * Creates a new UseCases.StudyBlock based on the selected blockLength,
      * studyMethod, chosenTasks, and priorityType.
      */
     private double length;
@@ -15,7 +17,7 @@ public class StudyBlock {
     /**
      * Constructor for the BlockScheduler.
      *
-     * @param blockLength Length of desired StudyBlock in minutes.
+     * @param blockLength Length of desired UseCases.StudyBlock in minutes.
      * @param studyMethod Preferred study scheduling method.
      * @param chosenTasks List of Tasks to be completed.
      * @param priorityType How the Tasks will be prioritized.

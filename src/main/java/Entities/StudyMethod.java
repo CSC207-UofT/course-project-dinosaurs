@@ -1,3 +1,5 @@
+package Entities;
+
 import java.util.*;
 
 public class StudyMethod {
@@ -16,7 +18,7 @@ public class StudyMethod {
     private ArrayList<Integer> preferred_method;
 
     /**
-     * Constructor for the StudyMethod.
+     * Constructor for the Entities.StudyMethod.
      * Currently, preferred_method.size() == 2 only
      * @param method The preferred study scheduling method
      *               must be in accepted methods

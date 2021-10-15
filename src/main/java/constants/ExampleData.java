@@ -1,3 +1,7 @@
+package constants;
+
+import Entities.Student;
+
 import java.util.*;
 
 public class ExampleData {
@@ -8,7 +12,7 @@ public class ExampleData {
      * TODO move program files into named packages so this can be moved to Constants
      */
 
-    //default Student
+    //default Entities.Student
     public static final Student DEFAULT_STUDENT = new Student();
     public static Map<String, Student> studentMap;
     static {

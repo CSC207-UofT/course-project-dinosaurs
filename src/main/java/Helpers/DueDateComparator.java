@@ -1,3 +1,7 @@
+package Helpers;
+
+import Entities.Task;
+
 import java.util.Comparator;
 
 class DueDateComparator implements Comparator<Task> {
