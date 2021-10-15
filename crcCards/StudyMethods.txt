@@ -1,8 +1,0 @@
-Class name: StudyMethods
-
-Responsibilities:
-* Holds different methods of study based on study duration and priorities.
-
-Collaborators:
-* UseCases.StudyBlock
-* Entities.Student
