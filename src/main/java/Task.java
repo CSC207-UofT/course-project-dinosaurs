@@ -1,4 +1,8 @@
-import java.time.ZonedDateTime;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
+
+// TODO needs toString to work with TodoList/TaskManager toString
+// TODO needs getters and setters (to work with BlockScheduler)
 
 public class Task {
     /**
@@ -6,6 +10,7 @@ public class Task {
      * and estimated length of a given task.
      */
 
+    public String name;
     public int weight;
     public ZonedDateTime dueDate;
     public int importance;
@@ -16,6 +21,7 @@ public class Task {
      * Constructors for the task. Completed is always false on initialization.
      */
     public Task() {
+        this.name = "";
         this.weight = 0;
         this.dueDate = ZonedDateTime.now();
         this.importance = 0;
@@ -27,9 +33,10 @@ public class Task {
      * @param weight How much percentage the task is worth, 1 <= weight <= 100.
      * @param due The date (year, month, day, hour, minute) that the task is due.
      * @param importance The subjective importance of the task, 1-5 integers inclusive.
-     * @param length The estimated time (in hours) which the task will take.
+     * @param length The estimated time (in minutes) which the task will take.
      */
-    public Task(int weight, ZonedDateTime due, int importance, int length){
+    public Task(String name, int weight, ZonedDateTime due, int importance, int length){
+        this.name = name;
         this.weight = weight;
         this.dueDate = due;
         this.importance = importance;
@@ -75,6 +82,12 @@ public class Task {
 
     public void setLength(int newLength){
         this.length = newLength;
+    }
+
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm");
+        String formattedString = this.dueDate.format(formatter);
+        return this.name + formattedString + "\n";
     }
 
 
