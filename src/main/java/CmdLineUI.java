@@ -29,18 +29,19 @@ public class CmdLineUI {
         Scanner scanner = new Scanner(System.in);
         String response = scanner.nextLine();
         while (!(response.equals("1") || response.equals("2") || response.equals("3"))) {
-            System.out.println("Please choose 1, 2, or 3.");
+            System.out.println("Please choose 1.");
             response = scanner.nextLine();
         }
-        if (response.equals("1")) {
-            return "IMPORTANCE";
-        }
-        if (response.equals("2")) {
-            return "DUE_DATE";
-        }
-        else {
-            return "WEIGHT";
-        }
+//        if (response.equals("2")) {
+//            return "IMPORTANCE";
+//        }
+//        if (response.equals("1")) {
+//            return "DUE_DATE";
+//        }
+//        else {
+//            return "WEIGHT";
+//        }
+        return "DUE_DATE";
     }
 
     /**
