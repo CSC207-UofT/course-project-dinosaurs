@@ -17,10 +17,10 @@ public class TaskManagerTest {
     ZonedDateTime d3 = d1.plusDays(2);
     ZonedDateTime d4 = d1.plusDays(3);
 
-    Task t1 = new Task(35, d3, 5, 3);
-    Task t2 = new Task(35, d1, 4, 2);
-    Task t3 = new Task(35, d4, 2, 7);
-    Task t4 = new Task(35, d2, 3, 1);
+    Task t1 = new Task("t1", 35, d3, 5, 3);
+    Task t2 = new Task("t2", 35, d1, 4, 2);
+    Task t3 = new Task("t3", 35, d4, 2, 7);
+    Task t4 = new Task("t3", 35, d2, 3, 1);
 
     @Before
     public void setUp() {
