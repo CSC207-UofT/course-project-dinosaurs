@@ -1,11 +1,16 @@
 public class Main {
+    /**
+     * Enables a Student to create and manage a Checklist of Tasks, and to schedule
+     * them in a StudyBlock according to various priorities and study methods.
+     * @param args No command line arguments supported.
+     */
     public static void main(String[] args) {
         CmdLineUI ui = new CmdLineUI();
         // get user input to login Student
         String studentChoice = ui.studentLogin();
 
         // TODO check studentChoice is a valid Student in Map
-        Student studentUser = ExampleData.DEFAULT_STUDENT;
+        Student studentUser = ExampleData.studentMap.get(studentChoice);
 
         // get existing TodoList for this Student from storage and display it
         TodoList taskList = ExampleData.DEFAULT_TODOLIST;
@@ -31,6 +36,6 @@ public class Main {
 
         // pass StudyBlock to Presenter to print
         Presenter<StudyBlock> blockPresenter = new Presenter<>();
-        blockPresenter.printer(StudyBlock);
+        blockPresenter.printer(newBlock);
     }
 }

@@ -1,6 +1,10 @@
 import java.util.*;
 
 public class CmdLineUI {
+    /**
+     * Basic command line interface to log in an existing Student.
+     * @return string that matches the key of a valid Student
+     */
     public String studentLogin() {
         System.out.println("Login as Default Student: Y/N?");
         Scanner scanner = new Scanner(System.in);
@@ -9,10 +13,14 @@ public class CmdLineUI {
             System.out.println("Please choose Y.");
             response = scanner.nextLine();
         }
-        // TODO add map of Students, a way to createStudent, check Student is valid in Main
+        // TODO a way to createStudent, check Student is valid in Main
         return "DEFAULT_STUDENT";
     }
 
+    /**
+     * Basic command line interface to choose a sorting priority.
+     * @return string of a valid sorting priority
+     */
     public String priorityChooser() {
         System.out.println("Please enter number for priority type: ");
         System.out.println("1. Importance");
@@ -35,6 +43,10 @@ public class CmdLineUI {
         }
     }
 
+    /**
+     * Basic command line interface to choose a study method.
+     * @return string of a valid study method
+     */
     public String studyMethodChooser() {
         System.out.println("Please enter number for preferred Study Method: ");
         System.out.println("1. Pomodoro (25 min on, 5 min off");
@@ -50,14 +62,18 @@ public class CmdLineUI {
         return "POMODORO";
     }
 
+    /**
+     * Basic command line interface to choose the length of available study time.
+     * @return int in minutes of study time
+     */
     public int lengthChooser() {
         System.out.println("Please enter the length of your study time in minutes (ints only");
         Scanner scanner = new Scanner(System.in);
         return scanner.nextInt();
         }
-    }
-
 }
+
+
 
 //    private void taskCreator() {
 //
