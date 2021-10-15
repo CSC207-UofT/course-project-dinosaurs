@@ -8,7 +8,9 @@ import java.util.ArrayList;
 
 public class TaskManagerTest {
 
-    TaskManager tasks = new TaskManager();
+    Checklist tasks = new Checklist();
+
+    TaskManager tm = new TaskManager(tasks);
 
     ZonedDateTime d1 = ZonedDateTime.now();
     ZonedDateTime d2 = d1.plusDays(1);
@@ -22,10 +24,10 @@ public class TaskManagerTest {
 
     @Before
     public void setUp() {
-        tasks.addTask(t1);
-        tasks.addTask(t2);
-        tasks.addTask(t3);
-        tasks.addTask(t4);
+        tm.addTask(t1);
+        tm.addTask(t2);
+        tm.addTask(t3);
+        tm.addTask(t4);
     }
 
     @Test(timeout = 80)
@@ -36,7 +38,7 @@ public class TaskManagerTest {
         order.add(t1);
         order.add(t3);
 
-        assertEquals(tasks.incomplete, order);
+        assertEquals(tm.getIncompleteList(), order);
     }
 
     @Test(timeout = 80)
@@ -46,13 +48,13 @@ public class TaskManagerTest {
         order.add(t4);
         order.add(t3);
 
-        tasks.completeTask(t1);
+        tm.completeTask(t1);
 
         ArrayList<Task> complete = new ArrayList<>();
         complete.add(t1);
 
-        assertEquals(tasks.incomplete, order);
-        assertEquals(tasks.complete, complete);
+        assertEquals(tm.getIncompleteList(), order);
+        assertEquals(tm.getCompletedList(), complete);
     }
 
 
