@@ -1,20 +1,28 @@
-import java.util.*;
+package Controllers;
+
+import Constants.ExampleData;
+import Drivers.CmdLineUI;
+import Drivers.Presenter;
+import Entities.Checklist;
+import Entities.Student;
+import Entities.StudyMethod;
+import UseCases.StudyBlock;
 
 public class Main {
     /**
-     * Enables a Student to create and manage a Checklist of Tasks, and to schedule
-     * them in a StudyBlock according to various priorities and study methods.
+     * Enables a Entities.Student to create and manage a Entities.Checklist of Tasks, and to schedule
+     * them in a UseCases.StudyBlock according to various priorities and study methods.
      * @param args No command line arguments supported.
      */
     public static void main(String[] args) {
         CmdLineUI ui = new CmdLineUI();
-        // get user input to login Student
+        // get user input to login Entities.Student
         String studentChoice = ui.studentLogin();
 
-        // TODO check studentChoice is a valid Student in Map
+        // TODO check studentChoice is a valid Entities.Student in Map
         Student studentUser = ExampleData.studentMap.get(studentChoice);
 
-        // get existing TodoList for this Student from storage and display it
+        // get existing TodoList for this Entities.Student from storage and display it
         Checklist taskList = ExampleData.DEFAULT_CHECKLIST;
         Presenter<Checklist> taskPrinter = new Presenter<>();
         taskPrinter.printer(taskList);
@@ -23,23 +31,23 @@ public class Main {
 //        String priorityChoice = ui.priorityChooser();
         // use priorityChoice to access correct priority from Map
         // possible choices "DUE_DATE"
-        // TODO call TaskManager to return a sorted TodoList with priorityChoice
+        // TODO call UseCases.TaskManager to return a sorted TodoList with priorityChoice
 
         // get user input for study method
         String methodChoice = ui.studyMethodChooser();
         // possible choices "POMODORO"
-        // TODO check methodChoice is a valid StudyMethod
+        // TODO check methodChoice is a valid Entities.StudyMethod
         StudyMethod methodChosen = new StudyMethod(ExampleData.methodMap.get(methodChoice));
 
         // get user input for length of time
         int lengthChoice = ui.lengthChooser();
 
-        // create a new StudyBlock with given params
-        // TODO refactor based on Ken's StudyBlock params
+        // create a new UseCases.StudyBlock with given params
+        // TODO refactor based on Ken's UseCases.StudyBlock params
         StudyBlock newBlock = new StudyBlock(methodChosen,
                 taskList);
 
-        // pass StudyBlock to Presenter to print
+        // pass UseCases.StudyBlock to Drivers.Presenter to print
         Presenter<StudyBlock> blockPresenter = new Presenter<>();
         blockPresenter.printer(newBlock);
     }

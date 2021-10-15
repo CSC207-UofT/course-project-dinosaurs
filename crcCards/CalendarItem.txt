@@ -4,5 +4,5 @@ Class name: CalendarItem
  * Creates a calendar item
 
  Collaborators:
- * StudyBlock
+ * UseCases.StudyBlock
  * Lecture

@@ -1,9 +1,15 @@
+package UseCases;
+
+import Entities.Checklist;
+import Entities.StudyMethod;
+import Entities.Task;
+
 import java.util.ArrayList;
 
 public class StudyBlock {
     /**
-     * TODO implement StudyBlock
-     * Creates a new StudyBlock based on the selected blockLength,
+     * TODO implement UseCases.StudyBlock
+     * Creates a new UseCases.StudyBlock based on the selected blockLength,
      * studyMethod, chosenTasks, and priorityType.
      *
      * private double length;
@@ -20,7 +26,7 @@ public class StudyBlock {
      * @param checklist List of Tasks to be completed.
      */
     public StudyBlock(StudyMethod studyMethod,
-                          Checklist checklist) {
+                      Checklist checklist) {
         this.studyMethod = studyMethod;
         this.checklist = checklist;
         this.listTODO = new ArrayList<>();

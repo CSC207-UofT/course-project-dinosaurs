@@ -1,10 +1,10 @@
-Class name: StudyBlock
+Class name: UseCases.StudyBlock
 
 Responsibilities:
 * Creates a study block
 * Blocks off time in schedule/ calendar
 
 Collaborators:
-* TaskManager
+* UseCases.TaskManager
 * Scheduler
 * StudyMethods

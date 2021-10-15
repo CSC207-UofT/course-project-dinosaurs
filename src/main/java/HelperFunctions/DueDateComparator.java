@@ -1,6 +1,10 @@
+package HelperFunctions;
+
+import Entities.Task;
+
 import java.util.Comparator;
 
-class DueDateComparator implements Comparator<Task> {
+public class DueDateComparator implements Comparator<Task> {
 
     /**
      * A comparator which compares two due dates between tasks.
