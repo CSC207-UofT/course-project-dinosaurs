@@ -12,9 +12,9 @@ public class StudyMethod {
      * TODO implement additional methods
      * TODO move Pomodoro to constants
      */
-    private static final ArrayList<Integer> POMODORO = new ArrayList<>(Arrays.asList(25, 5));
-    private static final ArrayList<Integer> DESKTIME = new ArrayList<>(Arrays.asList(52, 17));
-    private static final ArrayList<Integer> ULTRADIUM = new ArrayList<>(Arrays.asList(90, 0));
+    public static final ArrayList<Integer> POMODORO = new ArrayList<>(Arrays.asList(25, 5));
+    public static final ArrayList<Integer> DESKTIME = new ArrayList<>(Arrays.asList(52, 17));
+    public static final ArrayList<Integer> ULTRADIUM = new ArrayList<>(Arrays.asList(90, 0));
     private ArrayList<Integer> preferred_method;
 
     /**
