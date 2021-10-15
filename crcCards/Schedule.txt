@@ -1,8 +1,0 @@
-Class name: Schedule
-
-Responsibilities:
-* Contains CalendarItem Day by day
-
-Collaborators:
-* UseCases.TaskManager
-* ScheduleManager

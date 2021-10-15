@@ -1,8 +1,0 @@
-Class name: CalendarItem
-
- Responsibilities:
- * Creates a calendar item
-
- Collaborators:
- * UseCases.StudyBlock
- * Lecture
