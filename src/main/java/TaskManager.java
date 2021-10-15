@@ -1,40 +1,60 @@
 import java.util.ArrayList;
-import java.util.Objects;
-
-import constants.Constants;
 
 public class TaskManager {
+
     /**
-     * A task manager which stores all the completed and incomplete
-     * tasks and keeps the completed tasks sorted based on priority.
-     * Default priority is by due date.
+     * A task manager class which handles the management of a TodoList.
+     * Sorts the Checklist, adds/completes tasks and retrieves completed and
+     * incomplete lists from the TodoList based on controller input.
      */
 
-    public ArrayList<Task> incomplete;
-    public ArrayList<Task> complete;
-    public String priority;
-
-    public TaskManager(){
-        this.incomplete = new ArrayList<>();
-        this.complete = new ArrayList<>();
-        this.priority = Constants.DUEDATE;
-    }
-
+    private Checklist todo;
 
     /**
-     * Adds a task into the TaskManager. Then sorts the task based on
+     * Constructor for Taskmanager.
+     * @param checklist The Checklist which the Taskmanager will work on.
+     */
+
+    public TaskManager(Checklist checklist){
+        this.todo = checklist;
+    }
+
+    /**
+     * Retrieves the incomplete list from the Checklist.
+     */
+    public ArrayList<Task> getIncompleteList(){
+        return this.todo.getIncomplete();
+    }
+
+    /**
+     * Retrieves the completed list from the Checklist.
+     */
+    public ArrayList<Task> getCompletedList(){
+        return this.todo.getCompleted();
+    }
+
+    /**
+     * Adds a task into the Checklist. Then sorts the task based on
      * current priority status.
-     * @param task The task to be added into the task manager.
+     * @param task The task to be added into the Checklist.
      * @return Returns true iff the task was successfully added and sorted
-     * into the task manager.
+     * into the Checklist.
      */
     public boolean addTask(Task task){
-        boolean added = this.incomplete.add(task);
-        sort();
-        return added;
-
+        return this.todo.addTask(task);
     }
 
+    /**
+     * Completes a given task from the Checklist's incomplete list.
+     * Removes it from the incomplete list and adds it to the completed
+     * list.
+     * @param task The task which was completed.
+     * @return true if the task was completed successfully.
+     * Returns false if the task was not on the incomplete list.
+     */
+    public boolean completeTask(Task task){
+        return this.todo.completeTask(task);
+    }
 
     /**
      * Changes the current priority to a different priority
@@ -43,55 +63,13 @@ public class TaskManager {
      * constants.Constants.
      */
     public void changePriority(String priority){
-        this.priority = priority;
-        sort();
+        this.todo.changePriority(priority);
+        this.todo.sort();
 
     }
 
 
-    /**
-     * Completes a given task from the incomplete list. Removes
-     * it from the incomplete list and adds it to the completed
-     * list.
-     * @param task The task which was completed.
-     * @return true if the task was completed successfully.
-     * Returns false if the task was not on the incomplete list.
-     */
-    public boolean completeTask(Task task){
-        if (this.incomplete.contains(task)) {
-            this.incomplete.remove(task);
-            task.complete();
-            this.complete.add(task);
-            return true;
-        }
-        else {
-            return false;
-        }
 
-
-    }
-
-    /**
-     * Sorts the current incomplete list based on the current priority
-     * of the TaskManager.
-     * TODO: Add cases for different priorities.
-     * TODO: A hashmap would be a much more efficient way of accessing this.
-     */
-    private void sort(){
-
-        if (Objects.equals(this.priority, Constants.DUEDATE)) {
-            this.incomplete.sort(new DueDateComparator());
-        }
-
-    }
-
-    /**
-     * Accesses the completed list of tasks in the task manager.
-     * @return The completed list of tasks.
-     */
-    public ArrayList<Task> getCompleted() {
-        return this.complete;
-    }
 
 
 }
