@@ -1,41 +1,32 @@
 import java.util.ArrayList;
 
 public class StudyBlock {
-    public ArrayList<Task> todolist;
-    public String studymethod;
-
     /**
      * TODO implement StudyBlock
-     * TODO needs .length() in minutes
+     * Creates a new StudyBlock based on the selected blockLength,
+     * studyMethod, chosenTasks, and priorityType.
      */
+    private double length;
+    private ArrayList<Integer> studyMethod;
+    private ArrayList chosenTasks;
+    private String priorityType;
+    // TODO figure out type of chosenTasks: list of Tasks
 
-
-     /**
-      * Constructs an ArrayList that holds the assignment as the
-      * key and the time as the value.
-      *
-      * @param todolist Incomplete tasks in Student's tasks
-      * @param studymethod The prefered study method that is used to organize
-      *                    the study block
+    /**
+     * Constructor for the BlockScheduler.
+     *
+     * @param blockLength Length of desired StudyBlock in minutes.
+     * @param studyMethod Preferred study scheduling method.
+     * @param chosenTasks List of Tasks to be completed.
+     * @param priorityType How the Tasks will be prioritized.
      */
-
-    public StudyBlock(ArrayList<Task> todolist, String studymethod) {
-        this.todolist = todolist;
-        this.studymethod = studymethod;
+    public StudyBlock(double blockLength, ArrayList<Integer> studyMethod,
+                          ArrayList chosenTasks, String priorityType) {
+        this.length = blockLength;
+        this.studyMethod = studyMethod;
+        this.chosenTasks = chosenTasks;
+        this.priorityType = priorityType;
     }
 
-    public StudyBlock(String studymethod){
-        this.todolist = new ArrayList<Task>();
-        this.studymethod = studymethod;
-    }
-
-
-
-    public String toString() {
-        StringBuilder todo = new StringBuilder("-- TODO List --\n");
-
-        for (Task item : this.todolist){
-            todo.append((item.toString()) + "  |  " + item.length).append("\n")
-        }
-    }
+    // TODO getters and setters
 }
