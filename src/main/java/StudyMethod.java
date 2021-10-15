@@ -37,16 +37,6 @@ public class StudyMethod {
 
 
     /**
-     * Sets a preffered break time for .
-     * @param method the preffered break time for ULTRADIUM
-     * @return a new preferred_method[1] value
-     */
-    @Override
-    public setBreakTimeULTRA(Integer btime){
-        this.preferred_method.set(1,btime);
-    }
-
-    /**
      * Sets a new preferred study method.
      * @param method The preferred study scheduling method
      * @return true if the method was set successfully.

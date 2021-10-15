@@ -35,10 +35,10 @@ public class ExampleData {
         d2 = d1.plusDays(1);
         d3 = d1.plusDays(2);
         d4 = d1.plusDays(3);
-        t1 = new Task("t1", 35, d3, 5, 3);
-        t2 = new Task("t2", 35, d1, 4, 2);
-        t3 = new Task("t3",35, d4, 2, 7);
-        t4 = new Task("t4", 35, d2, 3, 1);
+        t1 = new Task("t1", 35, d3, 5, 60);
+        t2 = new Task("t2", 35, d1, 4, 50);
+        t3 = new Task("t3",35, d4, 2, 70);
+        t4 = new Task("t4", 35, d2, 3, 10);
         newManager.addTask(t1);
         newManager.addTask(t2);
         newManager.addTask(t3);
