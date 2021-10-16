@@ -24,9 +24,13 @@ The program is run in the main.java file and shows a very basic implementation o
 What we’ve been working on: 
 
 Pooja and Paridhi have been working on the written components of phase 0 such as the specifications, walkthrough and report. 
+
 Zoya has been working on writing up and formatting the CRC cards. 
+
 Jeb has been working on coding primarily. UI, Main and Presenter plus small random tasks. 
+
 Ken has been working on StudyBlock and StudyMethods. 
+
 Eric has been working on Checklist, Task, TaskManager and DueDateComparator.
 
 Further steps:
