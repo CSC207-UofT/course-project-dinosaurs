@@ -5,10 +5,11 @@ import java.util.*;
 public class CmdLineUI {
     /**
      * Basic command line interface to log in an existing Entities.Student.
+     *
      * @return string that matches the key of a valid Entities.Student
      */
     public String studentLogin() {
-        System.out.println("Login as Default Entities.Student: Y/N?");
+        System.out.println("Login as Default Student: Y/N?");
         Scanner scanner = new Scanner(System.in);
         String response = scanner.nextLine();
         while (!response.equals("Y")) {
@@ -21,6 +22,7 @@ public class CmdLineUI {
 
     /**
      * Basic command line interface to choose a sorting priority.
+     *
      * @return string of a valid sorting priority
      */
     public String priorityChooser() {
@@ -48,6 +50,7 @@ public class CmdLineUI {
 
     /**
      * Basic command line interface to choose a study method.
+     *
      * @return string of a valid study method
      */
     public String studyMethodChooser() {
@@ -67,13 +70,19 @@ public class CmdLineUI {
 
     /**
      * Basic command line interface to choose the length of available study time.
+     *
      * @return int in minutes of study time
      */
     public int lengthChooser() {
         System.out.println("Please enter the length of your study time in minutes (ints only)");
         Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+        String response = scanner.nextLine();
+        while (!response.equals("75")) {
+            System.out.println("Please choose 75.");
+            response = scanner.nextLine();
         }
+        return Integer.parseInt(response);
+    }
 }
 
 
