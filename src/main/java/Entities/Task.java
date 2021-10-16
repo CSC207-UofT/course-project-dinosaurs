@@ -89,7 +89,7 @@ public class Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm");
         String formattedString = this.dueDate.format(formatter);
-        return this.name + formattedString + "\n";
+        return this.name + " Due Date: " + formattedString + "\n";
     }
 
 

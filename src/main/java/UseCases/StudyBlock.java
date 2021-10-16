@@ -11,7 +11,7 @@ public class StudyBlock {
      * Creates a new UseCases.StudyBlock based on the selected blockLength,
      * studyMethod, chosenTasks, and priorityType.
      *
-     * private double length;
+     * TODO implement private double length;
      */
 
     private StudyMethod studyMethod;
@@ -35,7 +35,7 @@ public class StudyBlock {
 
     /**
      * Builds an ArrayList, <listTodo>, that incorporates the studyMethod and checklist.
-     *
+     * TODO implement way of checking multiple tasks, using length input as well.
      */
     public void buildListTODO() {
         ArrayList<Task> task = this.checklist.getIncomplete();

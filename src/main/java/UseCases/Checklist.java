@@ -104,7 +104,17 @@ public class Checklist {
      */
     public void changePriority(String priority) {
         this.priority = priority;
+    }
 
-
+    /**
+     * Overrides the Tostring method.
+     */
+    @Override
+    public String toString(){
+        StringBuilder message = new StringBuilder();
+        for (Task task : this.incomplete){
+            message.append(task).append("\n");
+        }
+        return message.toString();
     }
 }
