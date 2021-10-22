@@ -86,6 +86,13 @@ public class Task {
         this.length = newLength;
     }
 
+
+    /**
+     * Overrides the Tostring format.
+     * @return The string in the new format.
+     * TODO: We should add the other task information in here.
+     */
+    @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm");
         String formattedString = this.dueDate.format(formatter);
