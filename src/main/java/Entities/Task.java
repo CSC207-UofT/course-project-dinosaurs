@@ -16,7 +16,7 @@ public class Task {
     public int weight;
     public ZonedDateTime dueDate;
     public int importance;
-    public double length;
+    public int length;
     public boolean completed;
 
     /**

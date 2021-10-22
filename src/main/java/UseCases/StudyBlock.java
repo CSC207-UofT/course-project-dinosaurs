@@ -38,7 +38,7 @@ public class StudyBlock {
      * TODO implement way of checking multiple tasks, using length input as well.
      */
     public void buildListTODO() {
-        ArrayList<Task> task = this.checklist.getIncomplete();
+        ArrayList<Task> task = this.checklist.incomplete;
         Task t1 = task.get(0);
         double x = t1.length;
         ArrayList<String> msg = new ArrayList<>();

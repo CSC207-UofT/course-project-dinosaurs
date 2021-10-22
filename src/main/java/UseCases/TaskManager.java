@@ -1,7 +1,7 @@
 package UseCases;
 
 import Entities.Task;
-
+import Constants.Constants;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -27,14 +27,14 @@ public class TaskManager {
      * Retrieves the incomplete list from the UseCases.Checklist.
      */
     public ArrayList<Task> getIncompleteList(){
-        return this.todo.getIncomplete();
+        return this.todo.incomplete;
     }
 
     /**
      * Retrieves the completed list from the UseCases.Checklist.
      */
     public ArrayList<Task> getCompletedList(){
-        return this.todo.getCompleted();
+        return this.todo.complete;
     }
 
     /**
@@ -45,7 +45,10 @@ public class TaskManager {
      * into the UseCases.Checklist.
      */
     public boolean addTask(Task task){
-        return this.todo.addTask(task);
+
+        boolean added = this.todo.incomplete.add(task);
+        sort();
+        return added;
     }
 
     /**
@@ -57,7 +60,14 @@ public class TaskManager {
      * Returns false if the task was not on the incomplete list.
      */
     public boolean completeTask(Task task){
-        return this.todo.completeTask(task);
+
+        if (this.todo.incomplete.contains(task)){
+            this.todo.incomplete.remove(task);
+            task.complete();
+            this.todo.complete.add(task);
+            return true;
+        }
+        else {return false;}
     }
 
     /**
@@ -67,9 +77,21 @@ public class TaskManager {
      * constants.Constants.
      */
     public void changePriority(String priority){
-        this.todo.changePriority(priority);
-        this.todo.sort();
+        this.todo.priority = priority;
+        sort();
 
+    }
+
+    /**
+     * Sorts the current incomplete list based on the current priority
+     * of the UseCases.Checklist. Due Date is sorted from earliest to latest.
+     * Importance and weight are sorted from highest to lowest. Length is sorted
+     * from shortest to longest.
+     * TODO: Should we implement a reverse order sorting function?
+     */
+
+    private void sort() {
+        this.todo.incomplete.sort(Constants.COMPARE.get(this.todo.priority));
     }
 
 
