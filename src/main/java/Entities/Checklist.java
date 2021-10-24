@@ -1,4 +1,4 @@
-package UseCases;
+package Entities;
 
 import Constants.Constants;
 import Entities.Task;
@@ -9,7 +9,7 @@ import java.util.Objects;
 
 public class Checklist {
     /**
-     * A UseCases.Checklist which stores all the completed and incomplete
+     * A Checklist which stores all the completed and incomplete
      * tasks and keeps the completed tasks sorted based on priority.
      * Default priority is by due date.
      */

@@ -1,5 +1,6 @@
 package UseCases;
 
+import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
 

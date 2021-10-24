@@ -3,14 +3,14 @@ package Controllers;
 import Constants.ExampleData;
 import Drivers.CmdLineUI;
 import Drivers.Presenter;
-import UseCases.Checklist;
+import Entities.Checklist;
 import Entities.Student;
 import Entities.StudyMethod;
 import UseCases.StudyBlock;
 
 public class Main {
     /**
-     * Enables a Entities.Student to create and manage a UseCases.Checklist of Tasks, and to schedule
+     * Enables a Entities.Student to create and manage a Entities.Checklist of Tasks, and to schedule
      * them in a UseCases.StudyBlock according to various priorities and study methods.
      * @param args No command line arguments supported.
      */

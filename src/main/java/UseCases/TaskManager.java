@@ -1,5 +1,6 @@
 package UseCases;
 
+import Entities.Checklist;
 import Entities.Task;
 import Constants.Constants;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ public class TaskManager {
 
     /**
      * A task manager class which handles the management of a TodoList.
-     * Sorts the UseCases.Checklist, adds/completes tasks and retrieves completed and
+     * Sorts the Entities.Checklist, adds/completes tasks and retrieves completed and
      * incomplete lists from the TodoList based on controller input.
      */
 
@@ -16,7 +17,7 @@ public class TaskManager {
 
     /**
      * Constructor for Taskmanager.
-     * @param checklist The UseCases.Checklist which the Taskmanager will work on.
+     * @param checklist The Entities.Checklist which the Taskmanager will work on.
      */
 
     public TaskManager(Checklist checklist){
@@ -24,25 +25,25 @@ public class TaskManager {
     }
 
     /**
-     * Retrieves the incomplete list from the UseCases.Checklist.
+     * Retrieves the incomplete list from the Entities.Checklist.
      */
     public ArrayList<Task> getIncompleteList(){
         return this.todo.incomplete;
     }
 
     /**
-     * Retrieves the completed list from the UseCases.Checklist.
+     * Retrieves the completed list from the Entities.Checklist.
      */
     public ArrayList<Task> getCompletedList(){
         return this.todo.complete;
     }
 
     /**
-     * Adds a task into the UseCases.Checklist. Then sorts the task based on
+     * Adds a task into the Entities.Checklist. Then sorts the task based on
      * current priority status.
-     * @param task The task to be added into the UseCases.Checklist.
+     * @param task The task to be added into the Entities.Checklist.
      * @return Returns true iff the task was successfully added and sorted
-     * into the UseCases.Checklist.
+     * into the Entities.Checklist.
      */
     public boolean addTask(Task task){
 
@@ -52,7 +53,7 @@ public class TaskManager {
     }
 
     /**
-     * Completes a given task from the UseCases.Checklist's incomplete list.
+     * Completes a given task from the Entities.Checklist's incomplete list.
      * Removes it from the incomplete list and adds it to the completed
      * list.
      * @param task The task which was completed.
@@ -84,7 +85,7 @@ public class TaskManager {
 
     /**
      * Sorts the current incomplete list based on the current priority
-     * of the UseCases.Checklist. Due Date is sorted from earliest to latest.
+     * of the Entities.Checklist. Due Date is sorted from earliest to latest.
      * Importance and weight are sorted from highest to lowest. Length is sorted
      * from shortest to longest.
      * TODO: Should we implement a reverse order sorting function?

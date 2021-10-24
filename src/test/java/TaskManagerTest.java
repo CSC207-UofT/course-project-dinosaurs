@@ -1,4 +1,4 @@
-import UseCases.Checklist;
+import Entities.Checklist;
 import Entities.Task;
 import UseCases.TaskManager;
 import org.junit.*;
