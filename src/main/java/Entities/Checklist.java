@@ -12,6 +12,7 @@ public class Checklist {
      * A Checklist which stores all the completed and incomplete
      * tasks and keeps the completed tasks sorted based on priority.
      * Default priority is by due date.
+     * TODO data structure for complete, incomplete
      */
 
     public ArrayList<Task> incomplete;

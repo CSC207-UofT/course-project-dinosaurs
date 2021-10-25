@@ -12,7 +12,7 @@ public class TaskManagerTest {
 
     Checklist tasks = new Checklist();
 
-    TaskManager tm = new TaskManager(tasks);
+    TaskManager tm = new TaskManager();
 
     ZonedDateTime d1 = ZonedDateTime.now();
     ZonedDateTime d2 = d1.plusDays(1);
@@ -26,10 +26,10 @@ public class TaskManagerTest {
 
     @Before
     public void setUp() {
-        tm.addTask(t1);
-        tm.addTask(t2);
-        tm.addTask(t3);
-        tm.addTask(t4);
+        tm.addTask(tasks, t1);
+        tm.addTask(tasks, t2);
+        tm.addTask(tasks, t3);
+        tm.addTask(tasks, t4);
     }
 
     @Test(timeout = 80)
@@ -40,43 +40,43 @@ public class TaskManagerTest {
         order.add(t1);
         order.add(t3);
 
-        assertEquals(tm.getIncompleteList(), order);
+        assertEquals(tasks.incomplete, order);
     }
 
     @Test(timeout = 80)
     public void TestLengthOrder() {
-        tm.changePriority("LENGTH");
+        tm.changePriority(tasks, "LENGTH");
         ArrayList<Task> order = new ArrayList<>();
         order.add(t4);
         order.add(t2);
         order.add(t1);
         order.add(t3);
 
-        assertEquals(tm.getIncompleteList(), order);
+        assertEquals(tasks.incomplete, order);
     }
 
     @Test(timeout = 80)
     public void TestImportanceOrder() {
-        tm.changePriority("IMPORTANCE");
+        tm.changePriority(tasks, "IMPORTANCE");
         ArrayList<Task> order = new ArrayList<>();
         order.add(t1);
         order.add(t2);
         order.add(t4);
         order.add(t3);
 
-        assertEquals(tm.getIncompleteList(), order);
+        assertEquals(tasks.incomplete, order);
     }
 
     @Test(timeout = 80)
     public void TestWeightOrder() {
-        tm.changePriority("WEIGHT");
+        tm.changePriority(tasks, "WEIGHT");
         ArrayList<Task> order = new ArrayList<>();
         order.add(t4);
         order.add(t3);
         order.add(t2);
         order.add(t1);
 
-        assertEquals(tm.getIncompleteList(), order);
+        assertEquals(tasks.incomplete, order);
     }
 
     @Test(timeout = 80)
@@ -86,20 +86,20 @@ public class TaskManagerTest {
         order.add(t4);
         order.add(t3);
 
-        tm.completeTask(t1);
+        tm.completeTask(tasks, t1);
 
         ArrayList<Task> complete = new ArrayList<>();
         complete.add(t1);
 
-        assertEquals(tm.getIncompleteList(), order);
-        assertEquals(tm.getCompletedList(), complete);
+        assertEquals(tasks.incomplete, order);
+        assertEquals(tasks.complete, complete);
 
-        tm.completeTask(t3);
+        tm.completeTask(tasks, t3);
         complete.add(t3);
         order.remove(t3);
 
-        assertEquals(tm.getIncompleteList(), order);
-        assertEquals(tm.getCompletedList(), complete);
+        assertEquals(tasks.incomplete, order);
+        assertEquals(tasks.complete, complete);
     }
 
 

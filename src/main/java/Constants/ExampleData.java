@@ -28,7 +28,7 @@ public class ExampleData {
     // TODO populate this list with tasks
     public static final Checklist DEFAULT_CHECKLIST = new Checklist();
     public static TaskManager newManager;
-    static {newManager = new TaskManager(DEFAULT_CHECKLIST);}
+    static {newManager = new TaskManager();}
     public static ZonedDateTime d1;
     public static ZonedDateTime d2;
     public static ZonedDateTime d3;
@@ -46,10 +46,10 @@ public class ExampleData {
         t2 = new Task("t2", 35, d1, 4, 75);
         t3 = new Task("t3",35, d4, 2, 70);
         t4 = new Task("t4", 35, d2, 3, 10);
-        newManager.addTask(t1);
-        newManager.addTask(t2);
-        newManager.addTask(t3);
-        newManager.addTask(t4);
+        newManager.addTask(DEFAULT_CHECKLIST, t1);
+        newManager.addTask(DEFAULT_CHECKLIST, t2);
+        newManager.addTask(DEFAULT_CHECKLIST, t3);
+        newManager.addTask(DEFAULT_CHECKLIST, t4);
     }
 
     // default Entities.StudyMethod
