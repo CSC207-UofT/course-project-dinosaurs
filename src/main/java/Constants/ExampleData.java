@@ -1,6 +1,6 @@
 package Constants;
 
-import UseCases.Checklist;
+import Entities.Checklist;
 import Entities.Student;
 import Entities.Task;
 import UseCases.TaskManager;
