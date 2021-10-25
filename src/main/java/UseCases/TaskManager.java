@@ -8,34 +8,15 @@ import java.util.ArrayList;
 public class TaskManager {
 
     /**
-     * A task manager class which handles the management of a TodoList.
-     * Sorts the Entities.Checklist, adds/completes tasks and retrieves completed and
-     * incomplete lists from the TodoList based on controller input.
+     * A task manager class which handles the management of a Checklist.
+     * Sorts the Checklist, adds/completes tasks and retrieves completed and
+     * incomplete lists from the Checklist based on controller input.
+     * Constructor for TaskManager.
+     * TODO look into clean architecture for creating a task from user interface.
      */
 
-    private Checklist todo;
+    public TaskManager(){
 
-    /**
-     * Constructor for Taskmanager.
-     * @param checklist The Entities.Checklist which the Taskmanager will work on.
-     */
-
-    public TaskManager(Checklist checklist){
-        this.todo = checklist;
-    }
-
-    /**
-     * Retrieves the incomplete list from the Entities.Checklist.
-     */
-    public ArrayList<Task> getIncompleteList(){
-        return this.todo.incomplete;
-    }
-
-    /**
-     * Retrieves the completed list from the Entities.Checklist.
-     */
-    public ArrayList<Task> getCompletedList(){
-        return this.todo.complete;
     }
 
     /**
@@ -45,10 +26,10 @@ public class TaskManager {
      * @return Returns true iff the task was successfully added and sorted
      * into the Entities.Checklist.
      */
-    public boolean addTask(Task task){
+    public boolean addTask(Checklist checklist, Task task){
 
-        boolean added = this.todo.incomplete.add(task);
-        sort();
+        boolean added = checklist.incomplete.add(task);
+        sort(checklist);
         return added;
     }
 
@@ -60,12 +41,12 @@ public class TaskManager {
      * @return true if the task was completed successfully.
      * Returns false if the task was not on the incomplete list.
      */
-    public boolean completeTask(Task task){
+    public boolean completeTask(Checklist checklist, Task task){
 
-        if (this.todo.incomplete.contains(task)){
-            this.todo.incomplete.remove(task);
+        if (checklist.incomplete.contains(task)){
+            checklist.incomplete.remove(task);
             task.complete();
-            this.todo.complete.add(task);
+            checklist.complete.add(task);
             return true;
         }
         else {return false;}
@@ -77,9 +58,9 @@ public class TaskManager {
      * @param priority A priority organizing scheme as outlined in
      * constants.Constants.
      */
-    public void changePriority(String priority){
-        this.todo.priority = priority;
-        sort();
+    public void changePriority(Checklist checklist, String priority){
+        checklist.priority = priority;
+        sort(checklist);
 
     }
 
@@ -91,8 +72,8 @@ public class TaskManager {
      * TODO: Should we implement a reverse order sorting function?
      */
 
-    private void sort() {
-        this.todo.incomplete.sort(Constants.COMPARE.get(this.todo.priority));
+    private void sort(Checklist checklist) {
+        checklist.incomplete.sort(Constants.COMPARE.get(checklist.priority));
     }
 
 
