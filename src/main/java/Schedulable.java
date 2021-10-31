@@ -18,10 +18,10 @@ import java.util.GregorianCalendar;
 
 public interface Schedulable {
     public static void main(String[] args) throws IOException {
-        // Creating a new cal works
+        // Creating a new calendar
         ICalendar icalendar = new ICalendar();
         VEvent event = new VEvent();
-        Summary summary = event.setSummary("Event Test");
+        Summary summary = event.setSummary("Testing123");
         summary.setLanguage("en-us");
 
         //TODO: the thing down does the specified date
