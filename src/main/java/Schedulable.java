@@ -4,7 +4,9 @@
 import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
+import biweekly.component.VJournal;
 import biweekly.property.Comment;
+import biweekly.property.Description;
 import biweekly.property.Summary;
 import biweekly.util.Duration;
 import biweekly.util.Frequency;
@@ -14,6 +16,7 @@ import java.io.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 
 public interface Schedulable {
@@ -24,11 +27,12 @@ public interface Schedulable {
         Summary summary = event.setSummary("Event Test");
         summary.setLanguage("en-us");
 
+
         //TODO: the thing down does the specified date
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.YEAR, 2021);
         cal.set(Calendar.MONTH, Calendar.OCTOBER);
-        cal.set(Calendar.DAY_OF_MONTH, 20);
+        cal.set(Calendar.DAY_OF_MONTH, 28);
         Date dateRepresentation = cal.getTime();
         event.setDateStart(dateRepresentation);
 
@@ -47,6 +51,13 @@ public interface Schedulable {
 
 //        event.addComment("please work");
 
+        // adding a description of the event
+//        icalendar.setDescription("chem, econs, maths");
+
+//        Description description = new Description("Want to work on chemistry today");
+//        icalendar.setDescription(description);
+
+        event.setDescription("chem, econs, maths");
 
 
         Duration duration = new Duration.Builder().hours(4).build();
