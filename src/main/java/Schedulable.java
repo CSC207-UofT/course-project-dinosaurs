@@ -4,7 +4,9 @@
 import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
+import biweekly.component.VJournal;
 import biweekly.property.Comment;
+import biweekly.property.Description;
 import biweekly.property.Summary;
 import biweekly.util.Duration;
 import biweekly.util.Frequency;
@@ -14,6 +16,7 @@ import java.io.*;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 
 public interface Schedulable {
@@ -23,6 +26,7 @@ public interface Schedulable {
         VEvent event = new VEvent();
         Summary summary = event.setSummary("Testing123");
         summary.setLanguage("en-us");
+
 
         // add the date bellow
         // (specified date)
@@ -37,6 +41,7 @@ public interface Schedulable {
         // (current date)
         Date start = new Date();
         event.setDateStart(start);
+
 
         // todo: find a way for the comments to be the study block, down is an example with str
 
