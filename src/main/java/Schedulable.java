@@ -18,51 +18,45 @@ import java.util.GregorianCalendar;
 
 public interface Schedulable {
     public static void main(String[] args) throws IOException {
-        // Creating a new calendar
+        // Create a new calendar
         ICalendar icalendar = new ICalendar();
         VEvent event = new VEvent();
         Summary summary = event.setSummary("Testing123");
         summary.setLanguage("en-us");
 
-        //TODO: the thing down does the specified date
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2021);
-        cal.set(Calendar.MONTH, Calendar.OCTOBER);
-        cal.set(Calendar.DAY_OF_MONTH, 20);
-        Date dateRepresentation = cal.getTime();
-        event.setDateStart(dateRepresentation);
+        // add the date bellow
+        // (specified date)
 
-        // todo: the thing down does the current date
-//        Date start = new Date();
-//        event.setDateStart(start);
+//        Calendar cal = Calendar.getInstance();
+//        cal.set(Calendar.YEAR, 2021);
+//        cal.set(Calendar.MONTH, Calendar.OCTOBER);
+//        cal.set(Calendar.DAY_OF_MONTH, 20);
+//        Date dateRepresentation = cal.getTime();
+//        event.setDateStart(dateRepresentation);
 
-        // todo: find a way for the comments to be in the study block but bellow is not working
-        Comment comment = new Comment("math break physics break science");
-        event.addComment(comment);
+        // (current date)
+        Date start = new Date();
+        event.setDateStart(start);
 
-//        Comment comment = event.addComment("thing, thing");
-//        event.addComment("thing, thing");
-//
-//        event.addComment("thing1, thing2, thing3");
+        // todo: find a way for the comments to be the study block, down is an example with str
 
-//        event.addComment("please work");
+        event.setDescription("math break csc break ...");
 
-
-
+        // set the event duration
         Duration duration = new Duration.Builder().hours(4).build();
         event.setDuration(duration);
 
-        // todo: the thing down is if we want it to be recurring
-
+        // if we want it recurring
 //        Recurrence recur = new Recurrence.Builder(Frequency.HOURLY).interval(2).build();
 //        event.setRecurrenceRule(recur);
+
+        // add the event and write the ics file
         icalendar.addEvent(event);
-
         String str = Biweekly.write(icalendar).go();
-
         FileWriter writer = new FileWriter("test123.ics");
         writer.write(str);
         writer.close();
+
     }
 
 
