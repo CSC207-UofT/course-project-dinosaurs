@@ -21,6 +21,8 @@ public interface Schedulable {
     public void writeICS();
 
 }
+
+class Scheduled{
     public static void main(String[] args) throws IOException {
         // Create a new calendar
         ICalendar icalendar = new ICalendar();
@@ -39,13 +41,10 @@ public interface Schedulable {
 //        Date dateRepresentation = cal.getTime();
 //        event.setDateStart(dateRepresentation);
 
+        // make event
         // (current date)
         Date start = new Date();
         event.setDateStart(start);
-
-
-        // todo: find a way for the comments to be the study block, down is an example with str
-
         event.setDescription("math break csc break ...");
 
         // set the event duration
@@ -58,6 +57,8 @@ public interface Schedulable {
 
         // add the event and write the ics file
         icalendar.addEvent(event);
+
+       // writeICS
         String str = Biweekly.write(icalendar).go();
         FileWriter writer = new FileWriter("test123.ics");
         writer.write(str);
