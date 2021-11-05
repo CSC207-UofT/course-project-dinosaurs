@@ -3,11 +3,19 @@ package UseCases;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
+import biweekly.Biweekly;
+import biweekly.ICalendar;
+import biweekly.component.VEvent;
+import biweekly.property.Summary;
+import biweekly.util.Duration;
 
-import java.lang.reflect.Array;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
-public class StudyBlock {
+public class StudyBlock implements Schedulable {
     /**
      * TODO implement UseCases.StudyBlock
      * Creates a new UseCases.StudyBlock based on the selected blockLength,
@@ -122,4 +130,55 @@ public class StudyBlock {
         }
         return todo.toString();
     }
+
+
+    // interface implementation
+    @Override
+    public void makeCalendar(){
+        ICalendar icalendar = new ICalendar();
+
+    }
+
+    @Override
+    public void eventDate(){
+        //now date
+        Date start = new Date();
+        event.setDateStart(start);
+
+        //TODO: the thing down does the specified date
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, 2021);
+        cal.set(Calendar.MONTH, Calendar.OCTOBER);
+        cal.set(Calendar.DAY_OF_MONTH, 20);
+        Date dateRepresentation = cal.getTime();
+        event.setDateStart(dateRepresentation);
+
+    }
+    @Override
+
+    public void makeEvent(){
+        VEvent event = new VEvent();
+        Summary summary = event.setSummary("name of event");
+        summary.setLanguage("en-us");
+        //todo: is this how we're adding the study block?
+        event.setDescription(toString());
+
+        // set the event duration
+        Duration duration = new Duration.Builder().hours(4).build();
+        event.setDuration(duration);
+
+        // add the event
+        icalendar.addEvent(event);
+    }
+
+    @Override
+    public void writeICS() throws IOException {
+        String str = Biweekly.write(icalendar).go();
+        FileWriter writer = new FileWriter("test123.ics");
+        writer.write(str);
+        writer.close();
+    }
 }
+
+
+
