@@ -4,22 +4,23 @@
 import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
-import biweekly.component.VJournal;
-import biweekly.property.Comment;
-import biweekly.property.Description;
 import biweekly.property.Summary;
 import biweekly.util.Duration;
-import biweekly.util.Frequency;
-import biweekly.util.Recurrence;
 
 import java.io.*;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 
 public interface Schedulable {
+    public void makeCalendar();
+
+    public void makeEvent();
+
+    public void writeICS();
+
+}
     public static void main(String[] args) throws IOException {
         // Create a new calendar
         ICalendar icalendar = new ICalendar();
