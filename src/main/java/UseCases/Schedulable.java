@@ -20,6 +20,6 @@ public interface Schedulable {
 
     public void makeEvent();
 
-    public void writeICS();
+    public void writeICS() throws IOException;
 
 }

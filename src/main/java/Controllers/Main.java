@@ -6,7 +6,10 @@ import Drivers.Presenter;
 import Entities.Checklist;
 import Entities.Student;
 import Entities.StudyMethod;
+import UseCases.Schedulable;
 import UseCases.StudyBlock;
+
+import java.io.IOException;
 
 public class Main {
     /**
@@ -14,7 +17,7 @@ public class Main {
      * them in a UseCases.StudyBlock according to various priorities and study methods.
      * @param args No command line arguments supported.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         CmdLineUI ui = new CmdLineUI();
         // get user input to login Entities.Student
         String studentChoice = ui.studentLogin();
@@ -50,5 +53,9 @@ public class Main {
         // pass UseCases.StudyBlock to Drivers.Presenter to print
         Presenter<StudyBlock> blockPresenter = new Presenter<>();
         blockPresenter.printer(newBlock);
+
+        Schedulable obj = new StudyBlock(methodChosen,
+                taskList);
+        obj.writeICS();
     }
 }

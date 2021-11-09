@@ -136,7 +136,7 @@ public class StudyBlock implements Schedulable {
     }
 
 
-    // interface implementation
+    // Schedulable interface implementation
 
     @Override
     public void makeCalendar(){
