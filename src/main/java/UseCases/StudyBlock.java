@@ -27,6 +27,8 @@ public class StudyBlock implements Schedulable {
     private StudyMethod studyMethod;
     private Checklist checklist;
     private ArrayList<String> listTODO;
+    private ICalendar icalendar;
+    private VEvent event;
 
     /**
      * Constructor for the BlockScheduler.
@@ -39,6 +41,8 @@ public class StudyBlock implements Schedulable {
         this.studyMethod = studyMethod;
         this.checklist = checklist;
         this.listTODO = new ArrayList<>();
+        this.icalendar = new ICalendar();
+        this.event = new VEvent();
     }
 
     // TODO getters and setters
@@ -133,10 +137,30 @@ public class StudyBlock implements Schedulable {
 
 
     // interface implementation
+
     @Override
     public void makeCalendar(){
-        ICalendar icalendar = new ICalendar();
+        this.icalendar = icalendar;
+        //ICalendar icalendar = new ICalendar();
+    }
 
+    @Override
+
+    public void makeEvent(){
+        this.event = event;
+        //VEvent event = new VEvent();
+        Summary summary = event.setSummary("name of event");
+        summary.setLanguage("en-us");
+        //todo: is this how we're adding the study block?
+        event.setDescription(toString());
+
+        // set the event duration
+        Duration duration = new Duration.Builder().hours(4).build();
+        event.setDuration(duration);
+
+
+        // add the event
+        icalendar.addEvent(event);
     }
 
     @Override
@@ -153,22 +177,6 @@ public class StudyBlock implements Schedulable {
         Date dateRepresentation = cal.getTime();
         event.setDateStart(dateRepresentation);
 
-    }
-    @Override
-
-    public void makeEvent(){
-        VEvent event = new VEvent();
-        Summary summary = event.setSummary("name of event");
-        summary.setLanguage("en-us");
-        //todo: is this how we're adding the study block?
-        event.setDescription(toString());
-
-        // set the event duration
-        Duration duration = new Duration.Builder().hours(4).build();
-        event.setDuration(duration);
-
-        // add the event
-        icalendar.addEvent(event);
     }
 
     @Override
