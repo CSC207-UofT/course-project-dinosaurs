@@ -12,7 +12,6 @@ import biweekly.util.Duration;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class StudyBlock implements Schedulable {
@@ -27,8 +26,8 @@ public class StudyBlock implements Schedulable {
     private StudyMethod studyMethod;
     private Checklist checklist;
     private ArrayList<String> listTODO;
-    private ICalendar icalendar;
-    private VEvent event;
+//    private ICalendar icalendar;
+//    private VEvent event;
 
     /**
      * Constructor for the BlockScheduler.
@@ -41,8 +40,8 @@ public class StudyBlock implements Schedulable {
         this.studyMethod = studyMethod;
         this.checklist = checklist;
         this.listTODO = new ArrayList<>();
-        this.icalendar = new ICalendar();
-        this.event = new VEvent();
+//        this.icalendar = new ICalendar();
+//        this.event = new VEvent();
     }
 
     // TODO getters and setters
@@ -135,57 +134,45 @@ public class StudyBlock implements Schedulable {
         return todo.toString();
     }
 
-
     // Schedulable interface implementation
 
     @Override
-    public void makeCalendar(){
-        this.icalendar = icalendar;
-        //ICalendar icalendar = new ICalendar();
+    public ICalendar makeCalendar() {
+        return new ICalendar();
     }
 
-    @Override
-
-    public void makeEvent(){
-        this.event = event;
-        //VEvent event = new VEvent();
-        Summary summary = event.setSummary("name of event");
-        summary.setLanguage("en-us");
-        //todo: is this how we're adding the study block?
-        event.setDescription(toString());
-
-        // set the event duration
-        Duration duration = new Duration.Builder().hours(4).build();
-        event.setDuration(duration);
-
-
-        // add the event
-        icalendar.addEvent(event);
-    }
+//    @Override
+//    public void eventDate(VEvent ev) {
+//        Date start = new Date();
+//        ev.setDateStart(start);
+//    }
 
     @Override
-    public void eventDate(){
-        //now date
+    public VEvent makeEvent() {
+        VEvent event = new VEvent();
         Date start = new Date();
         event.setDateStart(start);
-
-        //TODO: the thing down does the specified date
-        Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.YEAR, 2021);
-        cal.set(Calendar.MONTH, Calendar.OCTOBER);
-        cal.set(Calendar.DAY_OF_MONTH, 20);
-        Date dateRepresentation = cal.getTime();
-        event.setDateStart(dateRepresentation);
-
+        Summary summary = event.setSummary("StudyBlock");
+        summary.setLanguage("en-us");
+        event.setDescription(toString());
+        //todo: fix duration based on what the person wants
+        Duration duration = new Duration.Builder().minutes(120).build();
+        event.setDuration(duration);
+        return event;
     }
 
     @Override
     public void writeICS() throws IOException {
-        String str = Biweekly.write(icalendar).go();
-        FileWriter writer = new FileWriter("test123.ics");
-        writer.write(str);
+        ICalendar cal = makeCalendar();
+        cal.addEvent(makeEvent());
+        String studyBlock = Biweekly.write(cal).go();
+        FileWriter writer = new FileWriter("StudyBlock.ics");
+        writer.write(studyBlock);
         writer.close();
+
     }
+
+
 }
 
 
