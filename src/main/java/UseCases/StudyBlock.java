@@ -98,28 +98,55 @@ public class StudyBlock implements Schedulable {
         // e.g. ["T1 - 25 min", "Break - 5 min", ... ]
         int checklistIterator = 0;
         // I was using this to iterate through the checklist (i.e. get the next task)
-        Task task = this.checklist.incomplete.get(checklistIterator);
-        int taskLengthLeft = task.length;
+        ArrayList<Integer> t_length = new ArrayList<>();
+        for (int x = 0; x < (this.checklist.incomplete.size()); x++)
+            t_length.add(this.checklist.incomplete.get(x).length);
+
+        int x = 0;
+//        int taskLengthLeft = task.length;
         // Assign task as a variable for convenience and make a taskLengthLeft which updates as you
         // move through the study blocks
         for (int i = 0; i < (array.length - 1); i ++)
-            if (taskLengthLeft > array[i][0]){
-                msg.add(task.name + " | " + array[i][0] + " min");
-                msg.add("Break" + " | " + array[i][1] + " min");
-                taskLengthLeft -= array[i][0]; // Updates taskLengthLeft for the next array index
-            } else {
-                int taskLength = taskLengthLeft; // Set as variable because we need to update taskLengthLeft
-                msg.add(task.name + " | " + taskLength + " min"); // Add remaining time from current task to
-                // the study block
-                checklistIterator += 1;
-                task = this.checklist.incomplete.get(checklistIterator);
-                taskLengthLeft = task.length;
-                // Everything after this line is hard code, you'll likely have to edit this whole else statement
-                // tbh
-                msg.add(task.name + " | " + (array[i][0] - taskLength) + " min");
-                msg.add("Break" + " | " + array[i][1] + " min");
-                taskLengthLeft -= (array[i][0] - taskLength);
-            }
+            while (t_length.size() > 0) {
+                int remainder = t_length.get(0) - array[i][0];
+                // Updates t_length for the next array index
+                if (remainder < 0 && t_length.size() > 1) {
+                    int left = -remainder;
+                    while(left < array[i][0]){
+                        msg.add(this.checklist.incomplete.get(x).name + " | " + t_length.get(0) + " min");
+                        msg.add(this.checklist.incomplete.get(x+1).name + " | " + left + " min");
+                        msg.add("Break" + " | " + array[i][1] + " min");
+                    }
+                }
+                if (remainder < 0) {
+                    msg.add(this.checklist.incomplete.get(x).name + " | " + t_length.get(0) + " min");
+                    msg.add("Break (extended)"  + " | " + array[i][1] + " min" + " +" + -remainder);
+                }
+                if (remainder == 0) {
+                    msg.add(this.checklist.incomplete.get(x).name + " | " + t_length.get(0) + " min");
+                    msg.add("Break" + " | " + array[i][1] + " min");
+                    t_length.remove(0);
+                    x ++;
+                }
+                        else {
+                    msg.add(this.checklist.incomplete.get(x).name + " | " + array[i][0] + " min");
+                    t_length.set(0, remainder);
+                    msg.add("Break" + " | " + array[i][1] + " min");
+                }
+
+//            } else {
+//                int taskLength = taskLengthLeft; // Set as variable because we need to update taskLengthLeft
+//                msg.add(task.name + " | " + taskLength + " min"); // Add remaining time from current task to
+//                // the study block
+//                checklistIterator += 1;
+//                task = this.checklist.incomplete.get(checklistIterator);
+//                taskLengthLeft = task.length;
+//                // Everything after this line is hard code, you'll likely have to edit this whole else statement
+//                // tbh
+//                msg.add(task.name + " | " + (array[i][0] - taskLength) + " min");
+//                msg.add("Break" + " | " + array[i][1] + " min");
+//                taskLengthLeft -= (array[i][0] - taskLength);
+         }
         return msg;
 
     }
