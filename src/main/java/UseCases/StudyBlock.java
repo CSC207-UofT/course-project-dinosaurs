@@ -26,8 +26,6 @@ public class StudyBlock implements Schedulable {
     private StudyMethod studyMethod;
     private Checklist checklist;
     private ArrayList<String> listTODO;
-//    private ICalendar icalendar;
-//    private VEvent event;
 
     /**
      * Constructor for the BlockScheduler.
@@ -40,8 +38,6 @@ public class StudyBlock implements Schedulable {
         this.studyMethod = studyMethod;
         this.checklist = checklist;
         this.listTODO = new ArrayList<>();
-//        this.icalendar = new ICalendar();
-//        this.event = new VEvent();
     }
 
     // TODO getters and setters
@@ -163,17 +159,21 @@ public class StudyBlock implements Schedulable {
 
     // Schedulable interface implementation
 
+    /**
+     * Creates and returns a new ICalendar instance to be used for the ical even creation using biweekly.
+     * @return a new ICalendar.
+     */
+
     @Override
     public ICalendar makeCalendar() {
         return new ICalendar();
     }
 
-//    @Override
-//    public void eventDate(VEvent ev) {
-//        Date start = new Date();
-//        ev.setDateStart(start);
-//    }
-
+    /**
+     * Creates and returns a new event using the current date, the description from the StudyBlock toString() method,
+     * and the desired studyBlock duration of the user.
+     * @return an event containing required information.
+     */
     @Override
     public VEvent makeEvent() {
         VEvent event = new VEvent();
@@ -183,11 +183,15 @@ public class StudyBlock implements Schedulable {
         summary.setLanguage("en-us");
         event.setDescription(toString());
         //todo: fix duration based on what the person wants
-        Duration duration = new Duration.Builder().minutes(120).build();
+        Duration duration = new Duration.Builder().minutes(75).build();
         event.setDuration(duration);
         return event;
     }
 
+    /**
+     * Creates an ics file with the event and ICalendar created through makeEvent() and make Calendar().
+     * The file can be opened and directly links to the users icalendar.
+     */
     @Override
     public void writeICS() throws IOException {
         ICalendar cal = makeCalendar();
@@ -196,11 +200,5 @@ public class StudyBlock implements Schedulable {
         FileWriter writer = new FileWriter("StudyBlock.ics");
         writer.write(studyBlock);
         writer.close();
-
     }
-
-
 }
-
-
-

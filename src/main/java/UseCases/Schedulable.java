@@ -1,19 +1,20 @@
 package UseCases;
-
-
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
-import biweekly.property.Summary;
-import biweekly.util.Duration;
-
 import java.io.*;
-import java.util.Date;
 
 
 public interface Schedulable {
+    /**
+     * Created an ICalendar and an event which then are used to write an ics file which exports the
+     * user's StudyBlock to their icalendar.
+     * The interface uses information about the user's desired duration and methods of study that were
+     * selected earlier in the program.
+     * TODO: duration of the studyblock based on user preference
+     *
+     */
+
     ICalendar makeCalendar();
-//    public void eventDate();
     VEvent makeEvent();
     void writeICS() throws IOException;
-
 }
