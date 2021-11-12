@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.StudyNowController">
+   <children>
+      <Label layoutX="209.0" layoutY="35.0" text="Study Planner">
+         <font>
+            <Font name="Calibri" size="32.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="260.0" layoutY="83.0" text="Study Now">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="57.0" layoutY="171.0" prefWidth="485.0" text="Start studying right away with some common Study Block choices.&#10;Create a new Study Block based on your existing checklist(s) and&#10;study method preferences." textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="16.0" />
+         </font>
+      </Label>
+      <VBox alignment="TOP_CENTER" layoutX="155.0" layoutY="288.0" prefHeight="200.0" prefWidth="289.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" text="Study Block from One Checklist" />
+            <Button mnemonicParsing="false" text="Study Block for Tasks by Priority" />
+            <Button mnemonicParsing="false" text="Study Block for Tasks by Due Date" />
+            <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
