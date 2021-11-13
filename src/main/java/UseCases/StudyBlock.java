@@ -4,9 +4,10 @@ import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class StudyBlock {
+public class StudyBlock implements Serializable {
     /**
      * TODO implement UseCases.StudyBlock
      * Creates a new UseCases.StudyBlock based on the selected blockLength,
@@ -18,6 +19,7 @@ public class StudyBlock {
     private StudyMethod studyMethod;
     private Checklist checklist;
     private ArrayList<String> listTODO;
+    public String name;
 
     /**
      * Constructor for the BlockScheduler.
@@ -25,11 +27,12 @@ public class StudyBlock {
      * @param studyMethod Preferred study scheduling method.
      * @param checklist List of Tasks to be completed.
      */
-    public StudyBlock(StudyMethod studyMethod,
+    public StudyBlock(String name, StudyMethod studyMethod,
                       Checklist checklist) {
         this.studyMethod = studyMethod;
         this.checklist = checklist;
         this.listTODO = new ArrayList<>();
+        this.name = name;
     }
 
     // TODO getters and setters

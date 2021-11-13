@@ -1,8 +1,9 @@
 package Entities;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class StudyMethod {
+public class StudyMethod implements Serializable {
     /**
      * All of the supported StudyMethods used by BlockScheduler.
      * Tells BlockScheduler how to divide study and break time.

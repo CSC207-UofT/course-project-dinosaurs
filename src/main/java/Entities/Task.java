@@ -1,12 +1,13 @@
 package Entities;
 
+import java.io.Serializable;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 // TODO needs toString to work with TodoList/UseCases.TaskManager toString
 // TODO needs getters and setters (to work with BlockScheduler)
 
-public class Task {
+public class Task implements Serializable {
     /**
      * A task for a student. Records the weight, due date, importance, completed status
      * and estimated length of a given task.
