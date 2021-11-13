@@ -44,7 +44,7 @@ public class Main {
 
         // create a new UseCases.StudyBlock with given params
         // TODO refactor based on Ken's UseCases.StudyBlock params
-        StudyBlock newBlock = new StudyBlock(methodChosen,
+        StudyBlock newBlock = new StudyBlock("New Block", methodChosen,
                 taskList);
 
         // pass UseCases.StudyBlock to Drivers.Presenter to print

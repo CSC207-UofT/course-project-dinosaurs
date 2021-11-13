@@ -4,10 +4,11 @@ import Constants.Constants;
 import Entities.Task;
 import HelperFunctions.DueDateComparator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Checklist {
+public class Checklist implements Serializable {
     /**
      * A Checklist which stores all the completed and incomplete
      * tasks and keeps the completed tasks sorted based on priority.
@@ -18,11 +19,13 @@ public class Checklist {
     public ArrayList<Task> incomplete;
     public ArrayList<Task> complete;
     public String priority;
+    public String name;
 
-    public Checklist() {
+    public Checklist(String name) {
         this.incomplete = new ArrayList<>();
         this.complete = new ArrayList<>();
         this.priority = Constants.DUE_DATE;
+        this.name = name;
     }
 
     /**
