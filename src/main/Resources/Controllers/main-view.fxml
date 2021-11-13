@@ -50,7 +50,7 @@
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
                   <Button mnemonicParsing="false" text="Save and Exit" />
-                  <Button mnemonicParsing="false" text="Exit Without Saving" />
+                  <Button mnemonicParsing="false" onAction="#openExitConfirmWindowButton" text="Exit Without Saving" />
                </children>
             </HBox>
          </children>

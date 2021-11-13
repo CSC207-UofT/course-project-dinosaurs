@@ -4,12 +4,14 @@ import Constants.Constants;
 import Entities.Task;
 import HelperFunctions.DueDateComparator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-public class Checklist implements Iterable<Task>{
+
+public class Checklist implements Serializable, Iterable<Task>{
     /**
      * A Checklist which stores all the completed and incomplete
      * tasks and keeps the completed tasks sorted based on priority.
