@@ -3,8 +3,6 @@ package Entities;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-// TODO needs toString to work with TodoList/UseCases.TaskManager toString
-// TODO needs getters and setters (to work with BlockScheduler)
 
 public class Task {
     /**
@@ -90,13 +88,16 @@ public class Task {
     /**
      * Overrides the Tostring format.
      * @return The string in the new format.
-     * TODO: We should add the other task information in here.
      */
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm");
         String formattedString = this.dueDate.format(formatter);
-        return this.name + " Due Date: " + formattedString + "\n";
+        return "=== " + this.name + " ===" + "\n" +
+                "Due Date: " + formattedString + "\n" +
+                "Weight: " + this.weight + "\n" +
+                "Importance: " + this.importance + "\n" +
+                "Length: " + this.length;
     }
 
 
