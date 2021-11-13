@@ -3,11 +3,18 @@ package UseCases;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
+import biweekly.Biweekly;
+import biweekly.ICalendar;
+import biweekly.component.VEvent;
+import biweekly.property.Summary;
+import biweekly.util.Duration;
 
-import java.lang.reflect.Array;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
-public class StudyBlock {
+public class StudyBlock implements Schedulable {
     /**
      * TODO implement UseCases.StudyBlock
      * Creates a new UseCases.StudyBlock based on the selected blockLength,
@@ -148,5 +155,50 @@ public class StudyBlock {
             todo.append(task).append("\n");
         }
         return todo.toString();
+    }
+
+    // Schedulable interface implementation
+
+    /**
+     * Creates and returns a new ICalendar instance to be used for the ical even creation using biweekly.
+     * @return a new ICalendar.
+     */
+
+    @Override
+    public ICalendar makeCalendar() {
+        return new ICalendar();
+    }
+
+    /**
+     * Creates and returns a new event using the current date, the description from the StudyBlock toString() method,
+     * and the desired studyBlock duration of the user.
+     * @return an event containing required information.
+     */
+    @Override
+    public VEvent makeEvent() {
+        VEvent event = new VEvent();
+        Date start = new Date();
+        event.setDateStart(start);
+        Summary summary = event.setSummary("StudyBlock");
+        summary.setLanguage("en-us");
+        event.setDescription(toString());
+        //todo: fix duration based on what the person wants
+        Duration duration = new Duration.Builder().minutes(75).build();
+        event.setDuration(duration);
+        return event;
+    }
+
+    /**
+     * Creates an ics file with the event and ICalendar created through makeEvent() and make Calendar().
+     * The file can be opened and directly links to the users icalendar.
+     */
+    @Override
+    public void writeICS() throws IOException {
+        ICalendar cal = makeCalendar();
+        cal.addEvent(makeEvent());
+        String studyBlock = Biweekly.write(cal).go();
+        FileWriter writer = new FileWriter("StudyBlock.ics");
+        writer.write(studyBlock);
+        writer.close();
     }
 }
