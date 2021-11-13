@@ -20,13 +20,14 @@
             <Font name="Calibri" size="16.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_CENTER" layoutX="155.0" layoutY="288.0" prefHeight="200.0" prefWidth="289.0" spacing="10.0">
+      <VBox alignment="TOP_CENTER" layoutX="158.0" layoutY="496.0" prefHeight="182.0" prefWidth="283.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" text="Study Block from One Checklist" />
-            <Button mnemonicParsing="false" text="Study Block for Tasks by Priority" />
-            <Button mnemonicParsing="false" text="Study Block for Tasks by Due Date" />
+            <Button mnemonicParsing="false" onAction="#openStudyBlockPopUp" text="Study Block from Selected Checklist" />
+            <Button mnemonicParsing="false" onAction="#openStudyBlockPopUp" text="Study Block for Tasks by Priority (All Checklists)" />
+            <Button mnemonicParsing="false" onAction="#openStudyBlockPopUp" text="Study Block for Tasks by Due Date (All Checklists)" />
             <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu" />
          </children>
       </VBox>
+      <ListView fx:id="listView" layoutX="158.0" layoutY="251.0" prefHeight="229.0" prefWidth="283.0" />
    </children>
 </AnchorPane>
