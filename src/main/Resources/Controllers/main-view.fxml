@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainGUIController">
+   <children>
+      <Label layoutX="209.0" layoutY="35.0" text="Study Planner">
+         <font>
+            <Font name="Calibri" size="32.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="229.0" layoutY="83.0" text="Welcome, Student!">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+      <SplitPane dividerPositions="0.5" layoutX="57.0" layoutY="201.0" prefHeight="250.0" prefWidth="485.0">
+         <items>
+            <Label alignment="TOP_LEFT" prefHeight="279.0" prefWidth="239.0" text="Task 1&#10;Task 2&#10;Task 3&#10;Task 4&#10;Task 5&#10;Task 6&#10;Task 7&#10;Task 8&#10;Task 9&#10;Task 10&#10;Task 11&#10;Task 12&#10;Task 13&#10;Task 14&#10;">
+               <padding>
+                  <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
+               </padding>
+            </Label>
+            <Label alignment="TOP_LEFT" prefHeight="269.0" prefWidth="239.0" text="25 min - Task 1&#10;5 min - Break&#10;25 min - Task 2&#10;5 min - Break&#10;25 min - Task 3&#10;5 min - Break">
+               <padding>
+                  <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
+               </padding>
+            </Label>
+         </items>
+      </SplitPane>
+      <Label layoutX="127.0" layoutY="138.0" text="Saved Checklist(s)">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="362.0" layoutY="138.0" text="Saved Study Block(s)">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </Label>
+      <VBox alignment="TOP_CENTER" layoutX="168.0" layoutY="482.0" prefHeight="200.0" prefWidth="264.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#changeSceneToStudyNowButton" text="Study Now" />
+            <Button mnemonicParsing="false" onAction="#changeSceneToChecklistManagerButton" text="Manage Checklists" />
+            <Button mnemonicParsing="false" onAction="#changeSceneToBlockManagerButton" text="Manage Study Blocks" />
+            <Button mnemonicParsing="false" onAction="#changeSceneToPreferencesButton" text="Preferences" />
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Save and Exit" />
+                  <Button mnemonicParsing="false" text="Exit Without Saving" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox alignment="TOP_CENTER" layoutX="58.0" layoutY="175.0" prefHeight="25.0" prefWidth="239.0">
+         <children>
+            <Button mnemonicParsing="false" text="&lt;" />
+            <Label alignment="CENTER" prefWidth="180.0" text="Example Checklist">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+            <Button mnemonicParsing="false" text="&gt;" />
+         </children>
+      </HBox>
+      <HBox alignment="TOP_CENTER" layoutX="302.0" layoutY="175.0" prefHeight="25.0" prefWidth="239.0">
+         <children>
+            <Button mnemonicParsing="false" text="&lt;" />
+            <Label alignment="CENTER" prefWidth="180.0" text="Example Study Block">
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
+            </Label>
+            <Button mnemonicParsing="false" text="&gt;" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
