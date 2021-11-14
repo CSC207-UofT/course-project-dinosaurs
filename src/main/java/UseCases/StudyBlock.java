@@ -182,7 +182,7 @@ public class StudyBlock implements Schedulable {
         Summary summary = event.setSummary("StudyBlock");
         summary.setLanguage("en-us");
         event.setDescription(toString());
-        //todo: fix duration based on what the person wants
+        //todo: fix duration based othe user's preference
         Duration duration = new Duration.Builder().minutes(75).build();
         event.setDuration(duration);
         return event;

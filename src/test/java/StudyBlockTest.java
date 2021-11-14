@@ -29,35 +29,35 @@ public class StudyBlockTest {
         tm.addTask(tasks, t1);
         tm.addTask(tasks, t2);
     }
-
-    @Test(timeout = 80)
-    public void TestBreakUp() {
-        int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock(60));
-        ArrayList<String> msg = new ArrayList<>();
-        msg.add("t1 | 25 min");
-        msg.add("Break | 5 min");
-        msg.add("t1 | 5 min");
-        msg.add("t2 | 20 min");
-        msg.add("Break | 5 min");
-        ArrayList<String> msg2 = block.assignTasks(array);
-        assertEquals(msg, msg2);
-    }
-
-    @Test(timeout = 80)
-    public void TestBreakUp2() {
-        int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock(60));
-        ArrayList<String> msg = new ArrayList<>();
-        t1.setLength(20);
-        t2.setLength(30);
-        msg.add("t1 | 20 min");
-        msg.add("t2 | 5 min");
-        msg.add("Break | 5 min");
-        msg.add("t2 | 25 min");
-        msg.add("Break | 5 min");
-        ArrayList<String> msg2 = block.assignTasks(array);
-        assertEquals(msg, msg2);
-    }
+//
+//    @Test(timeout = 80)
+//    public void TestBreakUp() {
+//        int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
+//        assertEquals(array, block.breakUpStudyBlock(60));
+//        ArrayList<String> msg = new ArrayList<>();
+//        msg.add("t1 | 25 min");
+//        msg.add("Break | 5 min");
+//        msg.add("t1 | 5 min");
+//        msg.add("t2 | 20 min");
+//        msg.add("Break | 5 min");
+//        ArrayList<String> msg2 = block.assignTasks(array);
+//        assertEquals(msg, msg2);
+//    }
+//
+//    @Test(timeout = 80)
+//    public void TestBreakUp2() {
+//        int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
+//        assertEquals(array, block.breakUpStudyBlock(60));
+//        ArrayList<String> msg = new ArrayList<>();
+//        t1.setLength(20);
+//        t2.setLength(30);
+//        msg.add("t1 | 20 min");
+//        msg.add("t2 | 5 min");
+//        msg.add("Break | 5 min");
+//        msg.add("t2 | 25 min");
+//        msg.add("Break | 5 min");
+//        ArrayList<String> msg2 = block.assignTasks(array);
+//        assertEquals(msg, msg2);
+//    }
 
 }
