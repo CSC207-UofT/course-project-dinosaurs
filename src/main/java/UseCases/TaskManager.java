@@ -3,6 +3,8 @@ package UseCases;
 import Entities.Checklist;
 import Entities.Task;
 import Constants.Constants;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TaskManager {
@@ -62,6 +64,20 @@ public class TaskManager {
         checklist.priority = priority;
         sort(checklist);
 
+    }
+
+    /**
+     * Helper method to construct a task from user input strings and add it to given checklist
+     * @param name String name of the Task
+     * @param weight String percentage weight of the Task
+     * @param dueDate LocalDate Task is due
+     * @param importance String priority of the Task
+     * @param length String expected length to complete the Task
+     */
+    public Task addTaskHelper(String name, String weight, LocalDate dueDate, String importance,
+                              String length) {
+        return new Task(name, Integer.parseInt(weight), dueDate, Integer.parseInt(importance),
+                Integer.parseInt(length));
     }
 
     /**

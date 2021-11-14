@@ -24,7 +24,8 @@ public class TaskManagerTest {
     Task t1 = new Task("t1", 15, d3, 5, 3);
     Task t2 = new Task("t2", 35, d1, 4, 2);
     Task t3 = new Task("t3", 55, d4, 2, 7);
-    Task t4 = new Task("t3", 75, d2, 3, 1);
+//    Task t4 = new Task("t4", 75, d2, 3, 1);
+    Task t4 = tm.addTaskHelper("t4", "75", d2, "3", "1");
 
     @Before
     public void setUp() {

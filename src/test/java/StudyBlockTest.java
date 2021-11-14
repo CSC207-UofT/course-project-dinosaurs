@@ -7,25 +7,26 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.sql.Array;
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import UseCases.StudyBlock;
 
 
 public class StudyBlockTest {
-    Checklist tasks = new Checklist();
+    Checklist tasks = new Checklist("Checklist");
 
     TaskManager tm = new TaskManager();
 
-    ZonedDateTime d1 = ZonedDateTime.now();
-    ZonedDateTime d2 = d1.plusDays(1);
-    ZonedDateTime d3 = d1.plusDays(2);
+    LocalDate d1 = LocalDate.now();
+    LocalDate d2 = d1.plusDays(1);
+    LocalDate d3 = d1.plusDays(2);
     Task t1 = new Task("t1", 15, d1, 5, 30);
     Task t2 = new Task("t2", 35, d2, 4, 20);
 //    Task t3 = new Task("t3", 35, d3, 3, 20);
 
     StudyMethod method = new StudyMethod(StudyMethod.POMODORO);
-    StudyBlock block = new StudyBlock(method, tasks);
+    StudyBlock block = new StudyBlock("studyBlock", method, tasks);
 
     @Before
     public void setUp() {
