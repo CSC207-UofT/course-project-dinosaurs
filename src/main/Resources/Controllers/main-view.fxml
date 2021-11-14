@@ -6,7 +6,7 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainGUIController">
-   <children>
+
       <Label layoutX="209.0" layoutY="35.0" text="Study Planner">
          <font>
             <Font name="Calibri" size="32.0" />
@@ -49,7 +49,7 @@
             <Button mnemonicParsing="false" onAction="#changeSceneToPreferencesButton" text="Preferences" />
             <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Save and Exit" />
+                  <Button mnemonicParsing="false" onAction="#openSaveChecklistsButton" text="Save and Exit" />
                   <Button mnemonicParsing="false" onAction="#openExitConfirmWindowButton" text="Exit Without Saving" />
                </children>
             </HBox>
@@ -80,5 +80,5 @@
             <Button mnemonicParsing="false" text="&gt;" />
          </children>
       </HBox>
-   </children>
+
 </AnchorPane>
