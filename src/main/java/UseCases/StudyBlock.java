@@ -8,13 +8,13 @@ import biweekly.ICalendar;
 import biweekly.component.VEvent;
 import biweekly.property.Summary;
 import biweekly.util.Duration;
-
+import java.io.Serializable;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class StudyBlock implements Schedulable {
+public class StudyBlock implements Schedulable, Serializable {
     /**
      * TODO implement UseCases.StudyBlock
      * Creates a new UseCases.StudyBlock based on the selected blockLength,
@@ -26,6 +26,7 @@ public class StudyBlock implements Schedulable {
     private StudyMethod studyMethod;
     private Checklist checklist;
     private ArrayList<String> listTODO;
+    public String name;
 
     /**
      * Constructor for the BlockScheduler.
@@ -33,11 +34,12 @@ public class StudyBlock implements Schedulable {
      * @param studyMethod Preferred study scheduling method.
      * @param checklist List of Tasks to be completed.
      */
-    public StudyBlock(StudyMethod studyMethod,
+    public StudyBlock(String name, StudyMethod studyMethod,
                       Checklist checklist) {
         this.studyMethod = studyMethod;
         this.checklist = checklist;
         this.listTODO = new ArrayList<>();
+        this.name = name;
     }
 
     // TODO getters and setters
@@ -201,10 +203,10 @@ public class StudyBlock implements Schedulable {
         VEvent event = new VEvent();
         Date start = new Date();
         event.setDateStart(start);
-        Summary summary = event.setSummary("StudyBlock");
+        Summary summary = event.setSummary(this.name);
         summary.setLanguage("en-us");
         event.setDescription(toString());
-        //todo: fix duration based othe user's preference
+        //todo: fix duration based on the user's preference
         Duration duration = new Duration.Builder().minutes(75).build();
         event.setDuration(duration);
         return event;
