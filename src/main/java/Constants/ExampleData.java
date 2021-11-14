@@ -5,6 +5,7 @@ import Entities.Student;
 import Entities.Task;
 import UseCases.TaskManager;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -29,16 +30,16 @@ public class ExampleData {
     public static final Checklist DEFAULT_CHECKLIST = new Checklist("C1");
     public static TaskManager newManager;
     static {newManager = new TaskManager();}
-    public static ZonedDateTime d1;
-    public static ZonedDateTime d2;
-    public static ZonedDateTime d3;
-    public static ZonedDateTime d4;
+    public static LocalDate d1;
+    public static LocalDate d2;
+    public static LocalDate d3;
+    public static LocalDate d4;
     public static Task t1;
     public static Task t2;
     public static Task t3;
     public static Task t4;
     static {
-        d1 = ZonedDateTime.now();
+        d1 = LocalDate.now();
         d2 = d1.plusDays(1);
         d3 = d1.plusDays(2);
         d4 = d1.plusDays(3);
