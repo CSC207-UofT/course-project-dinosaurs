@@ -1,5 +1,7 @@
 package Controllers;
 
+import Entities.Task;
+import UseCases.TaskManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,11 +10,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +27,17 @@ import java.util.List;
  * Controller for all elements and pop-ups windows in the Checklist Manager scene.
  */
 public class ChecklistManagerController {
+
+    /**
+     * Used to get user input for adding new Tasks
+     */
+    public TextField importanceTextField;
+    public TextField weightTextField;
+    public TextField nameTextField;
+    public TextField lengthTextField;
+    public DatePicker datePicker;
+
+    public Label checklistTitle;
 
     /**
      * Instance variables for use by ListView.
@@ -38,24 +56,14 @@ public class ChecklistManagerController {
         // This is where we should iterate through the current checklist and get all task strings
         // Add each task to stringList
         // observableList should keep the ListView up to date
-        stringList.add("Task 1");
-        stringList.add("Task 2");
-        stringList.add("Task 3");
-        stringList.add("Task 4");
-        stringList.add("Task 5");
-        stringList.add("Task 6");
-        stringList.add("Task 7");
-        stringList.add("Task 8");
-        stringList.add("Task 9");
-        stringList.add("Task 10");
-        stringList.add("Task 11");
-        stringList.add("Task 12");
-        stringList.add("Task 13");
-        stringList.add("Task 14");
-        stringList.add("Task 15");
+        if (Data.checklistList.size() > 0) {
+            for (Task task : Data.checklistList.get(Data.checklistIndex)) {
+                stringList.add(task.toString());
+            }
+        }
 
         observableList.setAll(stringList);
-
+        checklistTitle.setText(Data.checklistList.get(Data.checklistIndex).name);
         listView.setItems(observableList);
     }
 
@@ -141,6 +149,47 @@ public class ChecklistManagerController {
      */
     @FXML
     protected void backButton(ActionEvent actionEvent) {
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    protected void cycleChecklistsForwardButton(){
+        observableList.removeAll(stringList);
+        stringList.clear();
+        if (Data.checklistIndex < (Data.checklistList.size() - 1)) {
+            Data.checklistIndex += 1;
+        } else {
+            Data.checklistIndex = 0;
+        }
+        setListView();
+    }
+
+    @FXML
+    protected void cycleChecklistsBackwardButton(){
+        observableList.removeAll(stringList);
+        stringList.clear();
+        if (Data.checklistIndex > 0) {
+            Data.checklistIndex -= 1;
+        } else {
+            Data.checklistIndex = (Data.checklistList.size() - 1);
+        }
+        setListView();
+
+    }
+
+    @FXML
+    protected void addNewTask(ActionEvent actionEvent) {
+        LocalDate dueDate = datePicker.getValue();
+        String name = nameTextField.getText();
+        String weight = weightTextField.getText();
+        String importance = importanceTextField.getText();
+        String length = lengthTextField.getText();
+        TaskManager taskManager = new TaskManager();
+        Task newTask = taskManager.addTaskHelper(name, weight, dueDate, importance, length);
+        taskManager.addTask(Data.checklistList.get(Data.checklistIndex), newTask);
+
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();

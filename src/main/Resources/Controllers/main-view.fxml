@@ -57,7 +57,7 @@
       <HBox alignment="TOP_CENTER" layoutX="58.0" layoutY="175.0" prefHeight="25.0" prefWidth="239.0">
          <children>
             <Button mnemonicParsing="false" onAction="#cycleChecklistsForwardButton" text="&lt;" />
-            <Label alignment="CENTER" prefWidth="180.0" text="Example Checklist">
+            <Label fx:id="checklistName" alignment="CENTER" prefWidth="180.0" text="Example Checklist">
                <padding>
                   <Insets top="5.0" />
                </padding>

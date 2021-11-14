@@ -31,7 +31,10 @@ import java.util.List;
  */
 public class MainGUIController {
 
-
+    public Label checklistName;
+    /**
+     * private variables for the ListView that displays Tasks for each loaded Checklist
+     */
     @FXML
     private ListView<String> listView = new ListView<>();
     private List<String> stringList = new ArrayList<>();
@@ -53,7 +56,7 @@ public class MainGUIController {
         }
 
         observableList.setAll(stringList);
-
+        checklistName.setText(Data.checklistList.get(Data.checklistIndex).name);
         listView.setItems(observableList);
 
     }
