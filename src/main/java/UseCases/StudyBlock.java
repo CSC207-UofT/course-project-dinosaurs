@@ -8,13 +8,13 @@ import biweekly.ICalendar;
 import biweekly.component.VEvent;
 import biweekly.property.Summary;
 import biweekly.util.Duration;
-
+import java.io.Serializable;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class StudyBlock implements Schedulable {
+public class StudyBlock implements Schedulable, Serializable {
     /**
      * TODO implement UseCases.StudyBlock
      * Creates a new UseCases.StudyBlock based on the selected blockLength,
@@ -26,6 +26,7 @@ public class StudyBlock implements Schedulable {
     private StudyMethod studyMethod;
     private Checklist checklist;
     private ArrayList<String> listTODO;
+    public String name;
 
     /**
      * Constructor for the BlockScheduler.
@@ -33,14 +34,39 @@ public class StudyBlock implements Schedulable {
      * @param studyMethod Preferred study scheduling method.
      * @param checklist List of Tasks to be completed.
      */
-    public StudyBlock(StudyMethod studyMethod,
+    public StudyBlock(String name, StudyMethod studyMethod,
                       Checklist checklist) {
         this.studyMethod = studyMethod;
         this.checklist = checklist;
         this.listTODO = new ArrayList<>();
+        this.name = name;
     }
 
     // TODO getters and setters
+
+    public StudyMethod getStudyMethod() {
+        return studyMethod;
+    }
+
+    public Checklist getChecklist() {
+        return checklist;
+    }
+
+    public void setChecklist(Checklist checklist) {
+        this.checklist = checklist;
+    }
+
+    public ArrayList<String> getListTODO() {
+        return listTODO;
+    }
+
+    public void setStudyMethod(StudyMethod studyMethod) {
+        this.studyMethod = studyMethod;
+    }
+
+    public void setListTODO(ArrayList<String> listTODO) {
+        this.listTODO = listTODO;
+    }
 
     /**
      * Builds an ArrayList, <listTodo>, that incorporates the studyMethod and checklist.
@@ -170,6 +196,7 @@ public class StudyBlock implements Schedulable {
     /**
      * Creates and returns a new event using the current date, the description from the StudyBlock toString() method,
      * and the desired studyBlock duration of the user.
+     * //todo: fix duration based on the user's preference
      * @return an event containing required information.
      */
     @Override
@@ -177,10 +204,9 @@ public class StudyBlock implements Schedulable {
         VEvent event = new VEvent();
         Date start = new Date();
         event.setDateStart(start);
-        Summary summary = event.setSummary("StudyBlock");
+        Summary summary = event.setSummary(this.name);
         summary.setLanguage("en-us");
         event.setDescription(toString());
-        //todo: fix duration based on what the person wants
         Duration duration = new Duration.Builder().minutes(75).build();
         event.setDuration(duration);
         return event;
