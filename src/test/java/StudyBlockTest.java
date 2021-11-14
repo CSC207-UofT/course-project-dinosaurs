@@ -3,6 +3,8 @@ import Entities.StudyMethod;
 import Entities.Task;
 import UseCases.Schedulable;
 import UseCases.TaskManager;
+import biweekly.component.VEvent;
+import biweekly.property.Summary;
 import org.junit.*;
 
 import static org.junit.Assert.*;
@@ -66,5 +68,13 @@ public class StudyBlockTest {
 //        ArrayList<String> msg2 = block.assignTasks(array);
 //        assertEquals(msg, msg2);
 //    }
+
+    @Test(timeout = 80)
+    public void TestSchedulable() throws IOException {
+        assertEquals("BEGIN: VEVENT" +
+                "DTSTART; VALUE=DATE:20211113" +
+                "SUMMARY: StudyBlock" +
+                "END: VEVENT", obj.toString());
+    }
 
 }
