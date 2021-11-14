@@ -54,9 +54,7 @@ public class Main {
         Presenter<StudyBlock> blockPresenter = new Presenter<>();
         blockPresenter.printer(newBlock);
 
-
-
-//        //write ics
+       //write ics
        Schedulable obj = new StudyBlock(methodChosen, taskList);
         obj.writeICS();
     }
