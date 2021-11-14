@@ -1,26 +1,28 @@
-package Controllers;
+package HelperFunctions;
 
-import Entities.Checklist;
+import HelperFunctions.ReadWriter;
+import UseCases.StudyBlock;
 
 import java.io.*;
 
-public class ChecklistReadWriter implements ReadWriter{
+public class StudyBlockReadWriter implements ReadWriter {
+
 
     /**
      * Writes the checklist to file at filepath.
      *
      * @param filepath location of the file being saved
-     * @param checklist object to be serialized
+     * @param studyblock object to be serialized
      * @throws IOException if file cannot be saved
      */
     @Override
-    public void saveToFile(String filepath, Object checklist) throws IOException {
+    public void saveToFile(String filepath, Object studyblock) throws IOException {
 
         OutputStream file = new FileOutputStream(filepath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
-        output.writeObject(checklist);
+        output.writeObject(studyblock);
         output.close();
 
     }
@@ -30,18 +32,19 @@ public class ChecklistReadWriter implements ReadWriter{
      * @param filepath location where the checklist is stored
      * @return checklist
      * @throws IOException if file cannot be read
-     * @throws ClassNotFoundException if file is missing from directory
+     * @throws ClassNotFoundException if file is not in directory
      */
     @Override
-    public Checklist readFromFile(String filepath) throws IOException, ClassNotFoundException {
+    public StudyBlock readFromFile(String filepath) throws IOException, ClassNotFoundException {
 
         InputStream file = new FileInputStream(filepath);
         InputStream buffer = new BufferedInputStream(file);
         ObjectInput input = new ObjectInputStream(buffer);
 
         // serialize the Map
-        Checklist checklist = (Checklist) input.readObject();
+        StudyBlock studyblock = (StudyBlock) input.readObject();
         input.close();
-        return checklist;
+        return studyblock;
     }
+
 }

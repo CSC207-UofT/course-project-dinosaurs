@@ -1,27 +1,27 @@
-package Controllers;
+package HelperFunctions;
 
-import UseCases.StudyBlock;
+import Entities.Checklist;
+import HelperFunctions.ReadWriter;
 
 import java.io.*;
 
-public class StudyBlockReadWriter implements ReadWriter{
-
+public class ChecklistReadWriter implements ReadWriter {
 
     /**
      * Writes the checklist to file at filepath.
      *
      * @param filepath location of the file being saved
-     * @param studyblock object to be serialized
+     * @param checklist object to be serialized
      * @throws IOException if file cannot be saved
      */
     @Override
-    public void saveToFile(String filepath, Object studyblock) throws IOException {
+    public void saveToFile(String filepath, Object checklist) throws IOException {
 
         OutputStream file = new FileOutputStream(filepath);
         OutputStream buffer = new BufferedOutputStream(file);
         ObjectOutput output = new ObjectOutputStream(buffer);
 
-        output.writeObject(studyblock);
+        output.writeObject(checklist);
         output.close();
 
     }
@@ -31,19 +31,18 @@ public class StudyBlockReadWriter implements ReadWriter{
      * @param filepath location where the checklist is stored
      * @return checklist
      * @throws IOException if file cannot be read
-     * @throws ClassNotFoundException if file is not in directory
+     * @throws ClassNotFoundException if file is missing from directory
      */
     @Override
-    public StudyBlock readFromFile(String filepath) throws IOException, ClassNotFoundException {
+    public Checklist readFromFile(String filepath) throws IOException, ClassNotFoundException {
 
         InputStream file = new FileInputStream(filepath);
         InputStream buffer = new BufferedInputStream(file);
         ObjectInput input = new ObjectInputStream(buffer);
 
         // serialize the Map
-        StudyBlock studyblock = (StudyBlock) input.readObject();
+        Checklist checklist = (Checklist) input.readObject();
         input.close();
-        return studyblock;
+        return checklist;
     }
-
 }

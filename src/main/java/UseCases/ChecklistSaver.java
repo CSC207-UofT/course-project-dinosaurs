@@ -1,6 +1,6 @@
 package UseCases;
 
-import Controllers.ChecklistReadWriter;
+import HelperFunctions.ChecklistReadWriter;
 import Entities.Checklist;
 
 import java.io.IOException;
