@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class TaskManagerTest {
 
-    Checklist tasks = new Checklist();
+    Checklist tasks = new Checklist("C1");
+
 
     TaskManager tm = new TaskManager();
 

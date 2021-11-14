@@ -26,7 +26,7 @@ public class ExampleData {
 
     //default TodoList
     // TODO populate this list with tasks
-    public static final Checklist DEFAULT_CHECKLIST = new Checklist();
+    public static final Checklist DEFAULT_CHECKLIST = new Checklist("C1");
     public static TaskManager newManager;
     static {newManager = new TaskManager();}
     public static ZonedDateTime d1;

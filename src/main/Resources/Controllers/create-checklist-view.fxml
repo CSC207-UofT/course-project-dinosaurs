@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="151.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ChecklistManagerController">
+   <children>
+      <Label layoutX="34.0" layoutY="22.0" text="Create New Checklist">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+      <VBox layoutX="34.0" layoutY="64.0" prefHeight="68.0" prefWidth="318.0" spacing="10.0">
+         <children>
+            <HBox prefHeight="0.0" prefWidth="318.0" spacing="10.0">
+               <children>
+                  <Label text="Checklist Name" />
+                  <TextField prefHeight="25.0" prefWidth="208.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Save" />
+                  <Button mnemonicParsing="false" onAction="#backButton" text="Back" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <ListView fx:id="listView" layoutX="188.0" opacity="0.0" prefHeight="7.0" prefWidth="11.0" />
+   </children>
+</AnchorPane>
