@@ -33,15 +33,13 @@ public class StudyNowController {
      * Instance variables for use by ListView.
      */
     @FXML
-    private ListView<String> listView;
+    private ListView<String> listView = new ListView<>();
     private List<String> stringList = new ArrayList<>();
     private ObservableList<String> observableList = FXCollections.observableArrayList();
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
      * ListView.
-     * TODO I left this in here for now but I assume it will eventually be replaced/integrated
-     * into the getChecklists function.
      */
     @FXML
     protected void setListView() {
