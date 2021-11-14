@@ -22,9 +22,9 @@
       <ListView fx:id="listView" layoutX="57.0" layoutY="200.0" prefHeight="300.0" prefWidth="485.0" />
       <HBox alignment="CENTER" layoutX="180.0" layoutY="174.0" prefHeight="25.0" prefWidth="239.0">
          <children>
-            <Button mnemonicParsing="false" text="&lt;" />
-            <Label alignment="CENTER" prefWidth="180.0" text="Example Checklist" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" text="&gt;" />
+            <Button mnemonicParsing="false" onAction="#cycleChecklistsForwardButton" text="&lt;" />
+            <Label fx:id="checklistTitle" alignment="CENTER" prefWidth="180.0" text="Example Checklist" textAlignment="CENTER" />
+            <Button mnemonicParsing="false" onAction="#cycleChecklistsBackwardButton" text="&gt;" />
          </children>
       </HBox>
       <HBox alignment="TOP_CENTER" layoutX="57.0" layoutY="500.0" prefHeight="25.0" prefWidth="485.0" spacing="10.0">
