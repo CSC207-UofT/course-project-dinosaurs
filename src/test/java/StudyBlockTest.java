@@ -1,11 +1,13 @@
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
+import UseCases.Schedulable;
 import UseCases.TaskManager;
 import org.junit.*;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import UseCases.StudyBlock;
@@ -23,12 +25,16 @@ public class StudyBlockTest {
 
     StudyMethod method = new StudyMethod(StudyMethod.POMODORO);
     StudyBlock block = new StudyBlock(method, tasks);
+    Schedulable obj = new StudyBlock(method, tasks);
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         tm.addTask(tasks, t1);
         tm.addTask(tasks, t2);
 
+        obj.makeCalendar();
+        obj.makeEvent();
+        obj.writeICS();
     }
 //
 //    @Test(timeout = 80)
