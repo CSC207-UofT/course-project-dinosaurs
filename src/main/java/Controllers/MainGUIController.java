@@ -1,6 +1,7 @@
 package Controllers;
 
 import Entities.Checklist;
+import Entities.Task;
 import HelperFunctions.ChecklistReadWriter;
 import UseCases.ChecklistSaver;
 import UseCases.StudyBlock;
@@ -30,9 +31,37 @@ import java.util.List;
  */
 public class MainGUIController {
 
+
+    @FXML
+    private ListView<String> listView = new ListView<>();
+    private List<String> stringList = new ArrayList<>();
+    private ObservableList<String> observableList = FXCollections.observableArrayList();
+
+    /**
+     * Adds all Tasks to stringList and creates an observable list to display them in
+     * ListView.
+     */
+    @FXML
+    protected void setListView() {
+        // This is where we should iterate through the current checklist and get all task strings
+        // Add each task to stringList
+        // observableList should keep the ListView up to date, but if not call setListView() again
+        if (Data.checklistList.size() > 0) {
+            for (Task task : Data.checklistList.get(Data.checklistIndex)) {
+                stringList.add(task.toString());
+            }
+        }
+
+        observableList.setAll(stringList);
+
+        listView.setItems(observableList);
+
+    }
+
+
     /**
      * Opens FileChooser to select checklists on initialization. Preliminary function.
-     * TODO When you hit study now, the file opener opens again. Possibly needs to add another button.
+     *
      */
     @FXML
     protected void getChecklists() throws ClassNotFoundException, IOException{
@@ -76,8 +105,9 @@ public class MainGUIController {
     void initialize() throws ClassNotFoundException, IOException {
         if (!Data.checklistLoaded) {
             getChecklists();
-            Data.checklistLoaded = true;
         }
+        Data.checklistLoaded = true;
+        setListView();
     }
 
     /**
@@ -253,7 +283,30 @@ public class MainGUIController {
 
         popUpWindow.show();
 
+    }
 
+    @FXML
+    protected void cycleChecklistsForwardButton(){
+        observableList.removeAll(stringList);
+        stringList.clear();
+        if (Data.checklistIndex < (Data.checklistList.size() - 1)) {
+            Data.checklistIndex += 1;
+        } else {
+            Data.checklistIndex = 0;
+        }
+        setListView();
+    }
+
+    @FXML
+    protected void cycleChecklistsBackwardButton(){
+        observableList.removeAll(stringList);
+        stringList.clear();
+        if (Data.checklistIndex > 0) {
+            Data.checklistIndex -= 1;
+        } else {
+            Data.checklistIndex = (Data.checklistList.size() - 1);
+        }
+        setListView();
 
     }
 
