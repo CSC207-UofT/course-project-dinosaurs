@@ -27,11 +27,9 @@ public class MainGUIController {
      * Read from memory when program starts, this is the central location
      * for all controllers to access and update. It is saved to disk when
      * the user chooses "Save and Exit".
-     * @param studyBlockList list of all saved StudyBlocks
-     * @param checklistList list of all saved Checklists
      */
-    @FXML protected List<StudyBlock> studyBlockList = new ArrayList<StudyBlock>();
-    @FXML protected List<Checklist> checklistList = new ArrayList<Checklist>();
+    @FXML protected List<StudyBlock> studyBlockList = new ArrayList<>();
+    @FXML protected List<Checklist> checklistList = new ArrayList<>();
 
     /**
      * Changes scene to Study now.
