@@ -55,7 +55,7 @@ public class Main {
         blockPresenter.printer(newBlock);
 
        //write ics
-       Schedulable obj = new StudyBlock(methodChosen, taskList);
+       Schedulable obj = new StudyBlock("New Block", methodChosen, taskList);
         obj.writeICS();
     }
 }
