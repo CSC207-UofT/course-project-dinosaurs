@@ -1,22 +1,84 @@
 package Controllers;
 
+import Entities.Checklist;
+import HelperFunctions.ChecklistReadWriter;
+import UseCases.ChecklistSaver;
+import UseCases.StudyBlock;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller for all buttons and pop-up windows for the Main Menu.
  */
 public class MainGUIController {
+
+    /**
+     * Opens FileChooser to select checklists on initialization. Preliminary function.
+     * TODO When you hit study now, the file opener opens again. Possibly needs to add another button.
+     */
+    @FXML
+    protected void getChecklists() throws ClassNotFoundException, IOException{
+        // I don't understand how these stages work, but the function requires one so here it is
+        Stage mainStage = new Stage();
+
+        final FileChooser fileChooser = new FileChooser();
+
+        ChecklistReadWriter readWriter = new ChecklistReadWriter();
+
+        // Helper function to specify current directory where things are being saved.
+        configureFileChooser(fileChooser);
+        List<File> list = fileChooser.showOpenMultipleDialog(mainStage);
+        if (list != null) {
+            for (File file : list) {
+
+                // Deserializes files.
+                Checklist checklist = readWriter.readFromFile(file.getPath());
+                Data.checklistList.add(checklist);
+            }
+        }
+
+    }
+
+    /**
+     * Helper function to configure the file chooser to the current directory. user.dir specifies
+     * the current directory. Subject to change.
+     * @param fileChooser the fileChooser which is being initialized.
+     */
+    private static void configureFileChooser(final FileChooser fileChooser) {
+        fileChooser.setTitle("Select Checklists to Import");
+        fileChooser.setInitialDirectory(
+                new File(System.getProperty("user.dir"))
+        );
+    }
+
+    /**
+     * Initializes scene and populates ListView.
+     */
+    @FXML
+    void initialize() throws ClassNotFoundException, IOException {
+        if (!Data.checklistLoaded) {
+            getChecklists();
+            Data.checklistLoaded = true;
+        }
+    }
 
     /**
      * Changes scene to Study now.
@@ -132,4 +194,67 @@ public class MainGUIController {
     protected void closeProgramButton() {
         Platform.exit();
     }
+
+    /**
+     * Creates a new stage to confirm saving all data. It is owned
+     * by the current stage, and must be dismissed before user can interact with
+     * the rest of the program again.
+     * @param actionEvent on click
+     * @throws IOException if there is an issue locating save-confirm-view.fxml
+     */
+    @FXML
+    protected void openSaveChecklistsButton(ActionEvent actionEvent) throws IOException {
+        // Loads FXML file and creates a new Scene
+        Parent saveChecklistsParent = FXMLLoader.load(getClass().getResource("save-checklists-view.fxml"));
+        Scene saveChecklistsScene = new Scene(saveChecklistsParent);
+
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage popUpWindow = new Stage();
+        popUpWindow.setTitle("Confirm Save");
+        popUpWindow.setScene(saveChecklistsScene);
+
+        popUpWindow.initModality(Modality.WINDOW_MODAL);
+        popUpWindow.initOwner(stage);
+
+        popUpWindow.setX(stage.getX() + 50);
+        popUpWindow.setY(stage.getY() + 50);
+
+        popUpWindow.show();
+    }
+
+    /**
+     * Allows user to save current checklists.
+     * @param actionEvent on click
+     * @throws IOException if there is an issue saving files.
+     * TODO implement same for studyblocks.
+     */
+    @FXML
+    protected void saveChecklistButton(ActionEvent actionEvent) throws IOException {
+        for (Checklist checklist : Data.checklistList){
+            new ChecklistSaver(checklist);
+        }
+
+        // Loads FXML file and creates a new Scene
+        Parent saveChecklistsParent = FXMLLoader.load(getClass().getResource("confirm-save-checklists-view.fxml"));
+        Scene saveChecklistsScene = new Scene(saveChecklistsParent);
+
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage popUpWindow = new Stage();
+        popUpWindow.setTitle("Save Confirmation");
+        popUpWindow.setScene(saveChecklistsScene);
+
+        popUpWindow.initModality(Modality.WINDOW_MODAL);
+        popUpWindow.initOwner(stage);
+
+        popUpWindow.setX(stage.getX() + 50);
+        popUpWindow.setY(stage.getY() + 50);
+
+        popUpWindow.show();
+
+
+
+    }
+
 }
