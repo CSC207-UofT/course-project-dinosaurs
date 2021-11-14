@@ -36,42 +36,6 @@ public class StudyNowController {
     private ListView<String> listView;
     private List<String> stringList = new ArrayList<>();
     private ObservableList<String> observableList = FXCollections.observableArrayList();
-    private Desktop desktop = Desktop.getDesktop();
-
-    /**
-     * Opens FileChooser to select checklists on initialization. Preliminary function.
-     * TODO When you hit study now, the file opener opens again. Possibly needs to add another button.
-     */
-    @FXML
-    protected void getChecklists() throws ClassNotFoundException, IOException{
-        // I don't understand how these stages work, but the function requires one so here it is
-        Stage mainStage = new Stage();
-
-        final FileChooser fileChooser = new FileChooser();
-        ArrayList<Checklist> checklists = new ArrayList<>();
-
-
-        ChecklistReadWriter readWriter = new ChecklistReadWriter();
-
-        // Helper function to specify current directory where things are being saved.
-        configureFileChooser(fileChooser);
-        List<File> list = fileChooser.showOpenMultipleDialog(mainStage);
-        if (list != null) {
-            for (File file : list) {
-
-                // Deserializes files.
-                Checklist checklist = readWriter.readFromFile(file.getPath());
-                checklists.add(checklist);
-            }
-        }
-        for (Checklist checklist : checklists) {
-            stringList.add(checklist.name);
-        }
-        observableList.setAll(stringList);
-
-        listView.setItems(observableList);
-    }
-
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
@@ -99,8 +63,8 @@ public class StudyNowController {
      * Initializes scene and populates ListView.
      */
     @FXML
-    void initialize() throws ClassNotFoundException, IOException{
-        getChecklists();
+    void initialize() {
+        setListView();
     }
 
     /**
@@ -148,16 +112,6 @@ public class StudyNowController {
     }
 
 
-    /**
-     * Helper function to configure the file chooser to the current directory. user.dir specifies
-     * the current directory. Subject to change.
-     * @param fileChooser the fileChooser which is being initialized.
-     */
-    private static void configureFileChooser(final FileChooser fileChooser) {
-        fileChooser.setTitle("Get Checklists");
-        fileChooser.setInitialDirectory(
-                new File(System.getProperty("user.dir"))
-        );
-    }
+
 
 }
