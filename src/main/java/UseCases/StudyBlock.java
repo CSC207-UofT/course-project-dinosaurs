@@ -196,6 +196,7 @@ public class StudyBlock implements Schedulable, Serializable {
     /**
      * Creates and returns a new event using the current date, the description from the StudyBlock toString() method,
      * and the desired studyBlock duration of the user.
+     * //todo: fix duration based on the user's preference
      * @return an event containing required information.
      */
     @Override
@@ -206,7 +207,6 @@ public class StudyBlock implements Schedulable, Serializable {
         Summary summary = event.setSummary(this.name);
         summary.setLanguage("en-us");
         event.setDescription(toString());
-        //todo: fix duration based on the user's preference
         Duration duration = new Duration.Builder().minutes(75).build();
         event.setDuration(duration);
         return event;
