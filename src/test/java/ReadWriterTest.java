@@ -1,6 +1,5 @@
-import Constants.ExampleData;
-import Controllers.ChecklistReadWriter;
-import Controllers.StudyBlockReadWriter;
+import HelperFunctions.ChecklistReadWriter;
+import HelperFunctions.StudyBlockReadWriter;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
@@ -12,7 +11,6 @@ import org.junit.*;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -54,7 +52,7 @@ public class ReadWriterTest {
         assertEquals(c1.complete, tasks.complete);
     }
 
-    @Test(timeout = 80)
+    @Test(timeout = 180)
     public void TestStudyBlockSave() throws IOException, ClassNotFoundException {
 
         StudyBlockReadWriter readWriter = new StudyBlockReadWriter();
