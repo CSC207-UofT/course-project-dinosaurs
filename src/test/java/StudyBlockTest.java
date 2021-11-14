@@ -1,16 +1,19 @@
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
+import UseCases.Schedulable;
 import UseCases.TaskManager;
 import org.junit.*;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.sql.Array;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import UseCases.StudyBlock;
+
 
 
 public class StudyBlockTest {
@@ -27,12 +30,16 @@ public class StudyBlockTest {
 
     StudyMethod method = new StudyMethod(StudyMethod.POMODORO);
     StudyBlock block = new StudyBlock("studyBlock", method, tasks);
+    Schedulable obj = new StudyBlock("event", method, tasks);
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
         tm.addTask(tasks, t1);
         tm.addTask(tasks, t2);
 //        tm.addTask(tasks, t3);
+        obj.makeCalendar();
+        obj.makeEvent();
+        obj.writeICS();
     }
 
 
@@ -175,6 +182,21 @@ public class StudyBlockTest {
         msg.add("Break | 17 min");
         ArrayList<String> msg2 = block.assignTasks(array);
         assertEquals(msg, msg2);
+    }
+
+    @Test
+    public void TestSchedulable() throws IOException {
+        assertEquals("PRODID:-//Michael Angstadt//biweekly 0.6.6//EN\n" +
+                "BEGIN:VEVENT\n" +
+                "UID:c56a4709-5187-40d2-ab3f-287602d7d00b\n" +
+                "DTSTAMP:20211114T213652Z\n" +
+                "DTSTART:20211114T213652Z\n" +
+                "SUMMARY;LANGUAGE=en-us:name\n" +
+                "DESCRIPTION: --- TODO List --- \\nt2 | 25 min\\nBreak | 5 min\\nt2 | 25 min\\nB\n" +
+                " reak | 5 min\\nt2 | 25 min\\nBreak | 5 min\\n\n" +
+                "DURATION:PT75M\n" +
+                "END:VEVENT\n" +
+                "END:VCALENDAR", obj.toString());
     }
 }
 
