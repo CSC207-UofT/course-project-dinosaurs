@@ -42,6 +42,30 @@ public class StudyBlock implements Schedulable {
 
     // TODO getters and setters
 
+    public StudyMethod getStudyMethod() {
+        return studyMethod;
+    }
+
+    public Checklist getChecklist() {
+        return checklist;
+    }
+
+    public void setChecklist(Checklist checklist) {
+        this.checklist = checklist;
+    }
+
+    public ArrayList<String> getListTODO() {
+        return listTODO;
+    }
+
+    public void setStudyMethod(StudyMethod studyMethod) {
+        this.studyMethod = studyMethod;
+    }
+
+    public void setListTODO(ArrayList<String> listTODO) {
+        this.listTODO = listTODO;
+    }
+
     /**
      * Builds an ArrayList, <listTodo>, that incorporates the studyMethod and checklist.
      * TODO implement way of checking multiple tasks, using length input as well.
