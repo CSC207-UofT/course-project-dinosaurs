@@ -113,60 +113,58 @@ public class StudyBlock implements Schedulable {
     }
 
     public ArrayList<String> assignTasks(int[][] array){
+//      A subblock refers to a StudyMethod's [study, break] (ie. [25, 5] or [52, 17])
         ArrayList<String> msg = new ArrayList<>();
-        // We want to build listTODO as a list of strings like before
-        // e.g. ["T1 - 25 min", "Break - 5 min", ... ]
-        int checklistIterator = 0;
-        // I was using this to iterate through the checklist (i.e. get the next task)
         ArrayList<Integer> t_length = new ArrayList<>();
         for (int x = 0; x < (this.checklist.incomplete.size()); x++)
             t_length.add(this.checklist.incomplete.get(x).length);
-
         int x = 0;
-//        int taskLengthLeft = task.length;
-        // Assign task as a variable for convenience and make a taskLengthLeft which updates as you
-        // move through the study blocks
+
         for (int i = 0; i < (array.length - 1); i ++)
             while (t_length.size() > 0) {
                 int remainder = t_length.get(0) - array[i][0];
-                // Updates t_length for the next array index
+                String task = this.checklist.incomplete.get(x).name;
+                int time_remaining = array[i][0];
                 if (remainder < 0 && t_length.size() > 1) {
-                    int left = -remainder;
-                    while(left < array[i][0]){
-                        msg.add(this.checklist.incomplete.get(x).name + " | " + t_length.get(0) + " min");
-                        msg.add(this.checklist.incomplete.get(x+1).name + " | " + left + " min");
-                        msg.add("Break" + " | " + array[i][1] + " min");
-                    }
-                }
-                if (remainder < 0) {
-                    msg.add(this.checklist.incomplete.get(x).name + " | " + t_length.get(0) + " min");
-                    msg.add("Break (extended)"  + " | " + array[i][1] + " min" + " +" + -remainder);
-                }
-                if (remainder == 0) {
-                    msg.add(this.checklist.incomplete.get(x).name + " | " + t_length.get(0) + " min");
+                    msg.add(task + " | " + t_length.get(0) + " min");
+                    msg.add(this.checklist.incomplete.get(x + 1).name + " | " + -remainder + " min");
                     msg.add("Break" + " | " + array[i][1] + " min");
-                    t_length.remove(0);
-                    x ++;
+                    t_length.remove(0);     // Updates t_length for the next array index
+                    int left = t_length.get(0) + remainder;
+                    t_length.set(0, left);      // Updates t_length for the next array index
+                    remainder = t_length.get(0) - array[i][0];
+                    time_remaining = 0;
+                    x++;        // Updates Task id
+
                 }
-                        else {
-                    msg.add(this.checklist.incomplete.get(x).name + " | " + array[i][0] + " min");
-                    t_length.set(0, remainder);
+                // Checks for extended breaks
+                if (remainder < 0 && time_remaining > 0) {
+                    msg.add(task + " | " + t_length.get(0) + " min");
+                    msg.add("Break (extended)" + " | " + array[i][1] + " min" + " + " + -remainder);
+                    t_length.remove(0);     // Updates t_length for the next array index
+                }
+                if (remainder == 0 && time_remaining > 0) {
+                    msg.add(task + " | " + t_length.get(0) + " min");
                     msg.add("Break" + " | " + array[i][1] + " min");
+                    time_remaining = 0;
+                    t_length.remove(0);     // Updates t_length for the next array index
+                                        x ++;     // Updates Task id
+                }
+                if (remainder > 0 && time_remaining > 0) {
+                    msg.add(task + " | " + array[i][0] + " min");
+                    t_length.set(0, remainder);     // Updates t_length for the next array index
+                    msg.add("Break" + " | " + array[i][1] + " min");
+                    time_remaining = 0;
+                }
+                if (remainder >= 0 && time_remaining == 0) {
+                    i++;
+                }
+                if (remainder == -25) {
+                    t_length.remove(0);     // Updates t_length for the next array index
                 }
 
-//            } else {
-//                int taskLength = taskLengthLeft; // Set as variable because we need to update taskLengthLeft
-//                msg.add(task.name + " | " + taskLength + " min"); // Add remaining time from current task to
-//                // the study block
-//                checklistIterator += 1;
-//                task = this.checklist.incomplete.get(checklistIterator);
-//                taskLengthLeft = task.length;
-//                // Everything after this line is hard code, you'll likely have to edit this whole else statement
-//                // tbh
-//                msg.add(task.name + " | " + (array[i][0] - taskLength) + " min");
-//                msg.add("Break" + " | " + array[i][1] + " min");
-//                taskLengthLeft -= (array[i][0] - taskLength);
-         }
+            }
+
         return msg;
 
     }
