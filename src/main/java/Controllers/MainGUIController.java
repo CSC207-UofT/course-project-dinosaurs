@@ -1,5 +1,7 @@
 package Controllers;
 
+import Entities.Checklist;
+import UseCases.StudyBlock;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +14,24 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Controller for all buttons and pop-up windows for the Main Menu.
  */
 public class MainGUIController {
+
+    /**
+     * List of Checklists (containing all Tasks) and List of StudyBlocks.
+     * Read from memory when program starts, this is the central location
+     * for all controllers to access and update. It is saved to disk when
+     * the user chooses "Save and Exit".
+     * @param studyBlockList list of all saved StudyBlocks
+     * @param checklistList list of all saved Checklists
+     */
+    @FXML protected List<StudyBlock> studyBlockList = new ArrayList<StudyBlock>();
+    @FXML protected List<Checklist> checklistList = new ArrayList<Checklist>();
 
     /**
      * Changes scene to Study now.
