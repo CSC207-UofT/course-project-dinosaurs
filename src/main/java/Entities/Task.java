@@ -13,7 +13,7 @@ public class Task implements Serializable {
 
     public String name;
     public int weight;
-    public ZonedDateTime dueDate;
+    public LocalDate dueDate;
     public int importance;
     public int length;
     public boolean completed;
@@ -24,7 +24,7 @@ public class Task implements Serializable {
     public Task() {
         this.name = "";
         this.weight = 0;
-        this.dueDate = ZonedDateTime.now();
+        this.dueDate = LocalDate.now();
         this.importance = 0;
         this.length = 0;
         this.completed = false;
@@ -36,7 +36,7 @@ public class Task implements Serializable {
      * @param importance The subjective importance of the task, 1-5 integers inclusive.
      * @param length The estimated time (in minutes) which the task will take.
      */
-    public Task(String name, int weight, ZonedDateTime due, int importance, int length){
+    public Task(String name, int weight, LocalDate due, int importance, int length){
         this.name = name;
         this.weight = weight;
         this.dueDate = due;
@@ -64,7 +64,7 @@ public class Task implements Serializable {
     /**
      * Changes the DueDate of a given task.
      */
-    public void setDueDate(ZonedDateTime newDueDate){
+    public void setDueDate(LocalDate newDueDate){
         this.dueDate = newDueDate;
     }
 
@@ -92,8 +92,8 @@ public class Task implements Serializable {
      */
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm");
-        String formattedString = this.dueDate.format(formatter);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm");
+        String formattedString = this.dueDate.toString();
         return "=== " + this.name + " ===" + "\n" +
                 "Due Date: " + formattedString + "\n" +
                 "Weight: " + this.weight + "\n" +
