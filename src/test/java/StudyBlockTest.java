@@ -12,7 +12,7 @@ import UseCases.StudyBlock;
 
 
 public class StudyBlockTest {
-    Checklist tasks = new Checklist();
+    Checklist tasks = new Checklist("tasksfornow");
 
     TaskManager tm = new TaskManager();
 
