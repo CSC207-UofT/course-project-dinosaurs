@@ -100,7 +100,7 @@ public class StudyBlock implements Schedulable {
             while (t_length.size() > 0) {
                 int remainder = t_length.get(0) - array[i][0];
                 String task = this.checklist.incomplete.get(x).name;
-                int time_remaining = array[i][0];       // Checks how much study time was used in the subblock
+                int time_remaining = array[i][0];
                 if (remainder < 0 && t_length.size() > 1) {
                     msg.add(task + " | " + t_length.get(0) + " min");
                     msg.add(this.checklist.incomplete.get(x + 1).name + " | " + -remainder + " min");

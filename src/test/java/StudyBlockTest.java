@@ -161,7 +161,7 @@ public class StudyBlockTest {
      * Change StudyMethod to DESKTIME
      */
     @Test
-    public void TestAssignTask1a() {
+    public void TestAssignTask1DESKTIME() {
         int[][] array = new int[][]{{52, 17}, {52, 17}, {0, 0}};
         assertEquals(array, block.breakUpStudyBlock(138));
         ArrayList<String> msg = new ArrayList<>();
