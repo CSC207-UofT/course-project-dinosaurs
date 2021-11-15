@@ -38,6 +38,9 @@ public class ChecklistManagerController {
     public TextField lengthTextField;
     public DatePicker datePicker;
 
+    /**
+     * Used to get user input for new Checklists
+     */
     public Label checklistTitle;
     public TextField checklistNameField;
 
@@ -157,6 +160,9 @@ public class ChecklistManagerController {
         stage.close();
     }
 
+    /**
+     * Move forward to next Checklist in the list
+     */
     @FXML
     protected void cycleChecklistsForwardButton(){
         observableList.removeAll(stringList);
@@ -169,6 +175,9 @@ public class ChecklistManagerController {
         setListView();
     }
 
+    /**
+     * Move backward to prior Checklist in the list
+     */
     @FXML
     protected void cycleChecklistsBackwardButton(){
         observableList.removeAll(stringList);
@@ -182,6 +191,10 @@ public class ChecklistManagerController {
 
     }
 
+    /**
+     * Creates a new Task from user input and adds it to the currently selected Checklist
+     * @param actionEvent on click
+     */
     @FXML
     protected void addNewTask(ActionEvent actionEvent) {
         LocalDate dueDate = datePicker.getValue();
@@ -198,6 +211,10 @@ public class ChecklistManagerController {
         stage.close();
     }
 
+    /**
+     * Creates a new Checklist named by user
+     * @param actionEvent on click
+     */
     @FXML
     protected void createNewChecklist(ActionEvent actionEvent) {
         Checklist newChecklist = new Checklist(checklistNameField.getText());
