@@ -16,17 +16,18 @@
             <HBox prefHeight="0.0" prefWidth="318.0" spacing="10.0">
                <children>
                   <Label text="Checklist Name" />
-                  <TextField prefHeight="25.0" prefWidth="208.0" />
+                  <TextField fx:id="checklistNameField" prefHeight="25.0" prefWidth="208.0" />
                </children>
             </HBox>
             <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button mnemonicParsing="false" text="Save" />
+                  <Button mnemonicParsing="false" onAction="#createNewChecklist" text="Save" />
                   <Button mnemonicParsing="false" onAction="#backButton" text="Back" />
                </children>
             </HBox>
          </children>
       </VBox>
       <ListView fx:id="listView" layoutX="188.0" opacity="0.0" prefHeight="7.0" prefWidth="11.0" />
+      <Label fx:id="checklistTitle" opacity="0.0" text="Label" />
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entities.Checklist;
 import Entities.Task;
 import UseCases.TaskManager;
 import javafx.collections.FXCollections;
@@ -38,6 +39,7 @@ public class ChecklistManagerController {
     public DatePicker datePicker;
 
     public Label checklistTitle;
+    public TextField checklistNameField;
 
     /**
      * Instance variables for use by ListView.
@@ -60,10 +62,11 @@ public class ChecklistManagerController {
             for (Task task : Data.checklistList.get(Data.checklistIndex)) {
                 stringList.add(task.toString());
             }
+            checklistTitle.setText(Data.checklistList.get(Data.checklistIndex).name);
         }
 
         observableList.setAll(stringList);
-        checklistTitle.setText(Data.checklistList.get(Data.checklistIndex).name);
+
         listView.setItems(observableList);
     }
 
@@ -189,6 +192,16 @@ public class ChecklistManagerController {
         TaskManager taskManager = new TaskManager();
         Task newTask = taskManager.addTaskHelper(name, weight, dueDate, importance, length);
         taskManager.addTask(Data.checklistList.get(Data.checklistIndex), newTask);
+
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    protected void createNewChecklist(ActionEvent actionEvent) {
+        Checklist newChecklist = new Checklist(checklistNameField.getText());
+        Data.checklistList.add(newChecklist);
 
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
