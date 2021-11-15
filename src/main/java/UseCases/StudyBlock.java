@@ -27,6 +27,7 @@ public class StudyBlock implements Schedulable, Serializable {
     private Checklist checklist;
     private ArrayList<String> listTODO;
     public String name;
+    public int length;
 
     /**
      * Constructor for the BlockScheduler.
@@ -35,11 +36,12 @@ public class StudyBlock implements Schedulable, Serializable {
      * @param checklist List of Tasks to be completed.
      */
     public StudyBlock(String name, StudyMethod studyMethod,
-                      Checklist checklist) {
+                      Checklist checklist, int length) {
         this.studyMethod = studyMethod;
         this.checklist = checklist;
         this.listTODO = new ArrayList<>();
         this.name = name;
+        this.length = length;
     }
 
     // TODO getters and setters
@@ -51,6 +53,8 @@ public class StudyBlock implements Schedulable, Serializable {
     public Checklist getChecklist() {
         return checklist;
     }
+
+    public void setLength(int length){ this.length = length; }
 
     public void setChecklist(Checklist checklist) {
         this.checklist = checklist;
@@ -73,29 +77,18 @@ public class StudyBlock implements Schedulable, Serializable {
      * TODO implement way of checking multiple tasks, using length input as well.
      */
     public void buildListTODO() {
-        ArrayList<Task> task = this.checklist.incomplete;
-        Task t1 = task.get(0);
-        double x = t1.length;
-        ArrayList<String> msg = new ArrayList<>();
-
-        while ((x - this.studyMethod.getMethod().get(0)) >= 0){
-            msg.add(t1.name + " | " + this.studyMethod.getMethod().get(0) + " min");
-            msg.add("Break" + " | " + this.studyMethod.getMethod().get(1) + " min");
-            x -= this.studyMethod.getMethod().get(0);
-        }
-        this.listTODO = msg;
+        this.listTODO = assignTasks(breakUpStudyBlock());
     }
 
     /**
      * Breaks up the study block into a two dimensional Array which stores the
      * different increments of active and break time.
-     * @param length The length of the study block in minutes.
      */
-    public int[][] breakUpStudyBlock(int length){
+    public int[][] breakUpStudyBlock(){
         // We first need the number of full blocks we'll have and the amount of extra time leftover.
         // Note that extra + blocks == length
-        int blocks = length / (this.studyMethod.getMethod().get(0) + this.studyMethod.getMethod().get(1));
-        int extra = length % (this.studyMethod.getMethod().get(0) + this.studyMethod.getMethod().get(1));
+        int blocks = this.length / (this.studyMethod.getMethod().get(0) + this.studyMethod.getMethod().get(1));
+        int extra = this.length % (this.studyMethod.getMethod().get(0) + this.studyMethod.getMethod().get(1));
         // We return a 2D array where the length is the number of block-breaks and the indexes of each
         // array are the amount of time for the block and break.
         int[][] array = new int[blocks + 1][2];
