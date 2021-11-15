@@ -5,9 +5,10 @@ plan their work on various tasks.
 
 If you would like some example Checklists and Tasks to work with, run ReadWriterTest. 
 
-Run Controllers.MainGUI.java located in /Controllers/. A file directory browser window will
-appear where you can load any <br> 
-saved Checklists from disk (located in the program directory).
+Run Controllers.MainGUI.java located in /Controllers/. You can create new Tasks and Checklists <br>
+in the Manage Checklists screen, or load exiting Tasks, Checklists, and Study Blocks with the <br>
+Load Checklists and Load StudyBlocks buttons on the Main Menu. After loading, you may need <br>
+to hit Refresh or use the '<' and '>' to update the display.
 
 All .java files are located in their relevant Clean Architecture
 categories to match our CRC cards.
