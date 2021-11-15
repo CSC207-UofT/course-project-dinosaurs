@@ -72,9 +72,6 @@ public class StudyBlockTest {
     }
 
     @Test
-    /**
-     * Tests when Task 2 goes into the 1st study block
-     */
     public void TestAssignTask2() {
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
         assertEquals(array, block.breakUpStudyBlock());
@@ -146,6 +143,8 @@ public class StudyBlockTest {
     @Test
     public void TestAssignTask6() {
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
+        Task t3 = new Task("t3", 35, d3, 3, 20);
+        tm.addTask(tasks, t3);
         assertEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(15);
@@ -167,8 +166,8 @@ public class StudyBlockTest {
     @Test
     public void TestAssignTask1DESKTIME() {
         block.setLength(138);
+        method = new StudyMethod(StudyMethod.DESKTIME);
         int[][] array = new int[][]{{52, 17}, {52, 17}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(26);
         t2.setLength(78);
