@@ -47,7 +47,7 @@ public class BlockManagerController {
 
     /**
      * Exports a StudyBlock
-     * @param actionEvent on click
+     * @param actionEvent on click.
      * @throws IOException if there is an issue.
      */
     @FXML
