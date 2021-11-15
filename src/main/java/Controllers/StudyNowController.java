@@ -103,6 +103,8 @@ public class StudyNowController {
     }
 
 
-
-
+    public void exportStudyBlock(ActionEvent actionEvent) throws IOException {
+        ExportStudyBlockController export =  new ExportStudyBlockController();
+        export.exportStudyBlock(actionEvent);
+    }
 }

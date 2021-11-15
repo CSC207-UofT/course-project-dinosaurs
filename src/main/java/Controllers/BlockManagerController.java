@@ -46,7 +46,7 @@ public class BlockManagerController {
     }
 
     /**
-     * Exports StudyBlock
+     * Exports a StudyBlock
      * @param actionEvent on click
      * @throws IOException if there is an issue.
      */

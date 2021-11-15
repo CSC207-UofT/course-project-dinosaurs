@@ -17,7 +17,7 @@
       </HBox>
       <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
          <Button mnemonicParsing="false" text="Save" />
-         <Button mnemonicParsing="false" text="Export" />
+         <Button mnemonicParsing="false" onAction="#exportStudyBlock" text="Export" />
          <Button mnemonicParsing="false" text="Delete" />
       </HBox>
    </VBox>
