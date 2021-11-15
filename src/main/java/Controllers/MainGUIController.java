@@ -4,10 +4,10 @@ import Entities.Checklist;
 import Entities.Task;
 import HelperFunctions.ChecklistReadWriter;
 import UseCases.ChecklistSaver;
-import UseCases.StudyBlock;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,9 +18,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,7 +29,10 @@ import java.util.List;
  */
 public class MainGUIController {
 
-
+    public Label checklistName;
+    /**
+     * private variables for the ListView that displays Tasks for each loaded Checklist
+     */
     @FXML
     private ListView<String> listView = new ListView<>();
     private List<String> stringList = new ArrayList<>();
@@ -50,6 +51,7 @@ public class MainGUIController {
             for (Task task : Data.checklistList.get(Data.checklistIndex)) {
                 stringList.add(task.toString());
             }
+            checklistName.setText(Data.checklistList.get(Data.checklistIndex).name);
         }
 
         observableList.setAll(stringList);
@@ -285,6 +287,9 @@ public class MainGUIController {
 
     }
 
+    /**
+     * Move backward to prior Checklist in the list
+     */
     @FXML
     protected void cycleChecklistsForwardButton(){
         observableList.removeAll(stringList);
@@ -297,6 +302,9 @@ public class MainGUIController {
         setListView();
     }
 
+    /**
+     * Move backward to prior Checklist in the list
+     */
     @FXML
     protected void cycleChecklistsBackwardButton(){
         observableList.removeAll(stringList);

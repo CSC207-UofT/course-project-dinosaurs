@@ -17,19 +17,18 @@
             <Font name="Calibri" size="18.0" />
          </font>
       </Label>
-      <SplitPane dividerPositions="0.5" layoutX="57.0" layoutY="201.0" prefHeight="250.0" prefWidth="485.0">
-          <ListView fx:id="listView" layoutX="158.0" layoutY="251.0" prefHeight="279.0" prefWidth="239.0"/>
-          <padding>
-              <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
-          </padding>
-          <items>
-            <Label alignment="TOP_LEFT" prefHeight="269.0" prefWidth="239.0" text="25 min - Task 1&#10;5 min - Break&#10;25 min - Task 2&#10;5 min - Break&#10;25 min - Task 3&#10;5 min - Break">
-               <padding>
-                  <Insets bottom="8.0" left="10.0" right="10.0" top="8.0" />
-               </padding>
-            </Label>
-         </items>
-      </SplitPane>
+    <SplitPane dividerPositions="0.5" layoutX="57.0" layoutY="201.0" prefHeight="250.0" prefWidth="485.0">
+        <ListView fx:id="listView" layoutX="158.0" layoutY="251.0" prefHeight="279.0" prefWidth="239.0"/>
+        <padding>
+            <Insets bottom="8.0" left="10.0" right="10.0" top="8.0"/>
+        </padding>
+        <Label alignment="TOP_LEFT" prefHeight="269.0" prefWidth="239.0"
+               text="25 min - Task 1&#10;5 min - Break&#10;25 min - Task 2&#10;5 min - Break&#10;25 min - Task 3&#10;5 min - Break">
+            <padding>
+                <Insets bottom="8.0" left="10.0" right="10.0" top="8.0"/>
+            </padding>
+        </Label>
+    </SplitPane>
       <Label layoutX="127.0" layoutY="138.0" text="Saved Checklist(s)">
          <font>
             <Font name="Calibri" size="14.0" />
@@ -40,44 +39,36 @@
             <Font name="Calibri" size="14.0" />
          </font>
       </Label>
-      <VBox alignment="TOP_CENTER" layoutX="168.0" layoutY="482.0" prefHeight="200.0" prefWidth="264.0" spacing="10.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#changeSceneToStudyNowButton" text="Study Now" />
-            <Button mnemonicParsing="false" onAction="#changeSceneToChecklistManagerButton" text="Manage Checklists" />
-            <Button mnemonicParsing="false" onAction="#changeSceneToBlockManagerButton" text="Manage Study Blocks" />
-            <Button mnemonicParsing="false" onAction="#changeSceneToPreferencesButton" text="Preferences" />
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-               <children>
-                  <Button mnemonicParsing="false" onAction="#openSaveChecklistsButton" text="Save and Exit" />
-                  <Button mnemonicParsing="false" onAction="#openExitConfirmWindowButton" text="Exit Without Saving" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <HBox alignment="TOP_CENTER" layoutX="58.0" layoutY="175.0" prefHeight="25.0" prefWidth="239.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#cycleChecklistsForwardButton" text="&lt;" />
-            <Label alignment="CENTER" prefWidth="180.0" text="Example Checklist">
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#cycleChecklistsBackwardButton" text="&gt;" />
-         </children>
-      </HBox>
-      <HBox alignment="TOP_CENTER" layoutX="302.0" layoutY="175.0" prefHeight="25.0" prefWidth="239.0">
-         <children>
-            <Button mnemonicParsing="false" text="&lt;" />
-            <Label alignment="CENTER" prefWidth="180.0" text="Example Study Block">
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-            </Label>
-            <Button mnemonicParsing="false" text="&gt;" />
-         </children>
-      </HBox>
+    <VBox alignment="TOP_CENTER" layoutX="168.0" layoutY="482.0" prefHeight="200.0" prefWidth="264.0" spacing="10.0">
+        <Button mnemonicParsing="false" onAction="#changeSceneToStudyNowButton" text="Study Now"/>
+        <Button mnemonicParsing="false" onAction="#changeSceneToChecklistManagerButton" text="Manage Checklists"/>
+        <Button mnemonicParsing="false" onAction="#changeSceneToBlockManagerButton" text="Manage Study Blocks"/>
+        <Button mnemonicParsing="false" onAction="#changeSceneToPreferencesButton" text="Preferences"/>
+        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <Button mnemonicParsing="false" onAction="#openSaveChecklistsButton" text="Save and Exit"/>
+            <Button mnemonicParsing="false" onAction="#openExitConfirmWindowButton" text="Exit Without Saving"/>
+        </HBox>
+    </VBox>
+    <HBox alignment="TOP_CENTER" layoutX="58.0" layoutY="175.0" prefHeight="25.0" prefWidth="239.0">
+        <Button mnemonicParsing="false" onAction="#cycleChecklistsForwardButton" text="&lt;"/>
+        <Label fx:id="checklistName" alignment="CENTER" prefWidth="180.0" text="Example Checklist">
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+        </Label>
+        <Button mnemonicParsing="false" onAction="#cycleChecklistsBackwardButton" text="&gt;"/>
+    </HBox>
+    <HBox alignment="TOP_CENTER" layoutX="302.0" layoutY="175.0" prefHeight="25.0" prefWidth="239.0">
+        <Button mnemonicParsing="false" text="&lt;"/>
+        <Label alignment="CENTER" prefWidth="180.0" text="Example Study Block">
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+        </Label>
+        <Button mnemonicParsing="false" text="&gt;"/>
+    </HBox>
 
 </AnchorPane>

@@ -4,42 +4,38 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ChecklistManagerController">
-    <children>
-        <Label layoutX="209.0" layoutY="35.0" text="Study Planner">
-            <font>
-                <Font name="Calibri" size="32.0" />
-            </font></Label>
-      <Label alignment="CENTER" layoutX="232.0" layoutY="83.0" text="Checklist Manager">
-         <font>
-            <Font name="Calibri" size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="249.0" layoutY="138.0" text="Saved Checklist(s)">
-         <font>
-            <Font name="Calibri" size="14.0" />
-         </font></Label>
-      <ListView fx:id="listView" layoutX="57.0" layoutY="200.0" prefHeight="300.0" prefWidth="485.0" />
-      <HBox alignment="CENTER" layoutX="180.0" layoutY="174.0" prefHeight="25.0" prefWidth="239.0">
-         <children>
-            <Button mnemonicParsing="false" text="&lt;" />
-            <Label alignment="CENTER" prefWidth="180.0" text="Example Checklist" textAlignment="CENTER" />
-            <Button mnemonicParsing="false" text="&gt;" />
-         </children>
-      </HBox>
-      <HBox alignment="TOP_CENTER" layoutX="57.0" layoutY="500.0" prefHeight="25.0" prefWidth="485.0" spacing="10.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#openAddTaskPopUp" text="Add Task" />
-            <Button mnemonicParsing="false" text="Delete Selected" />
-            <Button mnemonicParsing="false" text="Change Sorting Method" />
-         </children>
-      </HBox>
-      <VBox alignment="TOP_CENTER" layoutX="203.0" layoutY="545.0" prefHeight="122.0" prefWidth="193.0" spacing="10.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#openCreateChecklistPopUp" text="Create New Checklist" />
-            <Button mnemonicParsing="false" text="Delete Current Checklist" />
-              <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu" />
-         </children>
-      </VBox>
-    </children>
+<AnchorPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ChecklistManagerController">
+    <Label layoutX="209.0" layoutY="35.0" text="Study Planner">
+        <font>
+            <Font name="Calibri" size="32.0"/>
+        </font>
+    </Label>
+    <Label alignment="CENTER" layoutX="232.0" layoutY="83.0" text="Checklist Manager">
+        <font>
+          <Font name="Calibri" size="18.0"/>
+        </font>
+    </Label>
+    <Label layoutX="249.0" layoutY="138.0" text="Saved Checklist(s)">
+        <font>
+          <Font name="Calibri" size="14.0"/>
+        </font>
+    </Label>
+    <ListView fx:id="listView" layoutX="57.0" layoutY="200.0" prefHeight="300.0" prefWidth="485.0"/>
+    <HBox alignment="CENTER" layoutX="180.0" layoutY="174.0" prefHeight="25.0" prefWidth="239.0">
+        <Button mnemonicParsing="false" onAction="#cycleChecklistsForwardButton" text="&lt;"/>
+        <Label fx:id="checklistTitle" alignment="CENTER" prefWidth="180.0" text="Example Checklist"
+               textAlignment="CENTER"/>
+        <Button mnemonicParsing="false" onAction="#cycleChecklistsBackwardButton" text="&gt;"/>
+    </HBox>
+    <HBox alignment="TOP_CENTER" layoutX="57.0" layoutY="500.0" prefHeight="25.0" prefWidth="485.0" spacing="10.0">
+        <Button mnemonicParsing="false" onAction="#openAddTaskPopUp" text="Add Task"/>
+        <Button mnemonicParsing="false" text="Delete Selected Task"/>
+        <Button mnemonicParsing="false" text="Change Sorting Method"/>
+    </HBox>
+    <VBox alignment="TOP_CENTER" layoutX="203.0" layoutY="545.0" prefHeight="122.0" prefWidth="193.0" spacing="10.0">
+        <Button mnemonicParsing="false" onAction="#openCreateChecklistPopUp" text="Create New Checklist"/>
+        <Button mnemonicParsing="false" text="Delete Current Checklist"/>
+        <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu"/>
+    </VBox>
 </AnchorPane>

@@ -17,6 +17,7 @@
         <HBox alignment="CENTER" layoutX="100.0" layoutY="64.0" prefHeight="75.0" prefWidth="200.0" spacing="10.0">
             <Button mnemonicParsing="false" onAction="#closeProgramButton" text="Ok" />
         </HBox>
+    <Label fx:id="checklistName" opacity="0.0" text="Label" />
 
 
 </AnchorPane>
