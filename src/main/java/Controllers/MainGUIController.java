@@ -289,6 +289,9 @@ public class MainGUIController {
 
     }
 
+    /**
+     * Move backward to prior Checklist in the list
+     */
     @FXML
     protected void cycleChecklistsForwardButton(){
         observableList.removeAll(stringList);
@@ -301,6 +304,9 @@ public class MainGUIController {
         setListView();
     }
 
+    /**
+     * Move backward to prior Checklist in the list
+     */
     @FXML
     protected void cycleChecklistsBackwardButton(){
         observableList.removeAll(stringList);
