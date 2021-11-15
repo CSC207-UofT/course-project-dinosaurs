@@ -32,8 +32,17 @@ public class ReadWriterTest {
     Task t3 = new Task("t3", 55, d4, 2, 7);
     Task t4 = new Task("t4", 75, d2, 3, 1);
 
+    Checklist taskSB = new Checklist("Checklist SB");
+
+    Task t5 = new Task("t1", 15, d1, 5, 30);
+    Task t6 = new Task("t2", 35, d2, 4, 20);
+
+
+
     StudyMethod methodChosen = new StudyMethod(StudyMethod.POMODORO);
-    StudyBlock newBlock = new StudyBlock("Block", methodChosen, tasks);
+    StudyBlock block2 = new StudyBlock("StudyBlock 2", methodChosen, taskSB, 90);
+
+    StudyBlock block = new StudyBlock("StudyBlock 1", methodChosen, taskSB, 60);
 
     Checklist tasks2 = new Checklist("Checklist 2");
 
@@ -49,6 +58,10 @@ public class ReadWriterTest {
         tm.addTask(tasks2, t3);
         tm.addTask(tasks2, t4);
         tm.changePriority(tasks2, "LENGTH");
+
+        tm.addTask(taskSB, t5);
+        tm.addTask(taskSB, t6);
+        block2.setLength(90);
     }
 
     @Test(timeout = 80)
@@ -65,13 +78,17 @@ public class ReadWriterTest {
     public void TestStudyBlockSave() throws IOException, ClassNotFoundException {
 
         StudyBlockReadWriter readWriter = new StudyBlockReadWriter();
-        new StudyBlockSaver(newBlock);
-        StudyBlock s1 = readWriter.readFromFile(newBlock.name);
+        new StudyBlockSaver(block);
+        t5.setLength(50);
+        new StudyBlockSaver(block2);
+        StudyBlock s1 = readWriter.readFromFile(block.name);
+        StudyBlock s2 = readWriter.readFromFile(block2.name);
 
-        assertEquals(s1.name, newBlock.name);
+        assertEquals(s1.name, block.name);
+        assertEquals(s2.name, block2.name);
     }
 
-    @Test(timeout = 80)
+    @Test(timeout = 180)
     public void TestChecklistSaveTwo() throws IOException, ClassNotFoundException {
 
         ChecklistReadWriter readWriter = new ChecklistReadWriter();

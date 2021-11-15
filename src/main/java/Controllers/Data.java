@@ -21,5 +21,6 @@ public class Data {
     @FXML static protected boolean checklistLoaded = false;
     @FXML static protected StudyMethod method = new StudyMethod(StudyMethod.POMODORO);
     @FXML static protected int checklistIndex = 0;
+    @FXML static protected int studyBlockListIndex = 0;
 
 }

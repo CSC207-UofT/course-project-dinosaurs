@@ -3,7 +3,9 @@ package Controllers;
 import Entities.Checklist;
 import Entities.Task;
 import HelperFunctions.ChecklistReadWriter;
+import HelperFunctions.StudyBlockReadWriter;
 import UseCases.ChecklistSaver;
+import UseCases.StudyBlock;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,45 +32,95 @@ import java.util.List;
 public class MainGUIController {
 
     public Label checklistName;
+    public Label studyBlockName;
     /**
      * private variables for the ListView that displays Tasks for each loaded Checklist
      */
     @FXML
-    private ListView<String> listView = new ListView<>();
-    private List<String> stringList = new ArrayList<>();
-    private ObservableList<String> observableList = FXCollections.observableArrayList();
+    private ListView<String> checklistView = new ListView<>();
+    private List<String> checklistStringList = new ArrayList<>();
+    private ObservableList<String> checklistObservableList = FXCollections.observableArrayList();
+
+    @FXML
+    private ListView<String> studyBlockView = new ListView<>();
+    private List<String> studyBlockStringList = new ArrayList<>();
+    private ObservableList<String> studyBlockObservableList = FXCollections.observableArrayList();
 
     /**
-     * Adds all Tasks to stringList and creates an observable list to display them in
-     * ListView.
+     * Adds all checklists to the ListView.
      */
     @FXML
-    protected void setListView() {
+    protected void setChecklistView() {
         // This is where we should iterate through the current checklist and get all task strings
         // Add each task to stringList
         // observableList should keep the ListView up to date, but if not call setListView() again
         if (Data.checklistList.size() > 0) {
             for (Task task : Data.checklistList.get(Data.checklistIndex)) {
-                stringList.add(task.toString());
+                checklistStringList.add(task.toString());
             }
             checklistName.setText(Data.checklistList.get(Data.checklistIndex).name);
         }
 
-        observableList.setAll(stringList);
+        checklistObservableList.setAll(checklistStringList);
 
-        listView.setItems(observableList);
+        checklistView.setItems(checklistObservableList);
+    }
+
+    /**
+     * Adds all checklists to the ListView.
+     */
+    @FXML
+    protected void setStudyBlockView() {
+        // This is where we should iterate through the current checklist and get all task strings
+        // Add each task to stringList
+        // observableList should keep the ListView up to date, but if not call setListView() again
+        if (Data.studyBlockList.size() > 0) {
+            studyBlockStringList.add(Data.studyBlockList.get(Data.studyBlockListIndex).toString());
+            }
+        studyBlockName.setText(Data.studyBlockList.get(Data.studyBlockListIndex).name);
+
+        studyBlockObservableList.setAll(studyBlockStringList);
+
+        studyBlockView.setItems(studyBlockObservableList);
+    }
+
+    /**
+     * Initializes scene and populates ListView.
+     */
+    @FXML
+    void initialize() {
+        setChecklistView();
 
     }
 
-
     /**
-     * Opens FileChooser to select checklists on initialization. Preliminary function.
-     *
+     * Refreshes the lists after loading them in.
      */
     @FXML
-    protected void getChecklists() throws ClassNotFoundException, IOException{
-        // I don't understand how these stages work, but the function requires one so here it is
-        Stage mainStage = new Stage();
+    protected void refreshButton() {
+        studyBlockObservableList.removeAll(studyBlockStringList);
+        studyBlockStringList.clear();
+
+        checklistObservableList.removeAll(checklistStringList);
+        checklistStringList.clear();
+
+        setChecklistView();
+        setStudyBlockView();
+    }
+
+    /**
+     * Loads in the checklists.
+     * @param actionEvent click
+     * @throws IOException if main-view.fxml can't be found
+     * @throws ClassNotFoundException if Checklist can't be found
+     */
+    @FXML
+    protected void loadChecklistButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+        // Loads FXML file and creates a new Scene
+        Parent loadChecklistParent = FXMLLoader.load(getClass().getResource("main-view.fxml"));
+        Scene loadChecklistScene = new Scene(loadChecklistParent);
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(loadChecklistScene);
 
         final FileChooser fileChooser = new FileChooser();
 
@@ -76,7 +128,7 @@ public class MainGUIController {
 
         // Helper function to specify current directory where things are being saved.
         configureFileChooser(fileChooser);
-        List<File> list = fileChooser.showOpenMultipleDialog(mainStage);
+        List<File> list = fileChooser.showOpenMultipleDialog(stage);
         if (list != null) {
             for (File file : list) {
 
@@ -85,8 +137,41 @@ public class MainGUIController {
                 Data.checklistList.add(checklist);
             }
         }
+    }
+
+
+    /**
+     * Loads in the study block.
+     * @param actionEvent click
+     * @throws IOException if main-view.fxml can't be found
+     * @throws ClassNotFoundException if Checklist can't be found
+     */
+    @FXML
+    protected void loadStudyBlockButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
+        // Loads FXML file and creates a new Scene
+        Parent loadChecklistParent = FXMLLoader.load(getClass().getResource("main-view.fxml"));
+        Scene loadChecklistScene = new Scene(loadChecklistParent);
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(loadChecklistScene);
+
+        final FileChooser fileChooser = new FileChooser();
+
+        StudyBlockReadWriter readWriter = new StudyBlockReadWriter();
+
+        // Helper function to specify current directory where things are being saved.
+        configureFileChooser(fileChooser);
+        List<File> list = fileChooser.showOpenMultipleDialog(stage);
+        if (list != null) {
+            for (File file : list) {
+
+                // Deserializes files.
+                StudyBlock studyBlock = readWriter.readFromFile(file.getPath());
+                Data.studyBlockList.add(studyBlock);
+            }
+        }
 
     }
+
 
     /**
      * Helper function to configure the file chooser to the current directory. user.dir specifies
@@ -100,17 +185,7 @@ public class MainGUIController {
         );
     }
 
-    /**
-     * Initializes scene and populates ListView.
-     */
-    @FXML
-    void initialize() throws ClassNotFoundException, IOException {
-        if (!Data.checklistLoaded) {
-            getChecklists();
-        }
-        Data.checklistLoaded = true;
-        setListView();
-    }
+
 
     /**
      * Changes scene to Study now.
@@ -292,14 +367,14 @@ public class MainGUIController {
      */
     @FXML
     protected void cycleChecklistsForwardButton(){
-        observableList.removeAll(stringList);
-        stringList.clear();
+        checklistObservableList.removeAll(checklistStringList);
+        checklistStringList.clear();
         if (Data.checklistIndex < (Data.checklistList.size() - 1)) {
             Data.checklistIndex += 1;
         } else {
             Data.checklistIndex = 0;
         }
-        setListView();
+        setChecklistView();
     }
 
     /**
@@ -307,14 +382,45 @@ public class MainGUIController {
      */
     @FXML
     protected void cycleChecklistsBackwardButton(){
-        observableList.removeAll(stringList);
-        stringList.clear();
+        checklistObservableList.removeAll(checklistStringList);
+        checklistStringList.clear();
         if (Data.checklistIndex > 0) {
             Data.checklistIndex -= 1;
         } else {
             Data.checklistIndex = (Data.checklistList.size() - 1);
         }
-        setListView();
+        setChecklistView();
+
+    }
+
+    /**
+     * Move backward to prior StudyBlock in the list
+     */
+    @FXML
+    protected void cycleStudyBlocksForwardButton(){
+        studyBlockObservableList.removeAll(studyBlockStringList);
+        studyBlockStringList.clear();
+        if (Data.studyBlockListIndex < (Data.studyBlockList.size() - 1)) {
+            Data.studyBlockListIndex += 1;
+        } else {
+            Data.studyBlockListIndex = 0;
+        }
+        setStudyBlockView();
+    }
+
+    /**
+     * Move backward to prior StudyBlock in the list
+     */
+    @FXML
+    protected void cycleStudyBlocksBackwardButton(){
+        studyBlockObservableList.removeAll(studyBlockStringList);
+        studyBlockStringList.clear();
+        if (Data.studyBlockListIndex > 0) {
+            Data.studyBlockListIndex -= 1;
+        } else {
+            Data.studyBlockListIndex = (Data.studyBlockList.size() - 1);
+        }
+        setStudyBlockView();
 
     }
 
