@@ -102,7 +102,8 @@ public class StudyNowController {
         stage.show();
     }
 
-
-
-
+    public void exportStudyBlock(ActionEvent actionEvent) throws IOException {
+        ExportStudyBlockController export =  new ExportStudyBlockController();
+        export.exportStudyBlock(actionEvent);
+    }
 }

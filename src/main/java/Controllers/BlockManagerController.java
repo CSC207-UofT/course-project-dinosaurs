@@ -44,4 +44,16 @@ public class BlockManagerController {
         StudyNowController SNC = new StudyNowController();
         SNC.openStudyBlockPopUp(actionEvent);
     }
+
+    /**
+     * Exports a StudyBlock
+     * @param actionEvent on click.
+     * @throws IOException if there is an issue.
+     */
+    @FXML
+    protected void exportStudyBlock(ActionEvent actionEvent) throws IOException {
+        ExportStudyBlockController export =  new ExportStudyBlockController();
+        export.exportStudyBlock(actionEvent);
+    }
 }
+
