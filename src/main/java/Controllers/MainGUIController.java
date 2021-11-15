@@ -53,10 +53,11 @@ public class MainGUIController {
             for (Task task : Data.checklistList.get(Data.checklistIndex)) {
                 stringList.add(task.toString());
             }
+            checklistName.setText(Data.checklistList.get(Data.checklistIndex).name);
         }
 
         observableList.setAll(stringList);
-        checklistName.setText(Data.checklistList.get(Data.checklistIndex).name);
+
         listView.setItems(observableList);
 
     }
