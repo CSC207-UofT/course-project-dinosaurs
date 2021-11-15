@@ -13,7 +13,7 @@ public class TempCreator {
      * @param priority the priority which the temp checklist will be
      * @return the combined checklists
      */
-    public Checklist createTemp(String name, ArrayList<Checklist> checklists, String priority) {
+    public static Checklist createTemp(String name, ArrayList<Checklist> checklists, String priority) {
         Checklist temp = new Checklist(name);
         TaskManager tm = new TaskManager();
         tm.changePriority(temp, priority);
