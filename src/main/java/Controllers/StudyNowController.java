@@ -108,7 +108,7 @@ public class StudyNowController {
     }
 
     public void addStudyBlock(ActionEvent actionEvent) {
-        addStudyBlockController add =  new addStudyBlockController();
-        add.addStudyBlock(actionEvent);
+        addStudyBlockController add_sb =  new addStudyBlockController();
+        add_sb.addStudyBlock(actionEvent);
     }
 }
