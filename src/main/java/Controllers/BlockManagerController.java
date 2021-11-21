@@ -51,7 +51,7 @@ public class BlockManagerController {
      * @throws IOException if there is an issue.
      */
     @FXML
-    protected void exportStudyBlock(ActionEvent actionEvent) throws IOException {
+    protected void exportStudyBlock(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
         ExportStudyBlockController export =  new ExportStudyBlockController();
         export.exportStudyBlock(actionEvent);
     }

@@ -7,7 +7,20 @@ import UseCases.StudyBlock;
 import UseCases.TaskManager;
 //import UseCases.TempCreator;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 //import static Constants.Constants.DUE_DATE;
@@ -44,5 +57,19 @@ public class ExportStudyBlockController {
 //        Checklist list = TempCreator.createTemp("examplename", checklistList, DUE_DATE);
         Schedulable obj = new StudyBlock("StudyBlock", method, tasks, 75);
         obj.writeICS();
-    }
-}
+
+// todo under works kind of
+//        Parent exportSceneParent = FXMLLoader.load(getClass().getResource("block-manager-view.fxml"));
+//        Scene exportScene = new Scene(exportSceneParent);
+//        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+//        stage.setScene(exportScene);
+//        FileChooser fileChooser = new FileChooser();
+//        File selectedFile = fileChooser.showOpenDialog(stage);
+
+//        int returnVal = sefil.showDialog(FileChooserDemo2.this, "Attach");
+
+        // get the file selected
+//        File file = fileChooser.showSaveDialog(stage);
+
+
+}}
