@@ -107,8 +107,17 @@ public class StudyNowController {
         export.exportStudyBlock(actionEvent);
     }
 
+//    public void addStudyBlock(ActionEvent actionEvent, String name, int length) {
+//        addStudyBlockController add_sb =  new addStudyBlockController();
+//        add_sb.addStudyBlock(actionEvent, name, length);
+//    }
+
     public void addStudyBlock(ActionEvent actionEvent) {
-        addStudyBlockController add =  new addStudyBlockController();
-        add.addStudyBlock(actionEvent);
+    }
+
+    public void getSBLength(ActionEvent actionEvent) {
+    }
+
+    public void getSBName(ActionEvent actionEvent) {
     }
 }
