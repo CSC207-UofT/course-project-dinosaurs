@@ -5,24 +5,27 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
 public class TaskManagerTest {
 
-    Checklist tasks = new Checklist();
+    Checklist tasks = new Checklist("C1");
+
 
     TaskManager tm = new TaskManager();
 
-    ZonedDateTime d1 = ZonedDateTime.now();
-    ZonedDateTime d2 = d1.plusDays(1);
-    ZonedDateTime d3 = d1.plusDays(2);
-    ZonedDateTime d4 = d1.plusDays(3);
+    LocalDate d1 = LocalDate.now();
+    LocalDate d2 = d1.plusDays(1);
+    LocalDate d3 = d1.plusDays(2);
+    LocalDate d4 = d1.plusDays(3);
 
     Task t1 = new Task("t1", 15, d3, 5, 3);
     Task t2 = new Task("t2", 35, d1, 4, 2);
     Task t3 = new Task("t3", 55, d4, 2, 7);
-    Task t4 = new Task("t3", 75, d2, 3, 1);
+//    Task t4 = new Task("t4", 75, d2, 3, 1);
+    Task t4 = tm.addTaskHelper("t4", "75", d2, "3", "1");
 
     @Before
     public void setUp() {
