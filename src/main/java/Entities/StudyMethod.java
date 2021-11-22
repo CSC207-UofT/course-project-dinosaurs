@@ -54,7 +54,6 @@ public class StudyMethod implements Serializable {
      * @return true if the method was set successfully.
      */
 
-
     public boolean setMethod(ArrayList<Integer> method) {
 
         this.preferred_method = method;
