@@ -113,7 +113,9 @@ public class StudyNowController {
 //    }
 
     public void addStudyBlock(ActionEvent actionEvent) {
+        //tested
     }
+
 
     public void getSBLength(ActionEvent actionEvent) {
 
