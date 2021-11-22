@@ -55,7 +55,6 @@ public class StudyMethod implements Serializable {
      */
 
 
-
     public boolean setMethod(ArrayList<Integer> method) {
         this.preferred_method = method;
         if (method.equals(DESKTIME)) {
