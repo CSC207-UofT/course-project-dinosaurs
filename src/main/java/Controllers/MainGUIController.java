@@ -2,8 +2,8 @@ package Controllers;
 
 import Entities.Checklist;
 import Entities.Task;
-import HelperFunctions.ChecklistReadWriter;
-import HelperFunctions.StudyBlockReadWriter;
+import Infrastructure.ChecklistReadWriter;
+import Infrastructure.StudyBlockReadWriter;
 import UseCases.ChecklistSaver;
 import UseCases.DataAccessInterface;
 import UseCases.StudyBlock;

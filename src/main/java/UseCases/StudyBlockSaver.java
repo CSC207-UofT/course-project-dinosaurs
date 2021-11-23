@@ -1,7 +1,7 @@
 package UseCases;
 
 
-import HelperFunctions.StudyBlockReadWriter;
+import Infrastructure.StudyBlockReadWriter;
 
 import java.io.IOException;
 
