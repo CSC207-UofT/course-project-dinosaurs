@@ -1,5 +1,6 @@
 package Controllers;
 
+import UseCases.DataAccessInterface;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -11,6 +12,8 @@ import java.io.IOException;
  * The primary stage/window for the program's GUI.
  */
 public class MainGUI extends Application {
+
+    static DataAccessInterface Data = new DataAccess();
 
     /**
      * Launches the GUI.

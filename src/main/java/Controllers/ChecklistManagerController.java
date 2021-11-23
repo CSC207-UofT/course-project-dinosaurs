@@ -2,6 +2,7 @@ package Controllers;
 
 import Entities.Checklist;
 import Entities.Task;
+import UseCases.DataAccessInterface;
 import UseCases.TaskManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,10 +24,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 /**
  * Controller for all elements and pop-ups windows in the Checklist Manager scene.
  */
 public class ChecklistManagerController {
+
+    DataAccessInterface Data = MainGUI.Data;
 
     /**
      * Used to get user input for adding new Tasks
@@ -60,11 +65,11 @@ public class ChecklistManagerController {
         // This is where we should iterate through the current checklist and get all task strings
         // Add each task to stringList
         // observableList should keep the ListView up to date
-        if (Data.checklistList.size() > 0) {
-            for (Task task : Data.checklistList.get(Data.checklistIndex)) {
+        if (Data.getChecklistListSize() > 0) {
+            for (Task task : Data.getChecklistList().get(Data.getChecklistListIndex())) {
                 stringList.add(task.toString());
             }
-            checklistTitle.setText(Data.checklistList.get(Data.checklistIndex).name);
+            checklistTitle.setText(Data.getChecklistList().get(Data.getChecklistListIndex()).name);
         }
 
         observableList.setAll(stringList);
@@ -166,10 +171,10 @@ public class ChecklistManagerController {
     protected void cycleChecklistsForwardButton(){
         observableList.removeAll(stringList);
         stringList.clear();
-        if (Data.checklistIndex < (Data.checklistList.size() - 1)) {
-            Data.checklistIndex += 1;
+        if (Data.getChecklistListIndex() < (Data.getChecklistListSize() - 1)) {
+            Data.setChecklistListIndex(Data.getChecklistListIndex() + 1);
         } else {
-            Data.checklistIndex = 0;
+            Data.setChecklistListIndex(0);
         }
         setListView();
     }
@@ -181,10 +186,10 @@ public class ChecklistManagerController {
     protected void cycleChecklistsBackwardButton(){
         observableList.removeAll(stringList);
         stringList.clear();
-        if (Data.checklistIndex > 0) {
-            Data.checklistIndex -= 1;
+        if (Data.getChecklistListIndex() > 0) {
+            Data.setChecklistListIndex(Data.getChecklistListIndex() - 1);
         } else {
-            Data.checklistIndex = (Data.checklistList.size() - 1);
+            Data.setChecklistListIndex(Data.getChecklistListSize() - 1);
         }
         setListView();
 
@@ -203,7 +208,7 @@ public class ChecklistManagerController {
         String length = lengthTextField.getText();
         TaskManager taskManager = new TaskManager();
         Task newTask = taskManager.addTaskHelper(name, weight, dueDate, importance, length);
-        taskManager.addTask(Data.checklistList.get(Data.checklistIndex), newTask);
+        taskManager.addTask(Data.getChecklistList().get(Data.getChecklistListIndex()), newTask);
 
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -217,7 +222,7 @@ public class ChecklistManagerController {
     @FXML
     protected void createNewChecklist(ActionEvent actionEvent) {
         Checklist newChecklist = new Checklist(checklistNameField.getText());
-        Data.checklistList.add(newChecklist);
+        Data.addToChecklistList(newChecklist);
 
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
