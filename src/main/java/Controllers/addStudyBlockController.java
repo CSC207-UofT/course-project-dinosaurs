@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static Constants.Constants.DUE_DATE;
-import static Controllers.Data.checklistList;
-import static Controllers.Data.studyBlockList;
+//import static Controllers.Data.checklistList;
+//import static Controllers.Data.studyBlockList;
 
 //public class addStudyBlockController {
 //    public void addStudyBlock(ActionEvent actionEvent, String name, int length) {

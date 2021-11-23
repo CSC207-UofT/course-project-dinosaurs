@@ -1,6 +1,6 @@
-package HelperFunctions;
+package Infrastructure;
 
-import HelperFunctions.ReadWriter;
+import Infrastructure.ReadWriter;
 import UseCases.StudyBlock;
 
 import java.io.*;

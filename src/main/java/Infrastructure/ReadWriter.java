@@ -1,7 +1,11 @@
-package HelperFunctions;
+package Infrastructure;
 
 import java.io.IOException;
 
+
+/**
+ *  An interface for different kinds of writers to save and read from files.
+ */
 public interface ReadWriter {
 
     /**

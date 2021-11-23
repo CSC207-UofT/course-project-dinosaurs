@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 //import static Constants.Constants.DUE_DATE;
 //import static Controllers.Data.checklistList;
-import static Controllers.Data.method;
+//import static Controllers.Data.method;
 
 /**
  * Controller for exporting the studyBlock.
@@ -55,8 +55,8 @@ public class ExportStudyBlockController {
         tm.addTask(tasks, t4);
         // Todo fix Bellow upon proper implementation
 //        Checklist list = TempCreator.createTemp("examplename", checklistList, DUE_DATE);
-        Schedulable obj = new StudyBlock("StudyBlock", method, tasks, 75);
-        obj.writeICS();
+        //Schedulable obj = new StudyBlock("StudyBlock", method, tasks, 75);
+        //obj.writeICS();
 
 // todo under works kind of
 //        Parent exportSceneParent = FXMLLoader.load(getClass().getResource("block-manager-view.fxml"));

@@ -2,9 +2,10 @@ package Controllers;
 
 import Entities.Checklist;
 import Entities.Task;
-import HelperFunctions.ChecklistReadWriter;
-import HelperFunctions.StudyBlockReadWriter;
+import Infrastructure.ChecklistReadWriter;
+import Infrastructure.StudyBlockReadWriter;
 import UseCases.ChecklistSaver;
+import UseCases.DataAccessInterface;
 import UseCases.StudyBlock;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -46,6 +47,8 @@ public class MainGUIController {
     private List<String> studyBlockStringList = new ArrayList<>();
     private ObservableList<String> studyBlockObservableList = FXCollections.observableArrayList();
 
+    private DataAccessInterface Data = MainGUI.Data;
+
     /**
      * Adds all checklists to the ListView.
      */
@@ -54,11 +57,11 @@ public class MainGUIController {
         // This is where we should iterate through the current checklist and get all task strings
         // Add each task to stringList
         // observableList should keep the ListView up to date, but if not call setListView() again
-        if (Data.checklistList.size() > 0) {
-            for (Task task : Data.checklistList.get(Data.checklistIndex)) {
+        if (Data.getChecklistListSize() > 0) {
+            for (Task task : Data.getChecklistList().get(Data.getChecklistListIndex())) {
                 checklistStringList.add(task.toString());
             }
-            checklistName.setText(Data.checklistList.get(Data.checklistIndex).name);
+            checklistName.setText(Data.getChecklistList().get(Data.getChecklistListIndex()).name);
         }
 
         checklistObservableList.setAll(checklistStringList);
@@ -74,10 +77,10 @@ public class MainGUIController {
         // This is where we should iterate through the current checklist and get all task strings
         // Add each task to stringList
         // observableList should keep the ListView up to date, but if not call setListView() again
-        if (Data.studyBlockList.size() > 0) {
-            studyBlockStringList.add(Data.studyBlockList.get(Data.studyBlockListIndex).toString());
+        if (Data.getStudyBlockListSize() > 0) {
+            studyBlockStringList.add(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).toString());
             }
-        studyBlockName.setText(Data.studyBlockList.get(Data.studyBlockListIndex).name);
+        studyBlockName.setText(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).name);
 
         studyBlockObservableList.setAll(studyBlockStringList);
 
@@ -134,7 +137,7 @@ public class MainGUIController {
 
                 // Deserializes files.
                 Checklist checklist = readWriter.readFromFile(file.getPath());
-                Data.checklistList.add(checklist);
+                Data.addToChecklistList(checklist);
             }
         }
     }
@@ -166,7 +169,7 @@ public class MainGUIController {
 
                 // Deserializes files.
                 StudyBlock studyBlock = readWriter.readFromFile(file.getPath());
-                Data.studyBlockList.add(studyBlock);
+                Data.addToStudyBlockList(studyBlock);
             }
         }
 
@@ -338,7 +341,7 @@ public class MainGUIController {
      */
     @FXML
     protected void saveChecklistButton(ActionEvent actionEvent) throws IOException {
-        for (Checklist checklist : Data.checklistList){
+        for (Checklist checklist : Data.getChecklistList()){
             new ChecklistSaver(checklist);
         }
 
@@ -369,10 +372,10 @@ public class MainGUIController {
     protected void cycleChecklistsForwardButton(){
         checklistObservableList.removeAll(checklistStringList);
         checklistStringList.clear();
-        if (Data.checklistIndex < (Data.checklistList.size() - 1)) {
-            Data.checklistIndex += 1;
+        if (Data.getChecklistListIndex() < (Data.getChecklistListSize() - 1)) {
+            Data.setChecklistListIndex(Data.getChecklistListIndex() + 1);
         } else {
-            Data.checklistIndex = 0;
+            Data.setChecklistListIndex(0);
         }
         setChecklistView();
     }
@@ -384,10 +387,10 @@ public class MainGUIController {
     protected void cycleChecklistsBackwardButton(){
         checklistObservableList.removeAll(checklistStringList);
         checklistStringList.clear();
-        if (Data.checklistIndex > 0) {
-            Data.checklistIndex -= 1;
+        if (Data.getChecklistListIndex() > 0) {
+            Data.setChecklistListIndex(Data.getChecklistListIndex() - 1);
         } else {
-            Data.checklistIndex = (Data.checklistList.size() - 1);
+            Data.setChecklistListIndex(Data.getChecklistListSize() - 1);
         }
         setChecklistView();
 
@@ -400,10 +403,10 @@ public class MainGUIController {
     protected void cycleStudyBlocksForwardButton(){
         studyBlockObservableList.removeAll(studyBlockStringList);
         studyBlockStringList.clear();
-        if (Data.studyBlockListIndex < (Data.studyBlockList.size() - 1)) {
-            Data.studyBlockListIndex += 1;
+        if (Data.getStudyBlockListIndex() < (Data.getStudyBlockListSize() - 1)) {
+            Data.setStudyBlockListIndex(Data.getStudyBlockListIndex() + 1);
         } else {
-            Data.studyBlockListIndex = 0;
+            Data.setStudyBlockListIndex(0);
         }
         setStudyBlockView();
     }
@@ -415,10 +418,10 @@ public class MainGUIController {
     protected void cycleStudyBlocksBackwardButton(){
         studyBlockObservableList.removeAll(studyBlockStringList);
         studyBlockStringList.clear();
-        if (Data.studyBlockListIndex > 0) {
-            Data.studyBlockListIndex -= 1;
+        if (Data.getStudyBlockListIndex() > 0) {
+            Data.setStudyBlockListIndex(Data.getStudyBlockListIndex() - 1);
         } else {
-            Data.studyBlockListIndex = (Data.studyBlockList.size() - 1);
+            Data.setStudyBlockListIndex((Data.getStudyBlockListSize() - 1));
         }
         setStudyBlockView();
 
