@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Constants.Constants.DUE_DATE;
+import static Constants.DueDateSingleton.*;
 //import static Controllers.Data.checklistList;
 //import static Controllers.Data.studyBlockList;
 

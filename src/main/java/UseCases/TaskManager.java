@@ -2,7 +2,7 @@ package UseCases;
 
 import Entities.Checklist;
 import Entities.Task;
-import Constants.Constants;
+import Constants.Comparison;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class TaskManager {
      */
 
     private void sort(Checklist checklist) {
-        checklist.incomplete.sort(Constants.COMPARE.get(checklist.priority));
+        checklist.incomplete.sort(Constants.Comparison.COMPARE.get(checklist.priority));
     }
 
 
