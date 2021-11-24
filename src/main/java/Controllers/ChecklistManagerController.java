@@ -216,6 +216,20 @@ public class ChecklistManagerController {
     }
 
     /**
+     * Removes the selected Task from the currently selected Checklist
+     * @param actionEvent on click
+     */
+    @FXML
+    protected void deleteSelectedTask(ActionEvent actionEvent){
+        TaskManager taskManager = new TaskManager();
+        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).incomplete.get(Data.getChecklistListIndex());
+        taskManager.removeTask(Data.getChecklistList().get(Data.getChecklistListIndex()), currTask);
+
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+    }
+
+    /**
      * Creates a new Checklist named by user
      * @param actionEvent on click
      */
@@ -227,6 +241,15 @@ public class ChecklistManagerController {
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
+    }
+
+    /**
+     * Removes the selected checklist
+     */
+    @FXML
+    protected void deleteSelectedChecklist(){
+        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+        Data.getChecklistList().remove(currChecklist);
     }
 
     /**

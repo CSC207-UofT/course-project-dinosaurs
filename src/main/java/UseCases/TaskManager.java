@@ -36,6 +36,22 @@ public class TaskManager {
     }
 
     /**
+     * Deletes a task from Entities.Checklist.
+     * @param task The task to be removed from Entities.Checklist.
+     * @return Returns true iff the task was successfully removed from Entities.Checklist
+     */
+    public boolean removeTask(Checklist checklist, Task task) {
+        boolean removed;
+        if (task.completed){
+            removed = checklist.complete.remove(task);
+        }
+        else {
+            removed = checklist.incomplete.remove(task);
+        }
+        return removed;
+    }
+
+    /**
      * Completes a given task from the Entities.Checklist's incomplete list.
      * Removes it from the incomplete list and adds it to the completed
      * list.
