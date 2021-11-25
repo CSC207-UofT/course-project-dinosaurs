@@ -12,10 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -45,6 +45,23 @@ public class StudyNowController {
     private ObservableList<String> observableList = FXCollections.observableArrayList();
 
     /**
+     * Instance variables for use by choicebox.
+     */
+    @FXML
+    public ChoiceBox chooseChecklist = new ChoiceBox();
+    private ObservableList<Checklist> checklistObservableList = FXCollections.observableArrayList();
+    //try to see if it works if <checklist>
+    private List <Checklist> checklistStringList = new ArrayList<>();
+
+//    /**
+//     * variables for the choicebox to help choose the Checklist.
+//     */
+//    @FXML
+
+//    ChoiceBox checklistChoice = new ChoiceBox();
+
+//todo i think this is not supposed ot be here?
+    /**
      * Adds all Tasks to stringList and creates an observable list to display them in
      * ListView.
      */
@@ -70,11 +87,30 @@ public class StudyNowController {
     @FXML
     void initialize() {
         setListView();
+        checkboxView();
+        chooseChecklist.setValue(checklistObservableList);
+        chooseChecklist.setValue("Checklist");
+    }
+    /**
+     * Adds all Tasks to stringList and creates an observable list to display them in
+     * ListView.
+     */
+    @FXML
+    protected void checkboxView() {
+        // This is where we should iterate through the current checklist and get all task strings
+        // Add each task to stringList
+        // observableList should keep the ListView up to date, but if not call setListView() again
+        for (Checklist checklist : Data.getChecklistList()){
+            checklistStringList.add(checklist);
+
+        checklistObservableList.setAll(checklistStringList);
+        chooseChecklist.setItems(checklistObservableList);
+        }
     }
 
+
     /**
-     * Opens a pop-up window showing the newly created Study Block with options to Save, Export,
-     * and Delete.
+     * Opens a pop-up window showing the newly created Study Block with options to Save or cancel
      * @param actionEvent on click
      * @throws IOException if there is an issue locating studynow-studyblock-view.fxml
      */
@@ -139,13 +175,11 @@ public class StudyNowController {
         String name = studyBlockNameTextField.getText();
         int length = Integer.parseInt(studyBlockLengthTextField.getText());
         StudyMethod method = Data.getStudyMethod();
-        // todo get the checklist chosen, im not sure if the thing under takes the right one but i dont think so
-//        Checklist checklist = Data.getChecklistList().get(Data.getChecklistListIndex());
-        Checklist checklist = new Checklist("list");
-        StudyBlock studyBlock = new StudyBlock(name, method, checklist, length);
+        // bellow gets the chosen checklist
+        Checklist list = (Checklist) chooseChecklist.getValue();
+        StudyBlock studyBlock = new StudyBlock(name, method, list, length);
         Data.addToStudyBlockList(studyBlock);
         changeSceneToBlockManagerButton(actionEvent);
     }
-
 
 }

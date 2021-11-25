@@ -11,8 +11,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,6 +37,7 @@ public class BlockManagerController {
     private ListView<String> sBlockView = new ListView<>();
     private List<String> sBlockStringList = new ArrayList<>();
     private ObservableList<String> sBlockObservableList = FXCollections.observableArrayList();
+
 
     private DataAccessInterface Data = MainGUI.Data;
 
@@ -66,26 +70,22 @@ public class BlockManagerController {
         StudyNowController SNC = new StudyNowController();
         SNC.openStudyBlockPopUp(actionEvent);
     }
-
+// todo the whole export is not linked to the current study block, need to link it
     /**
      * Exports a StudyBlock
      * @param actionEvent on click.
      * @throws IOException if there is an issue.
      */
     @FXML
-    protected void exportStudyBlock(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
-//        ExportStudyBlockController export =  new ExportStudyBlockController();
-//        export.exportStudyBlock(actionEvent);
-//        StudyBlock block = sBlockObservableList.;
-//        Schedulable item = sel;
-
-        // todo make it take the chosen StudyBlock because this is still temporary
+    protected void exportStudyBlock(ActionEvent actionEvent) throws IOException {
+        // todo make it take the chosen StudyBlock because this is still all temporary
         Checklist list = TempCreator.createTemp("examplename", Data.getChecklistList(), DUE_DATE);
         StudyMethod method = Data.getStudyMethod();
         //todo fix length but it should be fixed when you take it from the chosen studyblock
         Schedulable obj = new StudyBlock("StudyBlock", method, list, 75);
         obj.writeICS();
     }
+
 
     /**
      * Adds all StudyBlocks to this ListView.
@@ -130,9 +130,9 @@ public class BlockManagerController {
             Data.setStudyBlockListIndex((Data.getStudyBlockListSize() - 1));
         }
         setSBlockView();
-
     }
-
-
+// todo the delete button to remove the studyblock from the list
+//    public void deleteStudyBlock(ActionEvent actionEvent) {
+//    }
 }
 
