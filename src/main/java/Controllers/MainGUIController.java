@@ -70,7 +70,7 @@ public class MainGUIController {
     }
 
     /**
-     * Adds all checklists to the ListView.
+     * Adds all StudyBlock to the ListView.
      */
     @FXML
     protected void setStudyBlockView() {

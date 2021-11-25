@@ -1,5 +1,9 @@
 package Controllers;
 
+import Entities.Checklist;
+import Entities.StudyMethod;
+import Entities.Task;
+import UseCases.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,13 +12,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static Constants.Constants.DUE_DATE;
 
 
 /**
@@ -22,6 +32,10 @@ import java.util.List;
  */
 public class StudyNowController {
 
+    DataAccessInterface Data = MainGUI.Data;
+
+    public TextField studyBlockLengthTextField;
+    public TextField studyBlockNameTextField;
     /**
      * Instance variables for use by ListView.
      */
@@ -102,26 +116,36 @@ public class StudyNowController {
         stage.show();
     }
 
-    public void exportStudyBlock(ActionEvent actionEvent) throws IOException {
-        ExportStudyBlockController export =  new ExportStudyBlockController();
-        export.exportStudyBlock(actionEvent);
-    }
-
-//    public void addStudyBlock(ActionEvent actionEvent, String name, int length) {
-//        addStudyBlockController add_sb =  new addStudyBlockController();
-//        add_sb.addStudyBlock(actionEvent, name, length);
-//    }
-
-    public void addStudyBlock(ActionEvent actionEvent) {
-        //tested
-    }
-
-
-    public void getSBLength(ActionEvent actionEvent) {
-
+    /**
+     * Changes scene back to BlockManager.
+     * @param actionEvent on click
+     * @throws IOException if there is an issue locating block-manager-view.fxml
+     */
+    @FXML
+    protected void changeSceneToBlockManagerButton(ActionEvent actionEvent) throws IOException {
+        // Loads FXML file and creates a new Scene
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
     }
 
 
-    public void getSBName(ActionEvent actionEvent) {
+    /**
+     * Saves the created StudyBlock and adds it to StudyBlocklist.
+     * @param actionEvent on click
+     * @throws IOException if there is an issue locating main-view.fxml
+     */
+    @FXML
+    public void saveStudyBlock(ActionEvent actionEvent) throws IOException {
+        String name = studyBlockNameTextField.getText();
+        int length = Integer.parseInt(studyBlockLengthTextField.getText());
+        StudyMethod method = Data.getStudyMethod();
+        // todo get the checklist chosen, im not sure if the thing under takes the right one but i dont think so
+//        Checklist checklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+        Checklist checklist = new Checklist("list");
+        StudyBlock studyBlock = new StudyBlock(name, method, checklist, length);
+        Data.addToStudyBlockList(studyBlock);
+        changeSceneToBlockManagerButton(actionEvent);
     }
+
+
 }
