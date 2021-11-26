@@ -41,6 +41,12 @@ public class DataAccess implements DataAccessInterface {
         return checklistList;
     }
 
+    /**
+     * Gets Checklist at index from checklistList.
+     * @return checklist
+     */
+    @Override
+    public Checklist getChecklistFromList(int index) {return checklistList.get(index); }
 
     /**
      * Adds Checklist to checklistList.

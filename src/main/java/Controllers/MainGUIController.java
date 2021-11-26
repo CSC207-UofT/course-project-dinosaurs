@@ -79,8 +79,8 @@ public class MainGUIController {
         // observableList should keep the ListView up to date, but if not call setListView() again
         if (Data.getStudyBlockListSize() > 0) {
             studyBlockStringList.add(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).toString());
-            }
-        studyBlockName.setText(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).name);
+            studyBlockName.setText(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).name);
+        }
 
         studyBlockObservableList.setAll(studyBlockStringList);
 
@@ -93,7 +93,7 @@ public class MainGUIController {
     @FXML
     void initialize() {
         setChecklistView();
-
+        setStudyBlockView();
     }
 
     /**
