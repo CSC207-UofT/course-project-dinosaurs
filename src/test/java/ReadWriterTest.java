@@ -1,3 +1,4 @@
+import Constants.Constants;
 import Infrastructure.ChecklistReadWriter;
 import Infrastructure.StudyBlockReadWriter;
 import Entities.Checklist;
@@ -38,7 +39,7 @@ public class ReadWriterTest {
 
 
 
-    StudyMethod methodChosen = new StudyMethod(StudyMethod.POMODORO);
+    StudyMethod methodChosen = new StudyMethod(Constants.POMODORO);
     StudyBlock block2 = new StudyBlock("StudyBlock 2", methodChosen, taskSB, 90);
 
     StudyBlock block = new StudyBlock("StudyBlock 1", methodChosen, taskSB, 60);

@@ -1,5 +1,6 @@
 package Controllers;
 
+import Constants.Constants;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import UseCases.DataAccessInterface;
@@ -7,7 +8,6 @@ import UseCases.StudyBlock;
 import javafx.fxml.FXML;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DataAccess implements DataAccessInterface {
 
@@ -27,7 +27,7 @@ public class DataAccess implements DataAccessInterface {
     public DataAccess(){
         studyBlockList = new ArrayList<>();
         checklistList = new ArrayList<>();
-        chosenMethod = new StudyMethod(StudyMethod.POMODORO);
+        chosenMethod = new StudyMethod(Constants.POMODORO);
         checklistListIndex = 0;
         studyBlockListIndex = 0;
     }
