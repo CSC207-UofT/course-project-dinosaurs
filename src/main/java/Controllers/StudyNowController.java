@@ -1,5 +1,9 @@
 package Controllers;
 
+import Entities.Checklist;
+import Entities.StudyMethod;
+import Entities.Task;
+import UseCases.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,13 +12,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static Constants.Constants.DUE_DATE;
 
 
 /**
@@ -22,6 +32,10 @@ import java.util.List;
  */
 public class StudyNowController {
 
+    DataAccessInterface Data = MainGUI.Data;
+
+    public TextField studyBlockLengthTextField;
+    public TextField studyBlockNameTextField;
     /**
      * Instance variables for use by ListView.
      */
@@ -30,6 +44,23 @@ public class StudyNowController {
     private List<String> stringList = new ArrayList<>();
     private ObservableList<String> observableList = FXCollections.observableArrayList();
 
+    /**
+     * Instance variables for use by choicebox.
+     */
+    @FXML
+    public ChoiceBox chooseChecklist = new ChoiceBox();
+    private ObservableList<Checklist> checklistObservableList = FXCollections.observableArrayList();
+    //try to see if it works if <checklist>
+    private List <Checklist> checklistStringList = new ArrayList<>();
+
+//    /**
+//     * variables for the choicebox to help choose the Checklist.
+//     */
+//    @FXML
+
+//    ChoiceBox checklistChoice = new ChoiceBox();
+
+//todo i think this is not supposed ot be here?
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
      * ListView.
@@ -56,11 +87,30 @@ public class StudyNowController {
     @FXML
     void initialize() {
         setListView();
+        checkboxView();
+        chooseChecklist.setValue(checklistObservableList);
+        chooseChecklist.setValue("Checklist");
+    }
+    /**
+     * Adds all Tasks to stringList and creates an observable list to display them in
+     * ListView.
+     */
+    @FXML
+    protected void checkboxView() {
+        // This is where we should iterate through the current checklist and get all task strings
+        // Add each task to stringList
+        // observableList should keep the ListView up to date, but if not call setListView() again
+        for (Checklist checklist : Data.getChecklistList()){
+            checklistStringList.add(checklist);
+
+        checklistObservableList.setAll(checklistStringList);
+        chooseChecklist.setItems(checklistObservableList);
+        }
     }
 
+
     /**
-     * Opens a pop-up window showing the newly created Study Block with options to Save, Export,
-     * and Delete.
+     * Opens a pop-up window showing the newly created Study Block with options to Save or cancel
      * @param actionEvent on click
      * @throws IOException if there is an issue locating studynow-studyblock-view.fxml
      */
@@ -102,26 +152,34 @@ public class StudyNowController {
         stage.show();
     }
 
-    public void exportStudyBlock(ActionEvent actionEvent) throws IOException {
-        ExportStudyBlockController export =  new ExportStudyBlockController();
-        export.exportStudyBlock(actionEvent);
-    }
-
-//    public void addStudyBlock(ActionEvent actionEvent, String name, int length) {
-//        addStudyBlockController add_sb =  new addStudyBlockController();
-//        add_sb.addStudyBlock(actionEvent, name, length);
-//    }
-
-    public void addStudyBlock(ActionEvent actionEvent) {
-        //tested
-    }
-
-
-    public void getSBLength(ActionEvent actionEvent) {
-
+    /**
+     * Changes scene back to BlockManager.
+     * @param actionEvent on click
+     * @throws IOException if there is an issue locating block-manager-view.fxml
+     */
+    @FXML
+    protected void changeSceneToBlockManagerButton(ActionEvent actionEvent) throws IOException {
+        // Loads FXML file and creates a new Scene
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
     }
 
 
-    public void getSBName(ActionEvent actionEvent) {
+    /**
+     * Saves the created StudyBlock and adds it to StudyBlocklist.
+     * @param actionEvent on click
+     * @throws IOException if there is an issue locating main-view.fxml
+     */
+    @FXML
+    public void saveStudyBlock(ActionEvent actionEvent) throws IOException {
+        String name = studyBlockNameTextField.getText();
+        int length = Integer.parseInt(studyBlockLengthTextField.getText());
+        StudyMethod method = Data.getStudyMethod();
+        // bellow gets the chosen checklist
+        Checklist list = (Checklist) chooseChecklist.getValue();
+        StudyBlock studyBlock = new StudyBlock(name, method, list, length);
+        Data.addToStudyBlockList(studyBlock);
+        changeSceneToBlockManagerButton(actionEvent);
     }
+
 }
