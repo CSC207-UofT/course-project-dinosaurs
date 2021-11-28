@@ -5,7 +5,7 @@ import java.util.*;
 
 public class StudyMethod implements Serializable {
     /**
-     * All of the supported StudyMethods used by BlockScheduler.
+     * All the supported StudyMethods used by BlockScheduler.
      * Tells BlockScheduler how to divide study and break time.
      * <p>
      * preferred_method.size() == 2
@@ -26,15 +26,10 @@ public class StudyMethod implements Serializable {
      */
     public StudyMethod(ArrayList<Integer> method) {
         this.preferred_method = method;
-        if (preferred_method == POMODORO) {
-            System.out.print("Let's study using POMODORO");
-        }
-        if (preferred_method == DESKTIME) {
-            System.out.print("Let's study using DESKTIME");
-        }
-        if (preferred_method == ULTRADIUM) {
-            System.out.print("Let's study using ULTRADIUM");
-        }
+    }
+
+    public StudyMethod(int activeTime, int breakTime) {
+        this.preferred_method = new ArrayList<>(Arrays.asList(activeTime, breakTime));
     }
 
     /**
@@ -51,24 +46,14 @@ public class StudyMethod implements Serializable {
      * Sets a new preferred study method.
      *
      * @param method The preferred study scheduling method
-     * @return true if the method was set successfully.
      */
 
-    public boolean setMethod(ArrayList<Integer> method) {
+    public void setMethod(ArrayList<Integer> method) {
         this.preferred_method = method;
-        if (method.equals(DESKTIME)) {
-            this.preferred_method = DESKTIME;
-            return true;
-        }
-        if (method.equals(ULTRADIUM)) {
-            this.preferred_method = ULTRADIUM;
-            return true;
-        }
-        if (method.equals(POMODORO)) {
-            this.preferred_method = POMODORO;
-            return true;
-            }
-        return false;
+    }
+
+    public void setMethod(int activeTime, int breakTime) {
+        this.preferred_method = new ArrayList<>(Arrays.asList(activeTime, breakTime));
     }
 }
 

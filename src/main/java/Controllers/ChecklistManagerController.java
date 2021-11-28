@@ -1,5 +1,6 @@
 package Controllers;
 
+import Constants.Constants;
 import Entities.Checklist;
 import Entities.Task;
 import UseCases.DataAccessInterface;
@@ -7,18 +8,17 @@ import UseCases.TaskManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -49,6 +49,17 @@ public class ChecklistManagerController {
     public TextField checklistNameField;
 
     /**
+     * Setup for Checklist Sorting MenuButton
+     */
+
+    @FXML MenuItem menuItemDue;
+    @FXML MenuItem menuItemLength;
+    @FXML MenuItem menuItemImportance;
+    @FXML MenuItem menuItemWeight;
+
+    public MenuButton sortMenuButton;
+
+    /**
      * Instance variables for use by ListView.
      */
     @FXML
@@ -75,6 +86,12 @@ public class ChecklistManagerController {
         observableList.setAll(stringList);
 
         listView.setItems(observableList);
+    }
+
+    @FXML
+    protected void resetListView() {
+        observableList.clear();
+        stringList.clear();
     }
 
     /**
@@ -228,6 +245,52 @@ public class ChecklistManagerController {
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * Changes how the Checklist sorting to by Due Date (Sooner to Later).
+     */
+    @FXML
+    protected void sortChecklistButtonDue() {
+        TaskManager taskManager = new TaskManager();
+        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), Constants.DUE_DATE);
+        resetListView();
+        setListView();
+    }
+
+    /**
+     * Changes how the Checklist sorting to by Length (Short to Long).
+     */
+    @FXML
+    protected void sortChecklistButtonLength() {
+        TaskManager taskManager = new TaskManager();
+        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), Constants.LENGTH);
+        resetListView();
+        setListView();
+    }
+
+    /**
+     * Changes how the Checklist sorting to by Importance (High to Low).
+     */
+    @FXML
+    protected void sortChecklistButtonImportance() {
+        TaskManager taskManager = new TaskManager();
+        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), Constants.IMPORTANCE);
+        resetListView();
+        setListView();
+    }
+
+    /**
+     * Changes how the Checklist sorting to by Weight (High to Low).
+     */
+    @FXML
+    protected void sortChecklistButtonWeight() {
+        TaskManager taskManager = new TaskManager();
+        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), Constants.WEIGHT);
+        resetListView();
+        setListView();
+    }
+
+
 
     /**
      * Initializes scene and populates ListView.
