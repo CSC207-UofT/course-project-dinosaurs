@@ -17,6 +17,11 @@ public interface DataAccessInterface {
      */
     ArrayList<Checklist> getChecklistList();
 
+    /**
+     * Get Checklist at index from checklistList
+     * @return checklist.
+     */
+    Checklist getChecklistFromList(int index);
 
     /**
      * Adds Checklist to checklistList.

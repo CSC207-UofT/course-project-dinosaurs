@@ -4,7 +4,6 @@ import Entities.Checklist;
 import Entities.Task;
 import Infrastructure.ChecklistReadWriter;
 import Infrastructure.StudyBlockReadWriter;
-import UseCases.ChecklistSaver;
 import UseCases.DataAccessInterface;
 import UseCases.StudyBlock;
 import javafx.application.Platform;
@@ -18,7 +17,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -79,8 +77,9 @@ public class MainGUIController {
         // observableList should keep the ListView up to date, but if not call setListView() again
         if (Data.getStudyBlockListSize() > 0) {
             studyBlockStringList.add(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).toString());
-            }
-        studyBlockName.setText(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).name);
+            studyBlockName.setText(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).name);
+        }
+
 
         studyBlockObservableList.setAll(studyBlockStringList);
 
@@ -91,104 +90,51 @@ public class MainGUIController {
      * Initializes scene and populates ListView.
      */
     @FXML
-    void initialize() {
-        setChecklistView();
-
-    }
-
-    /**
-     * Refreshes the lists after loading them in.
-     */
-    @FXML
-    protected void refreshButton() {
-        studyBlockObservableList.removeAll(studyBlockStringList);
-        studyBlockStringList.clear();
-
-        checklistObservableList.removeAll(checklistStringList);
-        checklistStringList.clear();
-
+    void initialize() throws IOException, ClassNotFoundException{
+        if (!MainGUI.loaded){
+            loadAll();
+            MainGUI.loaded = true;
+        }
         setChecklistView();
         setStudyBlockView();
     }
 
+
     /**
-     * Loads in the checklists.
-     * @param actionEvent click
-     * @throws IOException if main-view.fxml can't be found
-     * @throws ClassNotFoundException if Checklist can't be found
+     * Loads all checklists from folder "Checklists" and all study blocks from folder
+     * "StudyBlocks".
+     * @throws IOException File is not found
+     * @throws ClassNotFoundException Either folder is not found
      */
-    @FXML
-    protected void loadChecklistButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
-        // Loads FXML file and creates a new Scene
-        Parent loadChecklistParent = FXMLLoader.load(getClass().getResource("main-view.fxml"));
-        Scene loadChecklistScene = new Scene(loadChecklistParent);
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(loadChecklistScene);
+    private void loadAll() throws IOException, ClassNotFoundException{
 
-        final FileChooser fileChooser = new FileChooser();
+        if (checklistFolderExists()) {
+            ChecklistReadWriter checklistReadWriter = new ChecklistReadWriter();
+            File checklistDir = new File(System.getProperty("user.dir") + "//Checklists");
+            File[] checklists = checklistDir.listFiles();
+            if (checklists != null) {
+                for (File file : checklists) {
 
-        ChecklistReadWriter readWriter = new ChecklistReadWriter();
+                    // Deserializes files.
+                    Checklist checklist = checklistReadWriter.readFromFile(file.getPath());
+                    Data.addToChecklistList(checklist);
+                }
+            }
+        }
+        if (studyBlockFolderExists()) {
+            StudyBlockReadWriter studyBlockReadWriter = new StudyBlockReadWriter();
+            File studyBlockDir = new File(System.getProperty("user.dir") + "//StudyBlocks");
+            File[] studyBlocks = studyBlockDir.listFiles();
+            if (studyBlocks != null) {
+                for (File file : studyBlocks) {
 
-        // Helper function to specify current directory where things are being saved.
-        configureFileChooser(fileChooser);
-        List<File> list = fileChooser.showOpenMultipleDialog(stage);
-        if (list != null) {
-            for (File file : list) {
-
-                // Deserializes files.
-                Checklist checklist = readWriter.readFromFile(file.getPath());
-                Data.addToChecklistList(checklist);
+                    // Deserializes files.
+                    StudyBlock studyBlock = studyBlockReadWriter.readFromFile(file.getPath());
+                    Data.addToStudyBlockList(studyBlock);
+                }
             }
         }
     }
-
-
-    /**
-     * Loads in the study block.
-     * @param actionEvent click
-     * @throws IOException if main-view.fxml can't be found
-     * @throws ClassNotFoundException if Checklist can't be found
-     */
-    @FXML
-    protected void loadStudyBlockButton(ActionEvent actionEvent) throws IOException, ClassNotFoundException {
-        // Loads FXML file and creates a new Scene
-        Parent loadChecklistParent = FXMLLoader.load(getClass().getResource("main-view.fxml"));
-        Scene loadChecklistScene = new Scene(loadChecklistParent);
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(loadChecklistScene);
-
-        final FileChooser fileChooser = new FileChooser();
-
-        StudyBlockReadWriter readWriter = new StudyBlockReadWriter();
-
-        // Helper function to specify current directory where things are being saved.
-        configureFileChooser(fileChooser);
-        List<File> list = fileChooser.showOpenMultipleDialog(stage);
-        if (list != null) {
-            for (File file : list) {
-
-                // Deserializes files.
-                StudyBlock studyBlock = readWriter.readFromFile(file.getPath());
-                Data.addToStudyBlockList(studyBlock);
-            }
-        }
-
-    }
-
-
-    /**
-     * Helper function to configure the file chooser to the current directory. user.dir specifies
-     * the current directory. Subject to change.
-     * @param fileChooser the fileChooser which is being initialized.
-     */
-    private static void configureFileChooser(final FileChooser fileChooser) {
-        fileChooser.setTitle("Select Checklists to Import");
-        fileChooser.setInitialDirectory(
-                new File(System.getProperty("user.dir"))
-        );
-    }
-
-
 
     /**
      * Changes scene to Study now.
@@ -263,12 +209,12 @@ public class MainGUIController {
      * by the current stage, and must be dismissed before user can interact with
      * the rest of the program again.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating save-confirm-view.fxml
+     * @throws IOException if there is an issue locating no-save-confirm-view.fxml
      */
     @FXML
     protected void openExitConfirmWindowButton(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent saveConfirmParent = FXMLLoader.load(getClass().getResource("save-confirm-view.fxml"));
+        Parent saveConfirmParent = FXMLLoader.load(getClass().getResource("no-save-confirm-view.fxml"));
         Scene saveConfirmScene = new Scene(saveConfirmParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
@@ -310,12 +256,12 @@ public class MainGUIController {
      * by the current stage, and must be dismissed before user can interact with
      * the rest of the program again.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating save-confirm-view.fxml
+     * @throws IOException if there is an issue locating no-save-confirm-view.fxml
      */
     @FXML
-    protected void openSaveChecklistsButton(ActionEvent actionEvent) throws IOException {
+    protected void openSaveAllButton(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent saveChecklistsParent = FXMLLoader.load(getClass().getResource("save-checklists-view.fxml"));
+        Parent saveChecklistsParent = FXMLLoader.load(getClass().getResource("save-everything-view.fxml"));
         Scene saveChecklistsScene = new Scene(saveChecklistsParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
@@ -334,19 +280,95 @@ public class MainGUIController {
     }
 
     /**
+     * Checks if a "Checklists" folder has been saved in the current directory.
+     * @return true if folder exists
+     */
+    public static boolean checklistFolderExists(){
+        File currDir = new File(System.getProperty("user.dir"));
+        File[] fileList = currDir.listFiles();
+        if (fileList == null){
+            return false;
+        }
+        for (File file : fileList){
+            if (file.getName().equals("Checklists") & file.isDirectory()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Makes a new Checklist folder.
+     */
+    public static boolean createChecklistFolder(){
+        File checklistFolder = new File("Checklists");
+        return (checklistFolder.mkdir());
+    }
+
+    /**
+     * Checks if a "StudyBlocks" folder has been saved in the current directory.
+     * @return true if folder exists
+     */
+    public static boolean studyBlockFolderExists() {
+        File currDir = new File(System.getProperty("user.dir"));
+        File[] fileList = currDir.listFiles();
+        if (fileList == null) {
+            return false;
+        }
+        for (File file : fileList) {
+            if (file.getName().equals("StudyBlocks") & file.isDirectory()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Makes a new StudyBlock folder.
+     */
+    public static boolean createStudyBlockFolder(){
+        File studyBlockFolder = new File("StudyBlocks");
+        return studyBlockFolder.mkdir();
+    }
+
+    /**
      * Allows user to save current checklists.
      * @param actionEvent on click
      * @throws IOException if there is an issue saving files.
-     * TODO implement same for studyblocks.
      */
     @FXML
-    protected void saveChecklistButton(ActionEvent actionEvent) throws IOException {
-        for (Checklist checklist : Data.getChecklistList()){
-            new ChecklistSaver(checklist);
+    protected void saveAllButton(ActionEvent actionEvent) throws IOException {
+        ChecklistReadWriter checklistReadWriter = new ChecklistReadWriter();
+        if (createChecklistFolder()){
+            System.out.println("Checklist folder created!");
+        }
+
+
+        StudyBlockReadWriter studyBlockReadWriter = new StudyBlockReadWriter();
+        if (createStudyBlockFolder()){
+            System.out.println("Study Block folder created!");
+        }
+
+
+        for (Checklist checklist : Data.getChecklistList()) {
+            try {
+                checklistReadWriter.saveToFile(System.getProperty("user.dir") + "\\Checklists\\" + checklist.name, checklist);
+            } catch (IOException e) {
+                System.out.println(checklist.name + " did not save.");
+            }
+        }
+
+        for (StudyBlock studyBlock : Data.getStudyBlockList()){
+            try {
+                studyBlockReadWriter.saveToFile(System.getProperty("user.dir") + "\\StudyBlocks\\" + studyBlock.name, studyBlock);
+            } catch (IOException e) {
+                System.out.println(studyBlock.name + " did not save.");
+            }
         }
 
         // Loads FXML file and creates a new Scene
-        Parent saveChecklistsParent = FXMLLoader.load(getClass().getResource("confirm-save-checklists-view.fxml"));
+        Parent saveChecklistsParent = FXMLLoader.load(getClass().getResource("confirm-save-view.fxml"));
         Scene saveChecklistsScene = new Scene(saveChecklistsParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
@@ -366,7 +388,7 @@ public class MainGUIController {
     }
 
     /**
-     * Move backward to prior Checklist in the list
+     * Move forward to next Checklist in the list
      */
     @FXML
     protected void cycleChecklistsForwardButton(){
@@ -397,7 +419,7 @@ public class MainGUIController {
     }
 
     /**
-     * Move backward to prior StudyBlock in the list
+     * Move forward to next StudyBlock in the list
      */
     @FXML
     protected void cycleStudyBlocksForwardButton(){

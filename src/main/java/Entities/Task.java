@@ -47,7 +47,6 @@ public class Task implements Serializable {
 
     /**
      * Marks the task as completed.
-     * TODO: Do we have to have a function which marks it back to incomplete?
      * If so, could change implementation of this function.
      */
     public void complete(){
