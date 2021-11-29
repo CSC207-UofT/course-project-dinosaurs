@@ -1,12 +1,9 @@
 import Constants.Constants;
 import Infrastructure.ChecklistReadWriter;
-import Infrastructure.StudyBlockReadWriter;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
-import UseCases.ChecklistSaver;
 import UseCases.StudyBlock;
-import UseCases.StudyBlockSaver;
 import UseCases.TaskManager;
 import org.junit.*;
 
@@ -16,7 +13,7 @@ import java.time.LocalDate;
 import static org.junit.Assert.*;
 
 
-public class ReadWriterTest {
+public class ChecklistReadWriterTest {
 
     Checklist tasks = new Checklist("Checklist 1");
 
@@ -68,32 +65,32 @@ public class ReadWriterTest {
     public void TestChecklistSave() throws IOException, ClassNotFoundException {
 
         ChecklistReadWriter readWriter = new ChecklistReadWriter();
-        new ChecklistSaver(tasks);
+        try {
+            readWriter.saveToFile(tasks.name, tasks);
+        } catch (IOException e) {
+            System.out.println(tasks.name + " did not save.");
+        }
         Checklist c1 = readWriter.readFromFile(tasks.name);
 
         assertEquals(c1.complete, tasks.complete);
     }
 
-    @Test(timeout = 180)
-    public void TestStudyBlockSave() throws IOException, ClassNotFoundException {
-
-        StudyBlockReadWriter readWriter = new StudyBlockReadWriter();
-        new StudyBlockSaver(block);
-        t5.setLength(50);
-        new StudyBlockSaver(block2);
-        StudyBlock s1 = readWriter.readFromFile(block.name);
-        StudyBlock s2 = readWriter.readFromFile(block2.name);
-
-        assertEquals(s1.name, block.name);
-        assertEquals(s2.name, block2.name);
-    }
 
     @Test(timeout = 180)
     public void TestChecklistSaveTwo() throws IOException, ClassNotFoundException {
 
         ChecklistReadWriter readWriter = new ChecklistReadWriter();
-        new ChecklistSaver(tasks);
-        new ChecklistSaver(tasks2);
+        try {
+            readWriter.saveToFile(tasks.name, tasks);
+        } catch (IOException e) {
+            System.out.println(tasks.name + " did not save.");
+        }
+
+        try {
+            readWriter.saveToFile(tasks2.name, tasks2);
+        } catch (IOException e) {
+            System.out.println(tasks2.name + " did not save.");
+        }
         Checklist c1 = readWriter.readFromFile(tasks.name);
         Checklist c2 = readWriter.readFromFile(tasks2.name);
 

@@ -14,6 +14,7 @@ import java.io.IOException;
 public class MainGUI extends Application {
 
     static DataAccessInterface Data = new DataAccess();
+    static boolean loaded = false;
 
     /**
      * Launches the GUI.

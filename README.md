@@ -3,7 +3,7 @@
 This  program runs a scenario of a Student managing a number of checklists to help
 plan their work on various tasks.
 
-If you would like some example Checklists and Tasks to work with, run ReadWriterTest. 
+If you would like some example Checklists and Tasks to work with, run ChecklistReadWriterTest. 
 
 Run Controllers.MainGUI.java located in /Controllers/. You can create new Tasks and Checklists <br>
 in the Manage Checklists screen, or load exiting Tasks, Checklists, and Study Blocks with the <br>
