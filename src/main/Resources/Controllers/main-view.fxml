@@ -38,19 +38,12 @@
          </font>
       </Label>
     <VBox alignment="TOP_CENTER" layoutX="168.0" layoutY="482.0" prefHeight="200.0" prefWidth="264.0" spacing="10.0">
-        <Button mnemonicParsing="false" onAction="#refreshButton" text="Refresh"/>
         <Button mnemonicParsing="false" onAction="#changeSceneToStudyNowButton" text="Study Now"/>
-        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <Button mnemonicParsing="false" onAction="#loadChecklistButton" text="Load Checklists"/>
-            <Button mnemonicParsing="false" onAction="#loadStudyBlockButton" text="Load Study Blocks"/>
-        </HBox>
-        <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <Button mnemonicParsing="false" onAction="#changeSceneToChecklistManagerButton" text="Manage Checklists"/>
-            <Button mnemonicParsing="false" onAction="#changeSceneToBlockManagerButton" text="Manage Study Blocks"/>
-        </HBox>
+        <Button mnemonicParsing="false" onAction="#changeSceneToChecklistManagerButton" text="Manage Checklists"/>
+        <Button mnemonicParsing="false" onAction="#changeSceneToBlockManagerButton" text="Manage Study Blocks"/>
         <Button mnemonicParsing="false" onAction="#changeSceneToPreferencesButton" text="Preferences"/>
         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
-            <Button mnemonicParsing="false" onAction="#openSaveChecklistsButton" text="Save and Exit"/>
+            <Button mnemonicParsing="false" onAction="#openSaveAllButton" text="Save and Exit"/>
             <Button mnemonicParsing="false" onAction="#openExitConfirmWindowButton" text="Exit Without Saving"/>
         </HBox>
     </VBox>
@@ -72,6 +65,9 @@
             <padding>
                 <Insets top="5.0"/>
             </padding>
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
         </Label>
         <Button mnemonicParsing="false" onAction="#cycleStudyBlocksForwardButton" text="&gt;"/>
     </HBox>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -10,17 +9,16 @@
             fx:controller="Controllers.MainGUIController"
             prefHeight="151.0" prefWidth="400.0">
 
-        <Label alignment="CENTER" layoutX="32.0" layoutY="36.0" text="Save all current Checklists?">
+        <Label alignment="CENTER" layoutX="32.0" layoutY="36.0" text="Save Confirmed!">
             <font>
                 <Font name="Calibri" size="18.0" />
             </font>
         </Label>
-        <HBox alignment="CENTER" layoutX="100.0" layoutY="64.0" prefHeight="75.0" prefWidth="200.0" spacing="20.0">
-
-                <Button mnemonicParsing="false" onAction="#saveChecklistButton" text="Yes, Save All" />
-                <Button mnemonicParsing="false" onAction="#popUpCancelButton" text="No, Go Back" />
-
+        <HBox alignment="CENTER" layoutX="100.0" layoutY="64.0" prefHeight="75.0" prefWidth="200.0" spacing="10.0">
+            <Button mnemonicParsing="false" onAction="#closeProgramButton" text="Ok" />
         </HBox>
     <Label fx:id="checklistName" opacity="0.0" text="Label" />
+    <Label fx:id="studyBlockName" opacity="0.0" text="Label"/>
+
 
 </AnchorPane>

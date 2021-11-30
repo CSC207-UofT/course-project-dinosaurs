@@ -16,4 +16,5 @@
       <Button mnemonicParsing="false" onAction="#popUpCancelButton" text="No, Go Back"/>
    </HBox>
    <Label fx:id="checklistName" opacity="0.0" text="Label"/>
+   <Label fx:id="studyBlockName" opacity="0.0" text="Label"/>
 </AnchorPane>

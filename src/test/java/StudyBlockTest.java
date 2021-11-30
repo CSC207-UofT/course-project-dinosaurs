@@ -1,3 +1,4 @@
+import Constants.Constants;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
@@ -6,9 +7,7 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
-import java.sql.Array;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import UseCases.StudyBlock;
 
@@ -25,7 +24,7 @@ public class StudyBlockTest {
     Task t2 = new Task("t2", 35, d2, 4, 20);
 //    Task t3 = new Task("t3", 35, d3, 3, 20);
 
-    StudyMethod method = new StudyMethod(StudyMethod.POMODORO);
+    StudyMethod method = new StudyMethod(Constants.POMODORO);
     StudyBlock block = new StudyBlock("studyBlock", method, tasks, 60);
 
     @Before
@@ -53,11 +52,10 @@ public class StudyBlockTest {
 
     }
 
-
-    @Test
     /**
      * Tests when Task 1 goes into the 2nd study block
      */
+    @Test
     public void TestAssignTask() {
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
         assertEquals(array, block.breakUpStudyBlock());
@@ -87,10 +85,10 @@ public class StudyBlockTest {
         assertEquals(msg, msg2);
     }
 
-    @Test
     /**
      * Tests when Task 1 and Task 2 go into the 2nd study block
      */
+    @Test
     public void TestAssignTask3() {
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
         assertEquals(array, block.breakUpStudyBlock());
@@ -166,7 +164,7 @@ public class StudyBlockTest {
     @Test
     public void TestAssignTask1DESKTIME() {
         block.setLength(138);
-        method = new StudyMethod(StudyMethod.DESKTIME);
+        method = new StudyMethod(Constants.DESKTIME);
         int[][] array = new int[][]{{52, 17}, {52, 17}, {0, 0}};
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(26);
