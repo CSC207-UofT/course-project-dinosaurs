@@ -239,7 +239,7 @@ public class ChecklistManagerController {
     @FXML
     protected void deleteSelectedTask(ActionEvent actionEvent) {
         TaskManager taskManager = new TaskManager();
-        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).incomplete.get(Data.getChecklistListIndex());
+        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).incomplete.get(listView.getFocusModel().getFocusedIndex());
         taskManager.removeTask(Data.getChecklistList().get(Data.getChecklistListIndex()), currTask);
 
         // Casts the action event to obtain the Stage where the button was clicked
