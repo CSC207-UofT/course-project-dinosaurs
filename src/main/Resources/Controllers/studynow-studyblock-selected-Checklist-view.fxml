@@ -15,12 +15,12 @@
         <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
             <Button mnemonicParsing="false" onAction="#saveSBfromCheckList" prefHeight="27.0" prefWidth="52.0" text="Save" />
             <HBox prefHeight="25.0" prefWidth="200.0" spacing="10.0">
-                <Button mnemonicParsing="false" onAction="#changeSceneToBlockManagerButton" text="Cancel"/>
+                <Button mnemonicParsing="false" onAction="#changeSceneToBlockManagerButton" text="Cancel" />
             </HBox>
         </HBox>
     </VBox>
     <Label layoutX="57.0" layoutY="318.0" text="Length (in minutes):" />
-    <TextField fx:id="studyBlockLengthTextField" layoutX="220.0" layoutY="313.0" prefHeight="27.0" prefWidth="161.0" promptText="int greater than 0" />
+    <TextField fx:id="studyBlockLengthTextField" layoutX="220.0" layoutY="313.0" prefHeight="27.0" prefWidth="224.0" promptText="int greater than Checklist task length" />
     <Label layoutX="57.0" layoutY="281.0" text="Enter Name of Study Block: " />
     <TextField fx:id="SBfromCheckListNameTextField" layoutX="220.0" layoutY="276.0" promptText="name" />
    <ListView fx:id="listView" layoutX="158.0" layoutY="79.0" prefHeight="178.0" prefWidth="283.0" />
