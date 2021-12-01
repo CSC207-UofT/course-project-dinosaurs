@@ -5,7 +5,7 @@ import Entities.Task;
 import Infrastructure.ChecklistReadWriter;
 import Infrastructure.StudyBlockReadWriter;
 import UseCases.DataAccessInterface;
-import UseCases.StudyBlock;
+import Entities.StudyBlock;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

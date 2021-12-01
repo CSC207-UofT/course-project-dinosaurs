@@ -323,11 +323,11 @@ public class ChecklistManagerController {
         setListView();
     }
 
-    @FXML
-    protected void deleteSelectedChecklist() {
-        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
-        Data.getChecklistList().remove(currChecklist);
-    }
+//    @FXML
+//    protected void deleteSelectedChecklist() {
+//        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+//        Data.getChecklistList().remove(currChecklist);
+//    }
 
 
     /**

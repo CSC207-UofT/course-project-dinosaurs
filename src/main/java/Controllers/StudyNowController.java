@@ -1,8 +1,8 @@
 package Controllers;
 
 import Entities.Checklist;
+import Entities.StudyBlock;
 import Entities.StudyMethod;
-import Entities.Task;
 import UseCases.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,76 +13,54 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Constants.Constants.DUE_DATE;
-
 
 /**
- * Controller for all elements and pop-up windows for the Preferences menu.
+ * Controller for all elements and pop-up windows for the StudyNow view.
  */
 public class StudyNowController {
-
     DataAccessInterface Data = MainGUI.Data;
 
+    @FXML
     public TextField studyBlockLengthTextField;
     public TextField studyBlockNameTextField;
     /**
-     * Instance variables for use by ListView.
+     * Instance variables for use by SetlistView.
      */
     @FXML
-    private ListView<String> listView = new ListView<>();
-    private List<String> stringList = new ArrayList<>();
-    private ObservableList<String> observableList = FXCollections.observableArrayList();
+    private ListView<Checklist> listView = new ListView<>();
+    private List<Checklist> checkListArrayList = new ArrayList<>();
+    private ObservableList<Checklist> observableCheckList = FXCollections.observableArrayList();
 
     /**
-     * Instance variables for use by choicebox.
+     * Instance variables for use by ChoiceBox for displaying Checklist choices.
      */
     @FXML
     public ChoiceBox chooseChecklist = new ChoiceBox();
     private ObservableList<Checklist> checklistObservableList = FXCollections.observableArrayList();
-    //try to see if it works if <checklist>
-    private List <Checklist> checklistStringList = new ArrayList<>();
+    private List <Checklist> listOfChecklists = new ArrayList<>();
 
-//    /**
-//     * variables for the choicebox to help choose the Checklist.
-//     */
-//    @FXML
-
-//    ChoiceBox checklistChoice = new ChoiceBox();
-
-//todo i think this is not supposed ot be here?
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
      * ListView.
      */
     @FXML
     protected void setListView() {
-        // This is where we should iterate through the current checklist and get all task strings
-        // Add each task to stringList
-        // observableList should keep the ListView up to date, but if not call setListView() again
-        stringList.add("Checklist 1");
-        stringList.add("Checklist 2");
-        stringList.add("Checklist 3");
-        stringList.add("Checklist 4");
-        stringList.add("Checklist 5");
-
-        observableList.setAll(stringList);
-
-        listView.setItems(observableList);
+        if (Data.getChecklistListSize() > 0) {
+            checkListArrayList.addAll(Data.getChecklistList());
+        }
+        observableCheckList.setAll(checkListArrayList);
+        listView.setItems(observableCheckList);
     }
 
     /**
-     * Initializes scene and populates ListView.
+     * Initializes scene and populates setListView and checkboxview.
      */
     @FXML
     void initialize() {
@@ -97,13 +75,9 @@ public class StudyNowController {
      */
     @FXML
     protected void checkboxView() {
-        // This is where we should iterate through the current checklist and get all task strings
-        // Add each task to stringList
-        // observableList should keep the ListView up to date, but if not call setListView() again
         for (Checklist checklist : Data.getChecklistList()){
-            checklistStringList.add(checklist);
-
-        checklistObservableList.setAll(checklistStringList);
+            listOfChecklists.add(checklist);
+        checklistObservableList.setAll(listOfChecklists);
         chooseChecklist.setItems(checklistObservableList);
         }
     }
@@ -164,7 +138,6 @@ public class StudyNowController {
         stage.close();
     }
 
-
     /**
      * Saves the created StudyBlock and adds it to StudyBlocklist.
      * @param actionEvent on click
@@ -173,13 +146,61 @@ public class StudyNowController {
     @FXML
     public void saveStudyBlock(ActionEvent actionEvent) throws IOException {
         String name = studyBlockNameTextField.getText();
-        int length = Integer.parseInt(studyBlockLengthTextField.getText());
+        String length = studyBlockLengthTextField.getText();
         StudyMethod method = Data.getStudyMethod();
-        // bellow gets the chosen checklist
+        // bellow gets the chosen checklist from the ChoiceBox
         Checklist list = (Checklist) chooseChecklist.getValue();
-        StudyBlock studyBlock = new StudyBlock(name, method, list, length);
+        StudyBlock studyBlock= StudyBlockManager.createStudyBlock(name, method, list, length);
         Data.addToStudyBlockList(studyBlock);
-        changeSceneToBlockManagerButton(actionEvent);
+        changeSceneToBlockManagerButton(actionEvent);}
+
+
+    /**
+     * Opens a pop-up window showing the option to create Study Block from a checklist
+     * @param actionEvent on click
+     * @throws IOException if there is an issue locating studynow-studyblock-selected-Checklist-view.fxml
+     */
+    @FXML
+    public void openStudyBlockCheckListPopUp(ActionEvent actionEvent) throws IOException {
+        Parent newStudyBlockChecklistParent = FXMLLoader.load(getClass().getResource("studynow-studyblock-selected-Checklist-view.fxml"));
+        Scene newStudyBlockCheckListScene = new Scene(newStudyBlockChecklistParent);
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage popUpWindow = new Stage();
+        popUpWindow.setTitle("Your New Study Block From Selected Checklist");
+        popUpWindow.setScene(newStudyBlockCheckListScene);
+
+        popUpWindow.initModality(Modality.WINDOW_MODAL);
+        popUpWindow.initOwner(stage);
+
+        popUpWindow.setX(stage.getX() + 50);
+        popUpWindow.setY(stage.getY() + 50);
+
+        popUpWindow.show();
     }
 
+    /**
+     * Opens a pop-up window showing the option to create Study Block based on priority using a temp checklist
+     * containing all tasks instead of a specific CheckList
+     * @param actionEvent on click
+     * @throws IOException if there is an issue locating studynow-studyblock-priority-view.fxml
+     */
+    @FXML
+    public void openStudyBlockPriorityPopUp(ActionEvent actionEvent) throws IOException {
+        Parent newStudyBlockPriorityParent = FXMLLoader.load(getClass().getResource("studynow-studyblock-priority-view.fxml"));
+        Scene newStudyBlockPriorityScene = new Scene(newStudyBlockPriorityParent);
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage popUpWindow = new Stage();
+        popUpWindow.setTitle("Your New Study Block by Priority");
+        popUpWindow.setScene(newStudyBlockPriorityScene);
+
+        popUpWindow.initModality(Modality.WINDOW_MODAL);
+        popUpWindow.initOwner(stage);
+
+        popUpWindow.setX(stage.getX() + 50);
+        popUpWindow.setY(stage.getY() + 50);
+
+        popUpWindow.show();
+    }
 }

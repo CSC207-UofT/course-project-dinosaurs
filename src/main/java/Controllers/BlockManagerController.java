@@ -1,6 +1,8 @@
 package Controllers;
 
+import Constants.DueDateSingleton;
 import Entities.Checklist;
+import Entities.StudyBlock;
 import Entities.StudyMethod;
 import UseCases.*;
 import javafx.collections.FXCollections;
@@ -11,25 +13,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static Constants.Constants.DUE_DATE;
-
 /**
  * Controller for all elements and pop-ups windows in the Study Block Manager scene.
  */
 public class BlockManagerController {
 
+    @FXML
     public Label sBlockName;
+
     /**
      * private variables for the ListView that display created StudyBlocks.
      */
@@ -57,7 +56,6 @@ public class BlockManagerController {
         stage.setScene(mainMenuScene);
         stage.show();
     }
-    // TODO before opening popup we need a window that gets all parameters
 
     /**
      * Opens a pop-up window showing the newly created Study Block with options to Save, Export,
@@ -70,34 +68,21 @@ public class BlockManagerController {
         StudyNowController SNC = new StudyNowController();
         SNC.openStudyBlockPopUp(actionEvent);
     }
-// todo the whole export is not linked to the current study block, need to link it
+
+
     /**
-     * Exports a StudyBlock
+     * Exports the selected StudyBlock
      * @param actionEvent on click.
      * @throws IOException if there is an issue.
      */
     @FXML
-    protected void openDeleteItemPopUp(ActionEvent actionEvent) throws IOException {
-        Parent deleteitem = FXMLLoader.load(getClass().getResource("delete-selected-item.fxml"));
-        Scene deleteItemScene = new Scene(deleteitem);
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(deleteItemScene);
-        stage.show();
-    }
-
-    @FXML
     protected void exportStudyBlock(ActionEvent actionEvent) throws IOException {
-        // todo make it take the chosen StudyBlock because this is still all temporary
-        Checklist list = TempCreator.createTemp("examplename", Data.getChecklistList(), DUE_DATE);
-        StudyMethod method = Data.getStudyMethod();
-        //todo fix length but it should be fixed when you take it from the chosen studyblock
-        Schedulable obj = new StudyBlock("StudyBlock", method, list, 75);
-        obj.writeICS();
+        Schedulable currStudyBlock = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
+        currStudyBlock.writeICS();
     }
-
 
     /**
-     * Adds all StudyBlocks to this ListView.
+     * Adds all created StudyBlocks to this ListView.
      */
     @FXML
     protected void setSBlockView() {
@@ -112,7 +97,7 @@ public class BlockManagerController {
     }
 
     /**
-     * Moves forward to prior StudyBlock in the list
+     * Moves forward to next StudyBlock in the list
      */
     @FXML
     protected void cycleStudyBlocksForwardButton(){
@@ -141,14 +126,13 @@ public class BlockManagerController {
         setSBlockView();
     }
 
-
+    /**
+     * Deletes the selected StudyBlock in the list
+     */
     @FXML
     protected void deleteSelectedSB(){
         StudyBlock currsb = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
         Data.getStudyBlockList().remove(currsb);
     }
 
-// todo the delete button to remove the studyblock from the list
-//    public void deleteStudyBlock(ActionEvent actionEvent) {
-//    }
 }
