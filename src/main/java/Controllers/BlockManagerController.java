@@ -77,6 +77,15 @@ public class BlockManagerController {
      * @throws IOException if there is an issue.
      */
     @FXML
+    protected void openDeleteItemPopUp(ActionEvent actionEvent) throws IOException {
+        Parent deleteitem = FXMLLoader.load(getClass().getResource("delete-selected-item.fxml"));
+        Scene deleteItemScene = new Scene(deleteitem);
+        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(deleteItemScene);
+        stage.show();
+    }
+
+    @FXML
     protected void exportStudyBlock(ActionEvent actionEvent) throws IOException {
         // todo make it take the chosen StudyBlock because this is still all temporary
         Checklist list = TempCreator.createTemp("examplename", Data.getChecklistList(), DUE_DATE);
@@ -131,8 +140,15 @@ public class BlockManagerController {
         }
         setSBlockView();
     }
+
+
+    @FXML
+    protected void deleteSelectedSB(){
+        StudyBlock currsb = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
+        Data.getStudyBlockList().remove(currsb);
+    }
+
 // todo the delete button to remove the studyblock from the list
 //    public void deleteStudyBlock(ActionEvent actionEvent) {
 //    }
 }
-
