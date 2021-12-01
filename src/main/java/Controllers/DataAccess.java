@@ -1,6 +1,6 @@
 package Controllers;
 
-import Constants.Constants;
+import Constants.*;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import UseCases.DataAccessInterface;

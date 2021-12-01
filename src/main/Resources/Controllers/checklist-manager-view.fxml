@@ -40,7 +40,7 @@
     </HBox>
     <VBox alignment="TOP_CENTER" layoutX="203.0" layoutY="545.0" prefHeight="122.0" prefWidth="193.0" spacing="10.0">
         <Button mnemonicParsing="false" onAction="#openCreateChecklistPopUp" text="Create New Checklist" />
-        <Button mnemonicParsing="false" text="Delete Current Checklist" />
+        <Button mnemonicParsing="false" onAction="#deleteSelectedChecklist" text="Delete Current Checklist" />
         <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu" />
     </VBox>
 </AnchorPane>

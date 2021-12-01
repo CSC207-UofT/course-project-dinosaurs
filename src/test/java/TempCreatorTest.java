@@ -46,7 +46,7 @@ public class TempCreatorTest {
         ArrayList<Checklist> checklists = new ArrayList<>();
         checklists.add(tasks);
         checklists.add(tasks2);
-        Checklist c1 = TempCreator.createTemp("Temp", checklists, Constants.DUE_DATE);
+        Checklist c1 = TempCreator.createTemp("Temp", checklists, DueDateSingleton.getInstance().getDueDate());
         assertEquals(c1.incomplete.size(), 6);
     }
 
@@ -54,7 +54,7 @@ public class TempCreatorTest {
     public void TestTempPriority(){
         ArrayList<Checklist> checklists = new ArrayList<>();
         checklists.add(tasks);
-        Checklist c1 = TempCreator.createTemp("Temp", checklists, Constants.LENGTH);
+        Checklist c1 = TempCreator.createTemp("Temp", checklists, LengthSingleton.getInstance().getLength());
         assertEquals(c1.incomplete.get(0), t4);
     }
 }
