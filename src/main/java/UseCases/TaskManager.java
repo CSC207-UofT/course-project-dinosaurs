@@ -2,7 +2,7 @@ package UseCases;
 
 import Entities.Checklist;
 import Entities.Task;
-import Constants.Constants;
+import Constants.Comparison;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,6 +33,22 @@ public class TaskManager {
         boolean added = checklist.incomplete.add(task);
         sort(checklist);
         return added;
+    }
+
+    /**
+     * Deletes a task from Entities.Checklist.
+     * @param task The task to be removed from Entities.Checklist.
+     * @return Returns true iff the task was successfully removed from Entities.Checklist
+     */
+    public boolean removeTask(Checklist checklist, Task task) {
+        boolean removed;
+        if (task.completed){
+            removed = checklist.complete.remove(task);
+        }
+        else {
+            removed = checklist.incomplete.remove(task);
+        }
+        return removed;
     }
 
     /**
@@ -89,7 +105,7 @@ public class TaskManager {
      */
 
     private void sort(Checklist checklist) {
-        checklist.incomplete.sort(Constants.COMPARE.get(checklist.priority));
+        checklist.incomplete.sort(Constants.Comparison.COMPARE.get(checklist.priority));
     }
 
 

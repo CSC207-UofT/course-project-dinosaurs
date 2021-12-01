@@ -247,6 +247,15 @@ public class ChecklistManagerController {
     }
 
     /**
+     * Removes the selected checklist
+     */
+    @FXML
+    protected void deleteSelectedChecklist(){
+        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+        Data.getChecklistList().remove(currChecklist);
+    }
+
+    /**
      * Changes how the Checklist sorting to by Due Date (Sooner to Later).
      */
     @FXML
