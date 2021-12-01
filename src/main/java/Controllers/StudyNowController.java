@@ -25,6 +25,8 @@ import java.util.List;
  * Controller for all elements and pop-up windows for the StudyNow view.
  */
 public class StudyNowController {
+    public Button selectedChecklist;
+    public Button byPriority;
     DataAccessInterface Data = MainGUI.Data;
 
     @FXML

@@ -1,9 +1,6 @@
 package Controllers;
 
-import Constants.DueDateSingleton;
-import Entities.Checklist;
 import Entities.StudyBlock;
-import Entities.StudyMethod;
 import UseCases.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

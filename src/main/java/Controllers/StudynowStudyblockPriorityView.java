@@ -21,7 +21,7 @@ import java.io.IOException;
 public class StudynowStudyblockPriorityView {
 
     public TextField studyBlockLengthTextField;
-    public ChoiceBox choosePriority = new ChoiceBox();
+    public ChoiceBox<String> choosePriority = new ChoiceBox<>();
     public TextField SBPriorityNameTextField;
 
     DataAccessInterface Data = MainGUI.Data;
@@ -38,7 +38,7 @@ public class StudynowStudyblockPriorityView {
         String length = studyBlockLengthTextField.getText();
         StudyMethod method = Data.getStudyMethod();
         // bellow chooses the priority
-        String priority = (String) choosePriority.getValue();
+        String priority = choosePriority.getValue();
         // creates the temporary checklist
         Checklist checkList = TempCreator.createTemp( "All Tasks", Data.getChecklistList(), priority);
 
@@ -56,7 +56,6 @@ public class StudynowStudyblockPriorityView {
         choosePriority.setValue("Priority");
     }
 
-    //todo this might be breaking clean architecture
     /**
      * Adds all priorities to checkboxView.
      */
