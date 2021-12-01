@@ -1,6 +1,6 @@
 package Controllers;
 
-import Constants.Constants;
+import Constants.*;
 import Entities.Checklist;
 import Entities.Task;
 import UseCases.DataAccessInterface;
@@ -233,6 +233,20 @@ public class ChecklistManagerController {
     }
 
     /**
+     * Removes the selected Task from the currently selected Checklist
+     * @param actionEvent on click
+     */
+    @FXML
+    protected void deleteSelectedTask(ActionEvent actionEvent) {
+        TaskManager taskManager = new TaskManager();
+        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).incomplete.get(Data.getChecklistListIndex());
+        taskManager.removeTask(Data.getChecklistList().get(Data.getChecklistListIndex()), currTask);
+
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+    }
+
+    /**
      * Creates a new Checklist named by user
      * @param actionEvent on click
      */
@@ -247,12 +261,21 @@ public class ChecklistManagerController {
     }
 
     /**
+     * Removes the selected checklist
+     */
+    @FXML
+    protected void deleteSelectedChecklist(){
+        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+        Data.getChecklistList().remove(currChecklist);
+    }
+
+    /**
      * Changes how the Checklist sorting to by Due Date (Sooner to Later).
      */
     @FXML
     protected void sortChecklistButtonDue() {
         TaskManager taskManager = new TaskManager();
-        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), Constants.DUE_DATE);
+        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), DueDateSingleton.getInstance().getDueDate());
         resetListView();
         setListView();
     }
@@ -263,7 +286,7 @@ public class ChecklistManagerController {
     @FXML
     protected void sortChecklistButtonLength() {
         TaskManager taskManager = new TaskManager();
-        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), Constants.LENGTH);
+        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), LengthSingleton.getInstance().getLength());
         resetListView();
         setListView();
     }
@@ -274,7 +297,7 @@ public class ChecklistManagerController {
     @FXML
     protected void sortChecklistButtonImportance() {
         TaskManager taskManager = new TaskManager();
-        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), Constants.IMPORTANCE);
+        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), ImportanceSingleton.getInstance().getImportance());
         resetListView();
         setListView();
     }
@@ -285,7 +308,7 @@ public class ChecklistManagerController {
     @FXML
     protected void sortChecklistButtonWeight() {
         TaskManager taskManager = new TaskManager();
-        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), Constants.WEIGHT);
+        taskManager.changePriority(Data.getChecklistFromList(Data.getChecklistListIndex()), WeightSingleton.getInstance().getWeight());
         resetListView();
         setListView();
     }

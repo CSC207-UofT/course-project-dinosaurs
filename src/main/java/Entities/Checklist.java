@@ -1,6 +1,6 @@
 package Entities;
 
-import Constants.Constants;
+import Constants.DueDateSingleton;
 import Entities.Task;
 import HelperFunctions.DueDateComparator;
 
@@ -27,7 +27,7 @@ public class Checklist implements Serializable, Iterable<Task>{
     public Checklist(String name) {
         this.incomplete = new ArrayList<>();
         this.complete = new ArrayList<>();
-        this.priority = Constants.DUE_DATE;
+        this.priority = DueDateSingleton.getInstance().getDueDate();
         this.name = name;
     }
 

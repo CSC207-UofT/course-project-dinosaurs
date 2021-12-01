@@ -13,11 +13,6 @@ import java.util.*;
  */
 
 public class Constants {
-    public static final String DUE_DATE = "DUE_DATE";
-    public static final String LENGTH = "LENGTH";
-    public static final String IMPORTANCE = "IMPORTANCE";
-    public static final String WEIGHT = "WEIGHT";
-
     public static final Map<String, Comparator<Entities.Task>> COMPARE;
 
     public static final ArrayList<Integer> POMODORO = new ArrayList<>(Arrays.asList(25, 5));
@@ -26,10 +21,10 @@ public class Constants {
 
     static {
         COMPARE = new HashMap<>();
-        COMPARE.put(DUE_DATE, new DueDateComparator());
-        COMPARE.put(LENGTH, new LengthComparator());
-        COMPARE.put(IMPORTANCE, new ImportanceComparator());
-        COMPARE.put(WEIGHT, new WeightComparator());
+        COMPARE.put(DueDateSingleton.getInstance().getDueDate(), new DueDateComparator());
+        COMPARE.put(LengthSingleton.getInstance().getLength(), new LengthComparator());
+        COMPARE.put(ImportanceSingleton.getInstance().getImportance(), new ImportanceComparator());
+        COMPARE.put(WeightSingleton.getInstance().getWeight(), new WeightComparator());
     }
 
 
