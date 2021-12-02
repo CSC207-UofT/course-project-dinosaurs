@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * Controller for all elements and pop-up windows for creating a StudyBlock with a chosen priority.
  */
-public class StudynowStudyblockPriorityView {
+public class StudyNowStudyBlockPriorityView {
 
     public TextField studyBlockLengthTextField;
     public ChoiceBox<String> choosePriority = new ChoiceBox<>();
@@ -74,7 +74,7 @@ public class StudynowStudyblockPriorityView {
      * @throws IOException if there is an issue locating block-manager-view.fxml
      */
     @FXML
-    public void changeSceneToBlockManagerButton(ActionEvent actionEvent) throws IOException {
+    public void changeSceneToBlockManagerButton(ActionEvent actionEvent){
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }

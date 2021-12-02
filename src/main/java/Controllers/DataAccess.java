@@ -8,6 +8,7 @@ import Entities.StudyBlock;
 import javafx.fxml.FXML;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class DataAccess implements DataAccessInterface {
 
@@ -76,6 +77,19 @@ public class DataAccess implements DataAccessInterface {
     }
 
     /**
+     * Get Checklist with name from checklistList
+     * @return checklist.
+     */
+    @Override
+    public Checklist getChecklistWithName(String name){
+        for (Checklist checklist : checklistList){
+            if (checklist.name.equals(name)){
+                return checklist;
+            }
+        } return null;
+    }
+
+    /**
      * Sets checklistListIndex.
      * @param index index to be set.
      */
@@ -127,6 +141,19 @@ public class DataAccess implements DataAccessInterface {
     @Override
     public void setStudyBlockListIndex(int index) {
         studyBlockListIndex = index;
+    }
+
+    /**
+     * Get Checklist with name from checklistList
+     * @return checklist.
+     */
+    @Override
+    public StudyBlock getStudyBlockWithName(String name){
+        for (StudyBlock studyBlock : studyBlockList){
+            if (studyBlock.name.equals(name)){
+                return studyBlock;
+            }
+        } return null;
     }
 
 

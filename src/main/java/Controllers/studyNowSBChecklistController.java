@@ -32,9 +32,9 @@ public class studyNowSBChecklistController {
      * private variables for the ListView that display created StudyBlocks.
      */
     @FXML
-    private ListView<Checklist> listView = new ListView<>();
-    private List<Checklist> checkListArrayList = new ArrayList<>();
-    private ObservableList<Checklist> observableCheckList = FXCollections.observableArrayList();
+    private ListView<String> listView = new ListView<>();
+    private List<String> checkListNamesArrayList = new ArrayList<>();
+    private ObservableList<String> observableCheckListNames = FXCollections.observableArrayList();
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
@@ -43,10 +43,12 @@ public class studyNowSBChecklistController {
     @FXML
     protected void setListView() {
         if (Data.getChecklistListSize() > 0) {
-            checkListArrayList.addAll(Data.getChecklistList());
+            for (Checklist checklist : Data.getChecklistList()) {
+                checkListNamesArrayList.add(checklist.name);
+            }
         }
-        observableCheckList.setAll(checkListArrayList);
-        listView.setItems(observableCheckList);
+        observableCheckListNames.setAll(checkListNamesArrayList);
+        listView.setItems(observableCheckListNames);
     }
 
     /**
@@ -63,13 +65,14 @@ public class studyNowSBChecklistController {
      * @throws IOException if there is an issue locating main-view.fxml
      */
     @FXML
-    public void saveSBfromCheckList(ActionEvent actionEvent) throws IOException {
+    public void saveSBfromCheckList(ActionEvent actionEvent){
         String name = SBfromCheckListNameTextField.getText();
         String length = studyBlockLengthTextField.getText();
         StudyMethod method = Data.getStudyMethod();
         // bellow gets the chosen checklist
-        Checklist list = listView.getSelectionModel().getSelectedItem();
-        StudyBlock studyBlock= StudyBlockManager.createStudyBlock(name, method, list, length);
+        String list = listView.getSelectionModel().getSelectedItem();
+        Checklist checklist = Data.getChecklistWithName(list);
+        StudyBlock studyBlock= StudyBlockManager.createStudyBlock(name, method, checklist, length);
         Data.addToStudyBlockList(studyBlock);
         changeSceneToBlockManagerButton(actionEvent);
     }
@@ -77,10 +80,9 @@ public class studyNowSBChecklistController {
     /**
      * Changes scene back to BlockManager.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating block-manager-view.fxml
      */
     @FXML
-    protected void changeSceneToBlockManagerButton(ActionEvent actionEvent) throws IOException {
+    protected void changeSceneToBlockManagerButton(ActionEvent actionEvent){
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
