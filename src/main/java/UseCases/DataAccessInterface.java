@@ -1,6 +1,7 @@
 package UseCases;
 
 import Entities.Checklist;
+import Entities.StudyBlock;
 import Entities.StudyMethod;
 
 import java.util.ArrayList;

@@ -52,10 +52,14 @@ public class ChecklistManagerController {
      * Setup for Checklist Sorting MenuButton
      */
 
-    @FXML MenuItem menuItemDue;
-    @FXML MenuItem menuItemLength;
-    @FXML MenuItem menuItemImportance;
-    @FXML MenuItem menuItemWeight;
+    @FXML
+    MenuItem menuItemDue;
+    @FXML
+    MenuItem menuItemLength;
+    @FXML
+    MenuItem menuItemImportance;
+    @FXML
+    MenuItem menuItemWeight;
 
     public MenuButton sortMenuButton;
 
@@ -96,6 +100,7 @@ public class ChecklistManagerController {
 
     /**
      * Changes scene to Main Menu.
+     *
      * @param actionEvent on click
      * @throws IOException if there is an issue locating main-view.fxml
      */
@@ -106,7 +111,7 @@ public class ChecklistManagerController {
         Scene mainMenuScene = new Scene(mainMenuParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(mainMenuScene);
         stage.show();
     }
@@ -114,6 +119,7 @@ public class ChecklistManagerController {
     /**
      * Creates a new stage for adding new Tasks that is owned by the current stage, and must
      * be dismissed before user can interact with the rest of the program again.
+     *
      * @param actionEvent on click
      * @throws IOException if there is an issue locating add-task-view.fxml
      */
@@ -144,6 +150,7 @@ public class ChecklistManagerController {
      * Creates a new stage for creating and naming Checklists that is owned by the
      * current stage, and must be dismissed before user can interact with the rest
      * of the program again.
+     *
      * @param actionEvent on click
      * @throws IOException if there is an issue locating create-checklist-view.fxml
      */
@@ -172,12 +179,13 @@ public class ChecklistManagerController {
 
     /**
      * Closes the pop-up window.
+     *
      * @param actionEvent on click
      */
     @FXML
     protected void backButton(ActionEvent actionEvent) {
         // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
@@ -185,7 +193,7 @@ public class ChecklistManagerController {
      * Move forward to next Checklist in the list
      */
     @FXML
-    protected void cycleChecklistsForwardButton(){
+    protected void cycleChecklistsForwardButton() {
         observableList.removeAll(stringList);
         stringList.clear();
         if (Data.getChecklistListIndex() < (Data.getChecklistListSize() - 1)) {
@@ -200,7 +208,7 @@ public class ChecklistManagerController {
      * Move backward to prior Checklist in the list
      */
     @FXML
-    protected void cycleChecklistsBackwardButton(){
+    protected void cycleChecklistsBackwardButton() {
         observableList.removeAll(stringList);
         stringList.clear();
         if (Data.getChecklistListIndex() > 0) {
@@ -214,6 +222,7 @@ public class ChecklistManagerController {
 
     /**
      * Creates a new Task from user input and adds it to the currently selected Checklist
+     *
      * @param actionEvent on click
      */
     @FXML
@@ -228,7 +237,7 @@ public class ChecklistManagerController {
         taskManager.addTask(Data.getChecklistList().get(Data.getChecklistListIndex()), newTask);
 
         // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
@@ -248,6 +257,7 @@ public class ChecklistManagerController {
 
     /**
      * Creates a new Checklist named by user
+     *
      * @param actionEvent on click
      */
     @FXML
@@ -256,7 +266,7 @@ public class ChecklistManagerController {
         Data.addToChecklistList(newChecklist);
 
         // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
 
@@ -313,6 +323,11 @@ public class ChecklistManagerController {
         setListView();
     }
 
+//    @FXML
+//    protected void deleteSelectedChecklist() {
+//        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+//        Data.getChecklistList().remove(currChecklist);
+//    }
 
 
     /**
@@ -322,4 +337,5 @@ public class ChecklistManagerController {
     void initialize() {
         setListView();
     }
+
 }
