@@ -85,12 +85,25 @@ public class BlockManagerController {
     protected void setSBlockView() {
         if (Data.getStudyBlockListSize() > 0) {
             sBlockStringList.add(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).toString());
+
+            sBlockName.setText(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).name);
+
+            sBlockObservableList.setAll(sBlockStringList);
+
+            sBlockView.setItems(sBlockObservableList);
+        } else {
+            sBlockObservableList.removeAll(sBlockStringList);
+            sBlockStringList.clear();
+            sBlockName.setText("Example Study Block");
         }
-        sBlockName.setText(Data.getStudyBlockList().get(Data.getStudyBlockListIndex()).name);
+    }
 
-        sBlockObservableList.setAll(sBlockStringList);
-
-        sBlockView.setItems(sBlockObservableList);
+    /**
+     * Initializes scene and populates ListView.
+     */
+    @FXML
+    void initialize() {
+        setSBlockView();
     }
 
     /**
@@ -130,6 +143,7 @@ public class BlockManagerController {
     protected void deleteSelectedSB(){
         StudyBlock currsb = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
         Data.getStudyBlockList().remove(currsb);
+        setSBlockView();
     }
 
 }
