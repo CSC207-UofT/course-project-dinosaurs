@@ -24,12 +24,10 @@
             <Label fx:id="sBlockName" alignment="CENTER" prefWidth="180.0" text="Example Study Block" textAlignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#cycleStudyBlocksForwardButton" text="&gt;" />
         </HBox>
-        <HBox alignment="CENTER" layoutX="57.0" layoutY="500.0" prefHeight="25.0" prefWidth="485.0" spacing="10.0">
+        <VBox alignment="TOP_CENTER" layoutX="216.0" layoutY="500.0" prefHeight="83.0" prefWidth="165.0" spacing="10.0">
+            <Button mnemonicParsing="false" onAction="#openStudyBlockPopUp" text="Create New Study Block" />
             <Button mnemonicParsing="false" onAction="#exportStudyBlock" text="Export Study Block" />
             <Button mnemonicParsing="false" onAction="#deleteSelectedSB" text="Delete Current Study Block" />
-        </HBox>
-        <VBox alignment="TOP_CENTER" layoutX="216.0" layoutY="545.0" prefHeight="83.0" prefWidth="165.0" spacing="10.0">
-            <Button mnemonicParsing="false" onAction="#openStudyBlockPopUp" text="Create New Study Block" />
             <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu" />
         </VBox>
    <ListView fx:id="sBlockView" layoutX="183.0" layoutY="227.0" prefHeight="221.0" prefWidth="239.0" />
