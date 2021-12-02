@@ -46,7 +46,7 @@ public class StudyNowController {
     @FXML
     public ChoiceBox chooseChecklist = new ChoiceBox();
     private ObservableList<Checklist> checklistObservableList = FXCollections.observableArrayList();
-    private List <Checklist> listOfChecklists = new ArrayList<>();
+    private List<Checklist> listOfChecklists = new ArrayList<>();
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
