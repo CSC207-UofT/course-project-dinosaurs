@@ -1,8 +1,10 @@
 package Controllers;
 
 import Entities.Checklist;
+import Entities.StudyMethod;
 import Entities.Task;
 import Infrastructure.ChecklistReadWriter;
+import Infrastructure.PreferencesReadWriter;
 import Infrastructure.StudyBlockReadWriter;
 import UseCases.DataAccessInterface;
 import Entities.StudyBlock;
@@ -102,7 +104,7 @@ public class MainGUIController {
 
     /**
      * Loads all checklists from folder "Checklists" and all study blocks from folder
-     * "StudyBlocks".
+     * "StudyBlocks". Loads saved StudyMethod from folder "StudyMethod".
      * @throws IOException File is not found
      * @throws ClassNotFoundException Either folder is not found
      */
@@ -131,6 +133,19 @@ public class MainGUIController {
                     // Deserializes files.
                     StudyBlock studyBlock = studyBlockReadWriter.readFromFile(file.getPath());
                     Data.addToStudyBlockList(studyBlock);
+                }
+            }
+        }
+        if (preferencesFolderExists()) {
+            PreferencesReadWriter preferencesReadWriter = new PreferencesReadWriter();
+            File preferencesDir = new File(System.getProperty("user.dir") + "//Preferences");
+            File[] preferences = preferencesDir.listFiles();
+            if (preferences != null) {
+                for (File file : preferences) {
+
+                    // Deserializes files.
+                    StudyMethod studyMethod = preferencesReadWriter.readFromFile(file.getPath());
+                    Data.setStudyMethod(studyMethod);
                 }
             }
         }
@@ -333,6 +348,32 @@ public class MainGUIController {
     }
 
     /**
+     * Checks if a "Preferences" folder has been saved in the current directory.
+     * @return true if folder exists
+     */
+    public static boolean preferencesFolderExists() {
+        File currDir = new File(System.getProperty("user.dir"));
+        File[] fileList = currDir.listFiles();
+        if (fileList == null) {
+            return false;
+        }
+        for (File file : fileList) {
+            if (file.getName().equals("Preferences") & file.isDirectory()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Makes a new Preferences folder.
+     */
+    public static boolean createPreferencesFolder(){
+        File preferencesFolder = new File("Preferences");
+        return preferencesFolder.mkdir();
+    }
+
+    /**
      * Allows user to save current checklists.
      * @param actionEvent on click
      * @throws IOException if there is an issue saving files.
@@ -348,6 +389,11 @@ public class MainGUIController {
         StudyBlockReadWriter studyBlockReadWriter = new StudyBlockReadWriter();
         if (createStudyBlockFolder()){
             System.out.println("Study Block folder created!");
+        }
+
+        PreferencesReadWriter preferencesReadWriter = new PreferencesReadWriter();
+        if (createPreferencesFolder()){
+            System.out.println("Preferences folder created!");
         }
 
 
@@ -366,6 +412,13 @@ public class MainGUIController {
                 System.out.println(studyBlock.name + " did not save.");
             }
         }
+
+        try {
+            preferencesReadWriter.saveToFile(System.getProperty("user.dir") + "\\Preference\\" + "StudyMethod", Data.getStudyMethod());
+        } catch (IOException e) {
+            System.out.println("StudyMethod did not save.");
+        }
+
 
         // Loads FXML file and creates a new Scene
         Parent saveChecklistsParent = FXMLLoader.load(getClass().getResource("confirm-save-view.fxml"));

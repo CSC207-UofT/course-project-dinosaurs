@@ -171,8 +171,8 @@ public class DataAccess implements DataAccessInterface {
      * @param method method to be saved as preference.
      */
     @Override
-    public void setStudyMethod(ArrayList<Integer> method){
-        chosenMethod.setMethod(method);
+    public void setStudyMethod(StudyMethod method){
+        chosenMethod = method;
     }
 
 }
