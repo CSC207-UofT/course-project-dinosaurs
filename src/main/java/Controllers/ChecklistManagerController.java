@@ -338,16 +338,16 @@ public class ChecklistManagerController {
         taskManager.completeTask(currChecklist, currTask);
     }
 
-    /**
-     * Marks the selected Task incomplete.
-     */
-    @FXML
-    protected void markTaskIncomplete() {
-        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
-        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).complete.get(completedListView.getFocusModel().getFocusedIndex());
-        TaskManager taskManager = new TaskManager();
-        taskManager.revertTask(currChecklist, currTask);
-    }
+//    /**
+//     * Marks the selected Task incomplete.
+//     */
+//    @FXML
+//    protected void markTaskIncomplete() {
+//        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+//        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).complete.get(completedListView.getFocusModel().getFocusedIndex());
+//        TaskManager taskManager = new TaskManager();
+//        taskManager.revertTask(currChecklist, currTask);
+//    }
 
     /**
      * Changes how the Checklist sorting to by Due Date (Sooner to Later).
