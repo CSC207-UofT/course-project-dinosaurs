@@ -2,6 +2,7 @@ import Constants.Constants;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
+import Entities.StudyBlock;
 import UseCases.TaskManager;
 import org.junit.*;
 
@@ -9,7 +10,6 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import UseCases.StudyBlock;
 
 
 public class StudyBlockTest {

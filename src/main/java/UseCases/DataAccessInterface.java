@@ -1,9 +1,11 @@
 package UseCases;
 
 import Entities.Checklist;
+import Entities.StudyBlock;
 import Entities.StudyMethod;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 /**
  * An interface for the DataAccess file. Controllers call
@@ -22,6 +24,12 @@ public interface DataAccessInterface {
      * @return checklist.
      */
     Checklist getChecklistFromList(int index);
+
+    /**
+     * Get Checklist with name from checklistList
+     * @return checklist.
+     */
+    Checklist getChecklistWithName(String name);
 
     /**
      * Adds Checklist to checklistList.
@@ -52,6 +60,12 @@ public interface DataAccessInterface {
      * @return studyBlockList.
      */
     ArrayList<StudyBlock> getStudyBlockList();
+
+    /**
+     * Get StudyBlock with name from StudyBlockList
+     * @return StudyBlock.
+     */
+    StudyBlock getStudyBlockWithName(String name);
 
     /**
      * Adds studyblock to studyBlockList.

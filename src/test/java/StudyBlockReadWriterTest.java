@@ -3,7 +3,7 @@ import Infrastructure.StudyBlockReadWriter;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
-import UseCases.StudyBlock;
+import Entities.StudyBlock;
 import UseCases.TaskManager;
 import org.junit.*;
 
