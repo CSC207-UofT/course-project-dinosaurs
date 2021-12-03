@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -85,13 +86,20 @@ public class ChecklistManagerController {
                 stringList.add(task.toString());
             }
             checklistTitle.setText(Data.getChecklistList().get(Data.getChecklistListIndex()).name);
+
+            observableList.setAll(stringList);
+
+            listView.setItems(observableList);
+        } else {
+            observableList.clear();
+            stringList.clear();
+            checklistTitle.setText("Example Checklist");
         }
-
-        observableList.setAll(stringList);
-
-        listView.setItems(observableList);
     }
 
+    /**
+     * Resets the list view to empty.
+     */
     @FXML
     protected void resetListView() {
         observableList.clear();
@@ -235,7 +243,6 @@ public class ChecklistManagerController {
         TaskManager taskManager = new TaskManager();
         Task newTask = taskManager.addTaskHelper(name, weight, dueDate, importance, length);
         taskManager.addTask(Data.getChecklistList().get(Data.getChecklistListIndex()), newTask);
-
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
@@ -243,16 +250,14 @@ public class ChecklistManagerController {
 
     /**
      * Removes the selected Task from the currently selected Checklist
-     * @param actionEvent on click
      */
     @FXML
-    protected void deleteSelectedTask(ActionEvent actionEvent) {
+    protected void deleteSelectedTask() {
         TaskManager taskManager = new TaskManager();
         Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).incomplete.get(listView.getFocusModel().getFocusedIndex());
         taskManager.removeTask(Data.getChecklistList().get(Data.getChecklistListIndex()), currTask);
-
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        resetListView();
+        setListView();
     }
 
     /**
@@ -264,7 +269,6 @@ public class ChecklistManagerController {
     protected void createNewChecklist(ActionEvent actionEvent) {
         Checklist newChecklist = new Checklist(checklistNameField.getText());
         Data.addToChecklistList(newChecklist);
-
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
@@ -274,9 +278,14 @@ public class ChecklistManagerController {
      * Removes the selected checklist
      */
     @FXML
-    protected void deleteSelectedChecklist(){
-        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
-        Data.getChecklistList().remove(currChecklist);
+    protected void deleteSelectedChecklist() {
+        if (Data.getChecklistListSize() != 0) {
+            Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+            Data.getChecklistList().remove(currChecklist);
+            Data.setChecklistListIndex(0);
+            setListView();
+        }
+
     }
 
     /**

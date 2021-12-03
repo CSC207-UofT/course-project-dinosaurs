@@ -140,12 +140,15 @@ public class BlockManagerController {
      * Deletes the selected StudyBlock in the list
      */
     @FXML
-    protected void deleteSelectedSB(){
-        StudyBlock currsb = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
-        Data.getStudyBlockList().remove(currsb);
-        sBlockObservableList.removeAll(sBlockStringList);
-        sBlockStringList.clear();
-        setSBlockView();
+    protected void deleteSelectedSB() {
+        if (Data.getStudyBlockListSize() != 0) {
+            StudyBlock currsb = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
+            Data.getStudyBlockList().remove(currsb);
+            sBlockObservableList.removeAll(sBlockStringList);
+            sBlockStringList.clear();
+            Data.setStudyBlockListIndex(0);
+            setSBlockView();
+        }
     }
 
 }
