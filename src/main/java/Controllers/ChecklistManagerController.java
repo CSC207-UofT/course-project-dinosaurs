@@ -282,8 +282,10 @@ public class ChecklistManagerController {
         if (Data.getChecklistListSize() != 0) {
             Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
             Data.getChecklistList().remove(currChecklist);
+            Data.setChecklistListIndex(0);
+            setListView();
         }
-        setListView();
+
     }
 
     /**
