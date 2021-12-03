@@ -44,7 +44,6 @@ public class StudyBlock implements Schedulable, Serializable {
         this.assignedTasks = new ArrayList<>();
     }
 
-
     public StudyMethod getStudyMethod() {
         return studyMethod;
     }
@@ -154,11 +153,9 @@ public class StudyBlock implements Schedulable, Serializable {
                 x++;
             }
         } while (t_left > 0 && (x < checklist.incomplete.size()));
-
         map.put(msg, tL);
         return map;
     }
-
 
     public ArrayList<String> assignTasks(int[][] array) {
 //      A subblock refers to a StudyMethod's [study, break] (ie. [25, 5] or [52, 17])

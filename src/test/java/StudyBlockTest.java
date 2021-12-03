@@ -30,7 +30,7 @@ public class StudyBlockTest {
     }
 
     /**
-     * Splits studyblock into even subblock
+     * Splits studyblock into 2 even subblock
      */
     @Test
     public void TestbreakUpStudyBlock() {
