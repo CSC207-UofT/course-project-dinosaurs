@@ -27,38 +27,57 @@ import java.util.List;
 public class StudyNowController {
     public Button selectedChecklist;
     public Button byPriority;
+    /**
+     * Instance variable to choose sorting priority.
+     */
+    @FXML
+    public ChoiceBox<String> choosePriority = new ChoiceBox<>();
+    /**
+     * Instance variable to choose checklist.
+     */
+    @FXML
+    private ListView<String> manageStudyBlockListView = new ListView<>();
+    private List<String> checkListNamesArrayList = new ArrayList<>();
+    private ObservableList<String> observableCheckListNames = FXCollections.observableArrayList();
+
     DataAccessInterface Data = MainGUI.Data;
 
     @FXML
     public TextField studyBlockLengthTextField;
     public TextField studyBlockNameTextField;
+
     /**
-     * Instance variables for use by SetlistView.
+     * Instance variables for use by SetlistView, the listview in the study now view.
      */
     @FXML
-    private ListView<Checklist> listView = new ListView<>();
+    private ListView<Checklist> studyNowListView = new ListView<>();
     private List<Checklist> checkListArrayList = new ArrayList<>();
     private ObservableList<Checklist> observableCheckList = FXCollections.observableArrayList();
 
-    /**
-     * Instance variables for use by ChoiceBox for displaying Checklist choices.
-     */
-    @FXML
-    public ChoiceBox chooseChecklist = new ChoiceBox();
-    private ObservableList<Checklist> checklistObservableList = FXCollections.observableArrayList();
-    private List<Checklist> listOfChecklists = new ArrayList<>();
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
      * ListView.
      */
     @FXML
-    protected void setListView() {
+    protected void setStudyNowListView() {
         if (Data.getChecklistListSize() > 0) {
             checkListArrayList.addAll(Data.getChecklistList());
         }
         observableCheckList.setAll(checkListArrayList);
-        listView.setItems(observableCheckList);
+        studyNowListView.setItems(observableCheckList);
+    }
+
+    /**
+     * Adds all priorities to checkboxView.
+     */
+    @FXML
+    protected void checkboxView() {
+
+        choosePriority.getItems().add("DUE_DATE");
+        choosePriority.getItems().add("LENGTH");
+        choosePriority.getItems().add("IMPORTANCE");
+        choosePriority.getItems().add("WEIGHT");
     }
 
     /**
@@ -66,23 +85,12 @@ public class StudyNowController {
      */
     @FXML
     void initialize() {
-        setListView();
+        setManageStudyBlockListView();
+        setStudyNowListView();
         checkboxView();
-        chooseChecklist.setValue(checklistObservableList);
-        chooseChecklist.setValue("Checklist");
+        choosePriority.setValue("Priority");
     }
-    /**
-     * Adds all Tasks to stringList and creates an observable list to display them in
-     * ListView.
-     */
-    @FXML
-    protected void checkboxView() {
-        for (Checklist checklist : Data.getChecklistList()){
-            listOfChecklists.add(checklist);
-        checklistObservableList.setAll(listOfChecklists);
-        chooseChecklist.setItems(checklistObservableList);
-        }
-    }
+
 
 
     /**
@@ -139,9 +147,24 @@ public class StudyNowController {
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
     }
+    /**
+     * Adds all Tasks to stringList and creates an observable list to display them in
+     * ListView.
+     */
+    @FXML
+    protected void setManageStudyBlockListView() {
+        manageStudyBlockListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        if (Data.getChecklistListSize() > 0) {
+            for (Checklist checklist : Data.getChecklistList()) {
+                checkListNamesArrayList.add(checklist.name);
+            }
+        }
+        observableCheckListNames.setAll(checkListNamesArrayList);
+        manageStudyBlockListView.setItems(observableCheckListNames);
+    }
 
     /**
-     * Saves the created StudyBlock and adds it to StudyBlocklist.
+     * Saves the created StudyBlock from one or more checklists and adds it to StudyBlocklist.
      * @param actionEvent on click
      * @throws IOException if there is an issue locating main-view.fxml
      */
@@ -150,10 +173,23 @@ public class StudyNowController {
         String name = studyBlockNameTextField.getText();
         String length = studyBlockLengthTextField.getText();
         StudyMethod method = Data.getStudyMethod();
-        // bellow gets the chosen checklist from the ChoiceBox
-        Checklist list = (Checklist) chooseChecklist.getValue();
-        StudyBlock studyBlock= StudyBlockManager.createStudyBlock(name, method, list, length);
-        Data.addToStudyBlockList(studyBlock);
+        String priority = choosePriority.getValue();
+
+        ObservableList<String> selectedItems =  manageStudyBlockListView.getSelectionModel().getSelectedItems();
+        if (selectedItems.size() >1){
+            ArrayList<Checklist> list = new ArrayList<>();
+            for (String item: selectedItems){
+                list.add(Data.getChecklistWithName(item));
+            }
+            Checklist checkList = TempCreator.createTemp( "Selected Checklists Tasks", list, priority);
+            StudyBlock studyBlock= StudyBlockManager.createStudyBlock(name, method, checkList, length);
+            Data.addToStudyBlockList(studyBlock);
+        }else{
+            String list = manageStudyBlockListView.getSelectionModel().getSelectedItem();
+            Checklist checklist = Data.getChecklistWithName(list);
+            StudyBlock studyblock= StudyBlockManager.createStudyBlock(name, method, checklist, length);
+            Data.addToStudyBlockList(studyblock);
+        }
         changeSceneToBlockManagerButton(actionEvent);}
 
 
