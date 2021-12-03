@@ -64,12 +64,20 @@ public class ChecklistManagerController {
     public MenuButton sortMenuButton;
 
     /**
-     * Instance variables for use by ListView.
+     * Instance variables for use by ListView for the Incomplete Tasks.
      */
     @FXML
     private ListView<String> listView;
     private List<String> stringList = new ArrayList<>();
     private ObservableList<String> observableList = FXCollections.observableArrayList();
+
+    /**
+     * Instance variables for use by ListView for the Complete Tasks.
+     */
+    @FXML
+    private ListView<String> completedListView;
+    private List<String> completedStringList = new ArrayList<>();
+    private ObservableList<String> completedObservableList = FXCollections.observableArrayList();
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
@@ -81,21 +89,30 @@ public class ChecklistManagerController {
         // Add each task to stringList
         // observableList should keep the ListView up to date
         if (Data.getChecklistListSize() > 0) {
-            for (Task task : Data.getChecklistList().get(Data.getChecklistListIndex())) {
+            for (Task task : Data.getChecklistList().get(Data.getChecklistListIndex()).incomplete) {
                 stringList.add(task.toString());
             }
             checklistTitle.setText(Data.getChecklistList().get(Data.getChecklistListIndex()).name);
+            for (Task compTask : Data.getChecklistList().get(Data.getChecklistListIndex()).complete) {
+                completedStringList.add(compTask.toString());
+            }
         }
 
         observableList.setAll(stringList);
-
         listView.setItems(observableList);
+
+        completedObservableList.setAll(completedStringList);
+        completedListView.setItems(completedObservableList);
+
     }
 
     @FXML
     protected void resetListView() {
         observableList.clear();
         stringList.clear();
+
+        completedObservableList.clear();
+        completedStringList.clear();
     }
 
     /**
@@ -164,6 +181,37 @@ public class ChecklistManagerController {
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Stage popUpWindow = new Stage();
         popUpWindow.setTitle("Create New Checklist");
+        popUpWindow.setScene(newChecklistScene);
+
+        // Modality restricts user action to this stage
+        popUpWindow.initModality(Modality.WINDOW_MODAL);
+        popUpWindow.initOwner(stage);
+
+        // Offset by (50,50) to help differentiate the new window
+        popUpWindow.setX(stage.getX() + 50);
+        popUpWindow.setY(stage.getY() + 50);
+
+        popUpWindow.show();
+    }
+
+    /**
+     * Creates a new stage for viewing previously completed Tasks that is owned by the
+     * current stage, and must be dismissed before user can interact with the rest
+     * of the program again.
+     *
+     * @param actionEvent on click
+     * @throws IOException if there is an issue locating create-checklist-view.fxml
+     */
+    @FXML
+    protected void openCompletedTasksPopUp(ActionEvent actionEvent) throws IOException {
+        // Loads FXML file and creates a new Scene
+        Parent newChecklistParent = FXMLLoader.load(getClass().getResource("completed-task-view.fxml"));
+        Scene newChecklistScene = new Scene(newChecklistParent);
+
+        // Casts the action event to obtain the Stage where the button was clicked
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Stage popUpWindow = new Stage();
+        popUpWindow.setTitle("Completed Tasks");
         popUpWindow.setScene(newChecklistScene);
 
         // Modality restricts user action to this stage
@@ -277,6 +325,28 @@ public class ChecklistManagerController {
     protected void deleteSelectedChecklist(){
         Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
         Data.getChecklistList().remove(currChecklist);
+    }
+
+    /**
+     * Marks the selected Task complete.
+     */
+    @FXML
+    protected void markTaskComplete() {
+        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).incomplete.get(listView.getFocusModel().getFocusedIndex());
+        TaskManager taskManager = new TaskManager();
+        taskManager.completeTask(currChecklist, currTask);
+    }
+
+    /**
+     * Marks the selected Task incomplete.
+     */
+    @FXML
+    protected void markTaskIncomplete() {
+        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).complete.get(completedListView.getFocusModel().getFocusedIndex());
+        TaskManager taskManager = new TaskManager();
+        taskManager.revertTask(currChecklist, currTask);
     }
 
     /**

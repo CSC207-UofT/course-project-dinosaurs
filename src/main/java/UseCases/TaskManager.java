@@ -71,6 +71,23 @@ public class TaskManager {
     }
 
     /**
+     * Reverts a given task from the Checklist's completed list.
+     * Removes it from the completed list and adds it to the incomplete list.
+     * @param checklist the Checklist on which the Task appears.
+     * @param task The task to revert.
+     * @return false if the task was not on the completed list.
+     */
+    public boolean revertTask(Checklist checklist, Task task) {
+        if (checklist.complete.contains(task)) {
+            checklist.complete.remove(task);
+            task.revert();
+            checklist.incomplete.add(task);
+            return true;
+        }
+        else {return false;}
+    }
+
+    /**
      * Changes the current priority to a different priority
      * in constants.
      * @param priority A priority organizing scheme as outlined in
