@@ -33,8 +33,8 @@ public class studyNowSBChecklistController {
      */
     @FXML
     private ListView<String> listView = new ListView<>();
-    private List<String> checkListNamesArrayList = new ArrayList<>();
-    private ObservableList<String> observableCheckListNames = FXCollections.observableArrayList();
+    private final List<String> checkListNamesArrayList = new ArrayList<>();
+    private final ObservableList<String> observableCheckListNames = FXCollections.observableArrayList();
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
@@ -62,7 +62,6 @@ public class studyNowSBChecklistController {
     /**
      * Saves the created StudyBlock from chosen Checklist and adds it to StudyBlocklist.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating main-view.fxml
      */
     @FXML
     public void saveSBfromCheckList(ActionEvent actionEvent){
