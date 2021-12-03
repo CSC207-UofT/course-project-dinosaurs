@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import UseCases.StudyBlock;
+import Entities.StudyBlock;
 
 
 public class StudyBlockTest {

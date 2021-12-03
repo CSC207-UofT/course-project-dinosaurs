@@ -4,7 +4,7 @@ import Constants.*;
 import Entities.Checklist;
 import Entities.StudyMethod;
 import UseCases.DataAccessInterface;
-import UseCases.StudyBlock;
+import Entities.StudyBlock;
 import javafx.fxml.FXML;
 
 import java.util.ArrayList;

@@ -81,11 +81,16 @@ public class ChecklistManagerController {
                 stringList.add(task.toString());
             }
             checklistTitle.setText(Data.getChecklistList().get(Data.getChecklistListIndex()).name);
+
+
+            observableList.setAll(stringList);
+
+            listView.setItems(observableList);
+        } else {
+            observableList.removeAll(stringList);
+            stringList.clear();
+            checklistTitle.setText("Example Checklist");
         }
-
-        observableList.setAll(stringList);
-
-        listView.setItems(observableList);
     }
 
     @FXML
@@ -226,10 +231,11 @@ public class ChecklistManagerController {
         TaskManager taskManager = new TaskManager();
         Task newTask = taskManager.addTaskHelper(name, weight, dueDate, importance, length);
         taskManager.addTask(Data.getChecklistList().get(Data.getChecklistListIndex()), newTask);
-
+        setListView();
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
+
     }
 
     /**
@@ -244,6 +250,7 @@ public class ChecklistManagerController {
 
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        setListView();
     }
 
     /**
@@ -258,6 +265,7 @@ public class ChecklistManagerController {
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
+        setListView();
     }
 
     /**
@@ -267,6 +275,8 @@ public class ChecklistManagerController {
     protected void deleteSelectedChecklist(){
         Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
         Data.getChecklistList().remove(currChecklist);
+        resetListView();
+        setListView();
     }
 
     /**

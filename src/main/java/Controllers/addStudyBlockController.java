@@ -1,15 +1,5 @@
 package Controllers;
 
-import Entities.Checklist;
-import Entities.StudyMethod;
-import UseCases.StudyBlock;
-import UseCases.TempCreator;
-import javafx.event.ActionEvent;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static Constants.DueDateSingleton.*;
 //import static Controllers.Data.checklistList;
 //import static Controllers.Data.studyBlockList;
 

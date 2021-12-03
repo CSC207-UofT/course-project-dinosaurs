@@ -5,7 +5,7 @@ import Entities.Task;
 import Infrastructure.ChecklistReadWriter;
 import Infrastructure.StudyBlockReadWriter;
 import UseCases.DataAccessInterface;
-import UseCases.StudyBlock;
+import Entities.StudyBlock;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -350,6 +350,29 @@ public class MainGUIController {
             System.out.println("Study Block folder created!");
         }
 
+        File checklistDir = new File(System.getProperty("user.dir") + "\\Checklists\\");
+        File[] checklistFileList = checklistDir.listFiles();
+        if (checklistFileList != null) {
+            for (File file : checklistFileList) {
+                if (file.delete()) {
+                    System.out.println(file.getName() + "was deleted successfully.");
+                } else {
+                    System.out.println("Failed to overwrite files.");
+                }
+            }
+        }
+
+        File studyBlockDir = new File(System.getProperty("user.dir") + "\\StudyBlocks\\");
+        File[] studyBlockFileList = studyBlockDir.listFiles();
+        if (studyBlockFileList != null) {
+            for (File file : studyBlockFileList) {
+                if (file.delete()) {
+                    System.out.println(file.getName() + "was deleted successfully.");
+                } else {
+                    System.out.println("Failed to overwrite files.");
+                }
+            }
+        }
 
         for (Checklist checklist : Data.getChecklistList()) {
             try {

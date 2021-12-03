@@ -1,8 +1,9 @@
-package UseCases;
+package Entities;
 
 import Entities.Checklist;
 import Entities.StudyMethod;
 import Entities.Task;
+import UseCases.Schedulable;
 import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
@@ -16,8 +17,8 @@ import java.util.Date;
 
 public class StudyBlock implements Schedulable, Serializable {
     /**
-     * TODO implement UseCases.StudyBlock
-     * Creates a new UseCases.StudyBlock based on the selected blockLength,
+     * TODO implement Entities.StudyBlock
+     * Creates a new Entities.StudyBlock based on the selected blockLength,
      * studyMethod, chosenTasks, and priorityType.
      *
      * TODO implement private double length;

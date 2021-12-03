@@ -1,7 +1,6 @@
 package Infrastructure;
 
-import Infrastructure.ReadWriter;
-import UseCases.StudyBlock;
+import Entities.StudyBlock;
 
 import java.io.*;
 
