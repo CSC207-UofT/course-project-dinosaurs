@@ -90,9 +90,9 @@ public class TaskManager {
      * @param importance String priority of the Task
      * @param length String expected length to complete the Task
      */
-    public Task addTaskHelper(String name, String weight, LocalDate dueDate, String importance,
+    public static Task addTaskHelper(String name, double weight, LocalDate dueDate, double importance,
                               String length) {
-        return new Task(name, Integer.parseInt(weight), dueDate, Integer.parseInt(importance),
+        return new Task(name, (int)weight, dueDate, (int)importance,
                 Integer.parseInt(length));
     }
 
