@@ -47,11 +47,15 @@ public class Task implements Serializable {
 
     /**
      * Marks the task as completed.
-     * If so, could change implementation of this function.
      */
     public void complete(){
         this.completed = true;
     }
+
+    /**
+     * Reverts the task from completed to incomplete.
+     */
+    public void revert() { this.completed = false; }
 
     /**
      * Changes the importance of a given task.
@@ -99,8 +103,6 @@ public class Task implements Serializable {
                 "Importance: " + this.importance + "\n" +
                 "Length: " + this.length;
     }
-
-
 
 
 }
