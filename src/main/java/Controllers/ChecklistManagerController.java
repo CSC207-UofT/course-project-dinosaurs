@@ -265,7 +265,36 @@ public class ChecklistManagerController {
             Data.setChecklistListIndex(Data.getChecklistListSize() - 1);
         }
         setListView();
+    }
 
+    /**
+     * Move forward to next Checklist in the list
+     */
+    @FXML
+    protected void cycleCompletedChecklistsForwardButton() {
+        completedObservableList.removeAll(completedStringList);
+        completedStringList.clear();
+        if (Data.getChecklistListIndex() < (Data.getChecklistListSize() - 1)) {
+            Data.setChecklistListIndex(Data.getChecklistListIndex() + 1);
+        } else {
+            Data.setChecklistListIndex(0);
+        }
+        setListView();
+    }
+
+    /**
+     * Move backward to prior Checklist in the list
+     */
+    @FXML
+    protected void cycleCompletedChecklistsBackwardButton() {
+        completedObservableList.removeAll(completedStringList);
+        completedStringList.clear();
+        if (Data.getChecklistListIndex() > 0) {
+            Data.setChecklistListIndex(Data.getChecklistListIndex() - 1);
+        } else {
+            Data.setChecklistListIndex(Data.getChecklistListSize() - 1);
+        }
+        setListView();
     }
 
     /**
@@ -338,16 +367,16 @@ public class ChecklistManagerController {
         taskManager.completeTask(currChecklist, currTask);
     }
 
-//    /**
-//     * Marks the selected Task incomplete.
-//     */
-//    @FXML
-//    protected void markTaskIncomplete() {
-//        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
-//        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).complete.get(completedListView.getFocusModel().getFocusedIndex());
-//        TaskManager taskManager = new TaskManager();
-//        taskManager.revertTask(currChecklist, currTask);
-//    }
+    /**
+     * Marks the selected Task incomplete.
+     */
+    @FXML
+    protected void markTaskIncomplete() {
+        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
+        Task currTask = Data.getChecklistList().get(Data.getChecklistListIndex()).complete.get(completedListView.getFocusModel().getFocusedIndex());
+        TaskManager taskManager = new TaskManager();
+        taskManager.revertTask(currChecklist, currTask);
+    }
 
     /**
      * Changes how the Checklist sorting to by Due Date (Sooner to Later).

@@ -12,9 +12,9 @@
    </Label>
    <VBox layoutX="32.0" layoutY="53.0" prefHeight="324.0" prefWidth="534.0">
       <HBox alignment="CENTER" layoutX="180.0" layoutY="174.0" prefHeight="25.0" prefWidth="239.0">
-         <Button mnemonicParsing="false" onAction="#cycleChecklistsForwardButton" text="&lt;" />
+         <Button mnemonicParsing="false" onAction="#cycleCompletedChecklistsForwardButton" text="&lt;" />
          <Label fx:id="checklistTitle" alignment="CENTER" prefWidth="180.0" text="Example Checklist" textAlignment="CENTER" />
-         <Button mnemonicParsing="false" onAction="#cycleChecklistsBackwardButton" text="&gt;" />
+         <Button mnemonicParsing="false" onAction="#cycleCompletedChecklistsBackwardButton" text="&gt;" />
       </HBox>
       <ListView fx:id="completedListView" prefHeight="312.0" prefWidth="534.0" />
       <HBox prefHeight="53.0" prefWidth="534.0" spacing="10.0">

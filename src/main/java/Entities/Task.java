@@ -52,10 +52,10 @@ public class Task implements Serializable {
         this.completed = true;
     }
 
-//    /**
-//     * Reverts the task from completed to incomplete.
-//     */
-//    public void revert() { this.completed = false; }
+    /**
+     * Reverts the task from completed to incomplete.
+     */
+    public void revert() { this.completed = false; }
 
     /**
      * Changes the importance of a given task.
