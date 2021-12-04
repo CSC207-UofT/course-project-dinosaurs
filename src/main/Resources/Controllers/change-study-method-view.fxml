@@ -24,7 +24,8 @@
       </HBox>
       <HBox prefHeight="27.0" prefWidth="462.0" spacing="13.0">
          <Label text="Break Time"/>
-         <TextField prefHeight="25.0" prefWidth="241.0" promptText="int minutes of break between active times"/>
+         <TextField fx:id="newBreakTimeField" prefHeight="25.0" prefWidth="241.0"
+                    promptText="int minutes of break between active times"/>
       </HBox>
       <HBox prefHeight="31.0" prefWidth="462.0" spacing="10.0">
          <Button mnemonicParsing="false" onAction="#setNewStudyMethodButton" text="Save Study Method"/>

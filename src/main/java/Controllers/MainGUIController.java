@@ -414,7 +414,7 @@ public class MainGUIController {
         }
 
         try {
-            preferencesReadWriter.saveToFile(System.getProperty("user.dir") + "\\Preference\\" + "StudyMethod", Data.getStudyMethod());
+            preferencesReadWriter.saveToFile(System.getProperty("user.dir") + "\\Preferences\\" + "StudyMethod", Data.getStudyMethod());
         } catch (IOException e) {
             System.out.println("StudyMethod did not save.");
         }

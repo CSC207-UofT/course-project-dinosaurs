@@ -23,4 +23,7 @@
         <Button mnemonicParsing="false" text="Change Password"/>
         <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu"/>
     </VBox>
+    <Label fx:id="currStudyMethod" text="Label" opacity="0"/>
+    <TextField fx:id="newActiveTimeField" opacity="0"/>
+    <TextField fx:id="newBreakTimeField" opacity="0"/>
 </AnchorPane>
