@@ -36,7 +36,7 @@ public class StudyBlockTest {
     public void TestbreakUpStudyBlock() {
         int[][] a1 = block.breakUpStudyBlock();
         int[][] a2 = new int[][]{{25, 5}, {25, 5}, {0, 0}};
-        assertEquals(a1, a2);
+        assertArrayEquals(a1, a2);
     }
 
     /**
@@ -47,7 +47,7 @@ public class StudyBlockTest {
         block.setLength(89);
         int[][] a1 = block.breakUpStudyBlock();
         int[][] a2 = new int[][]{{25, 5}, {25, 5}, {25, 4}};
-        assertEquals(a1, a2);
+        assertArrayEquals(a1, a2);
     }
 
     /**
@@ -58,7 +58,7 @@ public class StudyBlockTest {
         block.setLength(29);
         int[][] a1 = block.breakUpStudyBlock();
         int[][] a2 = new int[][]{{25, 4}};
-        assertEquals(a1, a2);
+        assertArrayEquals(a1, a2);
     }
     /**
      * Splits studyblock into 2 even subblock
@@ -66,7 +66,7 @@ public class StudyBlockTest {
     @Test
     public void TestAssignTask() {
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         msg.add("t1 | 25 min");
         msg.add("Break | 5 min");
@@ -84,7 +84,7 @@ public class StudyBlockTest {
     public void TestAssignTask1() {
         block.setLength(89);
         int[][] array = new int[][]{{25, 5}, {25, 5}, {25, 4}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(75);
         msg.add("t1 | 25 min");
@@ -104,7 +104,7 @@ public class StudyBlockTest {
     public void TestAssignTask1a() {
         block.setLength(23);
         int[][] array = new int[][]{{23, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(23);
         msg.add("t1 | 23 min");
@@ -118,7 +118,7 @@ public class StudyBlockTest {
     @Test
     public void TestAssignTask2() {
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(20);
         t2.setLength(30);
@@ -131,13 +131,14 @@ public class StudyBlockTest {
         assertEquals(msg, msg2);
     }
 
-    @Test
+
     /**
      * Tests when Task 1 and Task 2 go into the 2nd study block
      */
+    @Test
     public void TestAssignTask3() {
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(25);
         t2.setLength(25);
@@ -156,7 +157,7 @@ public class StudyBlockTest {
     public void TestAssignTask4() {
         block.setLength(90);
         int[][] array = new int[][]{{25, 5}, {25, 5}, {25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(50);
         msg.add("t1 | 25 min");
@@ -176,7 +177,7 @@ public class StudyBlockTest {
     public void TestAssignTask5() {
         block.setLength(30);
         int[][] array = new int[][]{{25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(20);
         t2.setLength(5);
@@ -195,7 +196,7 @@ public class StudyBlockTest {
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
         Task t3 = new Task("t3", 35, d3, 3, 25);
         tm.addTask(tasks, t3);
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(15);
         t2.setLength(10);
@@ -215,7 +216,7 @@ public class StudyBlockTest {
     public void TestAssignTask7() {
         block.setLength(60);
         int[][] array = new int[][]{{25, 5}, {25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(20);
         t2.setLength(5);
@@ -254,7 +255,7 @@ public class StudyBlockTest {
     public void Testfillblock() {
         block.setLength(30);
         int[][] array = new int[][]{{25, 5}, {0, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(22);
         msg.add("t1 | 22 min");
@@ -271,7 +272,7 @@ public class StudyBlockTest {
     public void Testfillblock2() {
         block.setLength(10);
         int[][] array = new int[][]{{10, 0}};
-        assertEquals(array, block.breakUpStudyBlock());
+        assertArrayEquals(array, block.breakUpStudyBlock());
         ArrayList<String> msg = new ArrayList<>();
         t1.setLength(5);
         msg.add("t1 | 5 min");

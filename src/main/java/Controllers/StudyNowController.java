@@ -37,6 +37,7 @@ public class StudyNowController {
      * Instance variable to choose checklist.
      */
     @FXML
+    private ListView<Checklist> studyNowListView = new ListView<>();
     private ListView<String> manageStudyBlockListView = new ListView<>();
     private List<String> checkListNamesArrayList = new ArrayList<>();
     private ObservableList<String> observableCheckListNames = FXCollections.observableArrayList();
