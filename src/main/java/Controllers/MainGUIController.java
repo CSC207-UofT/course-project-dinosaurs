@@ -307,6 +307,34 @@ public class MainGUIController {
     }
 
     /**
+     * Deletes all checklists in folder Checklists.
+     */
+    public static void deleteAllChecklists() {
+        File checklistDir = new File(System.getProperty("user.dir") + "\\Checklists\\");
+        File[] checklistFileList = checklistDir.listFiles();
+        if (checklistFileList != null) {
+            for (File file : checklistFileList) {
+                if (file.delete()) {
+                    System.out.println(file.getName() + " was deleted successfully.");
+                } else {
+                    System.out.println("Failed to overwrite files.");
+                }
+            }
+        }
+    }
+
+    public void saveAllChecklists() {
+        ChecklistReadWriter checklistReadWriter = new ChecklistReadWriter();
+        for (Checklist checklist : Data.getChecklistList()) {
+            try {
+                checklistReadWriter.saveToFile(System.getProperty("user.dir") + "\\Checklists\\" + checklist.name, checklist);
+            } catch (IOException e) {
+                System.out.println(checklist.name + " did not save.");
+            }
+        }
+    }
+
+    /**
      * Checks if a "StudyBlocks" folder has been saved in the current directory.
      * @return true if folder exists
      */
@@ -332,56 +360,22 @@ public class MainGUIController {
         return studyBlockFolder.mkdir();
     }
 
-    /**
-     * Allows user to save current checklists.
-     * @param actionEvent on click
-     * @throws IOException if there is an issue saving files.
-     */
-    @FXML
-    protected void saveAllButton(ActionEvent actionEvent) throws IOException {
-        ChecklistReadWriter checklistReadWriter = new ChecklistReadWriter();
-        if (createChecklistFolder()){
-            System.out.println("Checklist folder created!");
-        }
-
-
-        StudyBlockReadWriter studyBlockReadWriter = new StudyBlockReadWriter();
-        if (createStudyBlockFolder()){
-            System.out.println("Study Block folder created!");
-        }
-
-        File checklistDir = new File(System.getProperty("user.dir") + "\\Checklists\\");
-        File[] checklistFileList = checklistDir.listFiles();
-        if (checklistFileList != null) {
-            for (File file : checklistFileList) {
-                if (file.delete()) {
-                    System.out.println(file.getName() + "was deleted successfully.");
-                } else {
-                    System.out.println("Failed to overwrite files.");
-                }
-            }
-        }
-
+    public static void deleteAllStudyBlocks() {
         File studyBlockDir = new File(System.getProperty("user.dir") + "\\StudyBlocks\\");
         File[] studyBlockFileList = studyBlockDir.listFiles();
         if (studyBlockFileList != null) {
             for (File file : studyBlockFileList) {
                 if (file.delete()) {
-                    System.out.println(file.getName() + "was deleted successfully.");
+                    System.out.println(file.getName() + " was deleted successfully.");
                 } else {
                     System.out.println("Failed to overwrite files.");
                 }
             }
         }
+    }
 
-        for (Checklist checklist : Data.getChecklistList()) {
-            try {
-                checklistReadWriter.saveToFile(System.getProperty("user.dir") + "\\Checklists\\" + checklist.name, checklist);
-            } catch (IOException e) {
-                System.out.println(checklist.name + " did not save.");
-            }
-        }
-
+    public void saveAllStudyBlocks() {
+        StudyBlockReadWriter studyBlockReadWriter = new StudyBlockReadWriter();
         for (StudyBlock studyBlock : Data.getStudyBlockList()){
             try {
                 studyBlockReadWriter.saveToFile(System.getProperty("user.dir") + "\\StudyBlocks\\" + studyBlock.name, studyBlock);
@@ -389,6 +383,26 @@ public class MainGUIController {
                 System.out.println(studyBlock.name + " did not save.");
             }
         }
+    }
+
+    /**
+     * Allows user to save current checklists.
+     * @param actionEvent on click
+     * @throws IOException if there is an issue saving files.
+     */
+    @FXML
+    protected void saveAllButton(ActionEvent actionEvent) throws IOException {
+        if (createChecklistFolder()){
+            System.out.println("Checklist folder created!");
+        }
+        if (createStudyBlockFolder()){
+            System.out.println("Study Block folder created!");
+        }
+
+        deleteAllChecklists();
+        deleteAllStudyBlocks();
+        saveAllChecklists();
+        saveAllStudyBlocks();
 
         // Loads FXML file and creates a new Scene
         Parent saveChecklistsParent = FXMLLoader.load(getClass().getResource("confirm-save-view.fxml"));
