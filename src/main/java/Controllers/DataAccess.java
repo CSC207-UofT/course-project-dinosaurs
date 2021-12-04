@@ -1,14 +1,13 @@
 package Controllers;
 
-import Constants.*;
+import Constants.Constants;
 import Entities.Checklist;
+import Entities.StudyBlock;
 import Entities.StudyMethod;
 import UseCases.DataAccessInterface;
-import Entities.StudyBlock;
 import javafx.fxml.FXML;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 public class DataAccess implements DataAccessInterface {
 

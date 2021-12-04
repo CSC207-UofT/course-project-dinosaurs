@@ -24,9 +24,9 @@
       </font>
    </Label>
    <VBox alignment="TOP_CENTER" layoutX="144.0" layoutY="491.0" prefHeight="182.0" prefWidth="317.0" spacing="10.0">
-      <Button fx:id="selectedChecklist" mnemonicParsing="false" onAction="#openStudyBlockCheckListPopUp" text="Study Block from a Selected Checklist" />
+      <Button fx:id="selectedChecklist" mnemonicParsing="false" onAction="#openStudyBlockCheckListPopUp" text="Study Block from One Checklist" />
       <Button fx:id="byPriority" mnemonicParsing="false" onAction="#openStudyBlockPriorityPopUp" text="Study Block for All Checklists" />
       <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu" />
    </VBox>
-   <ListView fx:id="listView" layoutX="158.0" layoutY="251.0" prefHeight="229.0" prefWidth="283.0" />
+   <ListView fx:id="studyNowListView" layoutX="158.0" layoutY="251.0" prefHeight="229.0" prefWidth="283.0" />
 </AnchorPane>

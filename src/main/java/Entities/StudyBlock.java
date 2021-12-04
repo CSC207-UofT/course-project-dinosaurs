@@ -1,8 +1,5 @@
 package Entities;
 
-import Entities.Checklist;
-import Entities.StudyMethod;
-import Entities.Task;
 import UseCases.Schedulable;
 import biweekly.Biweekly;
 import biweekly.ICalendar;
@@ -14,14 +11,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
 
 public class StudyBlock implements Schedulable, Serializable {
     /**
-     * TODO implement Entities.StudyBlock
-     * Creates a new Entities.StudyBlock based on the selected blockLength,
+     * Creates a new UseCases.StudyBlock based on the selected blockLength,
      * studyMethod, chosenTasks, and priorityType.
      *
-     * TODO implement private double length;
      */
 
     private StudyMethod studyMethod;
@@ -29,6 +26,7 @@ public class StudyBlock implements Schedulable, Serializable {
     private ArrayList<String> listTODO;
     public String name;
     public int length;
+    public ArrayList<String> assignedTasks;
 
     /**
      * Constructor for the BlockScheduler.
@@ -43,9 +41,8 @@ public class StudyBlock implements Schedulable, Serializable {
         this.listTODO = new ArrayList<>();
         this.name = name;
         this.length = length;
+        this.assignedTasks = new ArrayList<>();
     }
-
-    // TODO getters and setters
 
     public StudyMethod getStudyMethod() {
         return studyMethod;
@@ -75,10 +72,15 @@ public class StudyBlock implements Schedulable, Serializable {
 
     /**
      * Builds an ArrayList, <listTodo>, that incorporates the studyMethod and checklist.
-     * TODO implement way of checking multiple tasks, using length input as well.
+     * Creates ArrayList, <assignedTasks>, that hold all the used task names
      */
     public void buildListTODO() {
         this.listTODO = assignTasks(breakUpStudyBlock());
+    }
+
+
+    public void buildassignedTasks() {
+        this.assignedTasks = new ArrayList<>();
     }
 
     /**
@@ -90,7 +92,7 @@ public class StudyBlock implements Schedulable, Serializable {
         // Note that extra + blocks == length
         int blocks = this.length / (this.studyMethod.getMethod().get(0) + this.studyMethod.getMethod().get(1));
         int extra = this.length % (this.studyMethod.getMethod().get(0) + this.studyMethod.getMethod().get(1));
-        // We return a 2D array where the length is the number of block-breaks and the indexes of each
+        // We return a   2D array where the length is the number of block-breaks and the indexes of each
         // array are the amount of time for the block and break.
         int[][] array = new int[blocks + 1][2];
         for (int i = 0; i < blocks; i++) {
@@ -108,61 +110,87 @@ public class StudyBlock implements Schedulable, Serializable {
         return array;
     }
 
-    public ArrayList<String> assignTasks(int[][] array){
+    public HashMap<ArrayList<String>, ArrayList<Integer>> fillblock(ArrayList<Integer> t_length, int[] array, Checklist checklist, int task) {
+        ArrayList<String> msg = new ArrayList<>();
+        ArrayList<Integer> tL = new ArrayList<>(t_length);
+        HashMap<ArrayList<String>, ArrayList<Integer>> map =
+                new HashMap<ArrayList<String>, ArrayList<Integer>>();
+        int t_left = array[0];
+        int task_length = tL.get(0);
+
+        if (task_length == t_left && t_length.size() == 1){
+            msg.add(checklist.incomplete.get(task).name + " | " + t_length.get(0) + " min");
+            assignedTasks.add(checklist.incomplete.get(task).name);
+            tL.remove(0);
+            map.put(msg, tL);
+            return map;
+        }
+        if (task_length > t_left){
+            msg.add(checklist.incomplete.get(task).name + " | " + t_left + " min");
+            int left = task_length - t_left;
+            tL.set(0, left);
+            map.put(msg, tL);
+            return map;
+        }
+        int x = task;
+        do {
+            task_length = tL.get(0);
+            String task_name = checklist.incomplete.get(x).name;
+            if (task_length == 0)
+                return map;
+            if (task_length > t_left) {
+                msg.add(task_name + " | " + t_left + " min");
+                int left = task_length - t_left;
+                tL.set(0, left);
+                map.put(msg, tL);
+                return map;
+            } else {
+                msg.add(task_name + " | " + task_length + " min");
+                assignedTasks.add(task_name);
+                int left = t_left - task_length;
+                t_left = left;
+                tL.remove(0);
+                x++;
+            }
+        } while (t_left > 0 && (x < checklist.incomplete.size()));
+        map.put(msg, tL);
+        return map;
+    }
+
+    public ArrayList<String> assignTasks(int[][] array) {
 //      A subblock refers to a StudyMethod's [study, break] (ie. [25, 5] or [52, 17])
+        buildassignedTasks();
         ArrayList<String> msg = new ArrayList<>();
         ArrayList<Integer> t_length = new ArrayList<>();
-        for (int x = 0; x < (this.checklist.incomplete.size()); x++)
-            t_length.add(this.checklist.incomplete.get(x).length);
-        int x = 0;
+        for (int x = 0; x < (this.checklist.incomplete.size()); x++) {
+            int num = this.checklist.incomplete.get(x).length;
+            t_length.add(num);
+        }
+        int task_index = 0;
 
-        for (int i = 0; i < (array.length - 1); i ++)
-            while (t_length.size() > 0) {
-                int remainder = t_length.get(0) - array[i][0];
-                String task = this.checklist.incomplete.get(x).name;
-                int time_remaining = array[i][0];
-                if (remainder < 0 && t_length.size() > 1) {
-                    msg.add(task + " | " + t_length.get(0) + " min");
-                    msg.add(this.checklist.incomplete.get(x + 1).name + " | " + -remainder + " min");
-                    msg.add("Break" + " | " + array[i][1] + " min");
-                    t_length.remove(0);     // Updates t_length for the next array index
-                    int left = t_length.get(0) + remainder;
-                    t_length.set(0, left);      // Updates t_length for the next array index
-                    remainder = t_length.get(0) - array[i][0];
-                    time_remaining = 0;
-                    x++;        // Updates Task id
-
-                }
-                // Checks for extended breaks
-                if (remainder < 0 && time_remaining > 0) {
-                    msg.add(task + " | " + t_length.get(0) + " min");
-                    msg.add("Break (extended)" + " | " + array[i][1] + " min" + " + " + -remainder);
-                    t_length.remove(0);     // Updates t_length for the next array index
-                }
-                if (remainder == 0 && time_remaining > 0) {
-                    msg.add(task + " | " + t_length.get(0) + " min");
-                    msg.add("Break" + " | " + array[i][1] + " min");
-                    time_remaining = 0;
-                    t_length.remove(0);     // Updates t_length for the next array index
-                                        x ++;     // Updates Task id
-                }
-                if (remainder > 0 && time_remaining > 0) {
-                    msg.add(task + " | " + array[i][0] + " min");
-                    t_length.set(0, remainder);     // Updates t_length for the next array index
-                    msg.add("Break" + " | " + array[i][1] + " min");
-                    time_remaining = 0;
-                }
-                if (remainder >= 0 && time_remaining == 0) {
-                    i++;
-                }
-                if (remainder == -25) {
-                    t_length.remove(0);     // Updates t_length for the next array index
+        for (int[] ints : array) {
+            if (ints[0] > 0) {
+                HashMap<ArrayList<String>, ArrayList<Integer>>
+                        dic = new HashMap<>(fillblock(t_length, ints, this.checklist, task_index));
+                Set<ArrayList<String>> key1 = dic.keySet();
+                for (ArrayList<String> key : key1) {
+                    msg.addAll(key);
+                    int new1 = dic.get(key).size();
+                    task_index = (t_length.size() - new1);
+                    t_length = dic.get(key);
                 }
 
+                if (ints[1] > 0)
+                    msg.add("Break" + " | " + ints[1] + " min");
+
+                if (t_length.size() == 0)
+                    return msg;
+
+            } else {
+                return msg;
             }
-
+        }
         return msg;
-
     }
 
     public String toString() {
@@ -190,7 +218,6 @@ public class StudyBlock implements Schedulable, Serializable {
     /**
      * Creates and returns a new event using the current date, the description from the StudyBlock toString() method,
      * and the desired studyBlock duration of the user.
-     * //todo: find a way to fix duration based on the user's preference without breaking the clean architecture
      * @return an event containing required information.
      */
     @Override

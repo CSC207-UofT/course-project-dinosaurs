@@ -40,6 +40,7 @@
       <Button mnemonicParsing="false" onAction="#addNewTask" text="Create Task" />
       <Button mnemonicParsing="false" onAction="#backButton" text="Back" />
    </HBox>
-   <ListView fx:id="listView" layoutX="288.0" opacity="0.0" prefHeight="7.0" prefWidth="11.0" />
-   <Label fx:id="checklistTitle" opacity="0.0" text="Label" />
+   <ListView fx:id="listView" layoutX="288.0" opacity="0.0" prefHeight="7.0" prefWidth="11.0"/>
+   <Label fx:id="checklistTitle" opacity="0.0" text="Label"/>
+   <ListView fx:id="completedListView" layoutX="288.0" opacity="0.0" prefHeight="7.0" prefWidth="11.0"/>
 </AnchorPane>
