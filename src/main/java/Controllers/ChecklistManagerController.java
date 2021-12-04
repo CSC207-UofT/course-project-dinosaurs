@@ -38,8 +38,8 @@ public class ChecklistManagerController {
     /**
      * Used to get user input for adding new Tasks
      */
-    public TextField importanceTextField;
-    public TextField weightTextField;
+    public Slider importanceSlider;
+    public Slider weightSlider;
     public TextField nameTextField;
     public TextField lengthTextField;
     public DatePicker datePicker;
@@ -314,11 +314,11 @@ public class ChecklistManagerController {
     protected void addNewTask(ActionEvent actionEvent) {
         LocalDate dueDate = datePicker.getValue();
         String name = nameTextField.getText();
-        String weight = weightTextField.getText();
-        String importance = importanceTextField.getText();
+        double weight = weightSlider.getValue();
+        double importance = importanceSlider.getValue();
         String length = lengthTextField.getText();
         TaskManager taskManager = new TaskManager();
-        Task newTask = taskManager.addTaskHelper(name, weight, dueDate, importance, length);
+        Task newTask = TaskManager.addTaskHelper(name, weight, dueDate, importance, length);
         taskManager.addTask(Data.getChecklistList().get(Data.getChecklistListIndex()), newTask);
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
