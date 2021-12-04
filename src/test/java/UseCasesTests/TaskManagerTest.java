@@ -6,9 +6,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
+/**
+ * Tests for task manager
+ */
 public class TaskManagerTest {
 
     Checklist tasks = new Checklist("C1");
@@ -27,6 +29,9 @@ public class TaskManagerTest {
 //    Task t4 = new Task("t4", 75, d2, 3, 1);
     Task t4 = tm.addTaskHelper("t4", "75", d2, "3", "1");
 
+    /**
+     * Adds tasks to checklist tasks
+     */
     @Before
     public void setUp() {
         tm.addTask(tasks, t1);
@@ -35,6 +40,9 @@ public class TaskManagerTest {
         tm.addTask(tasks, t4);
     }
 
+    /**
+     * Tests the order of the default priority for a checklist
+     */
     @Test(timeout = 80)
     public void TestDefaultOrder() {
         ArrayList<Task> order = new ArrayList<>();
@@ -46,6 +54,9 @@ public class TaskManagerTest {
         assertEquals(tasks.incomplete, order);
     }
 
+    /**
+     * Tests the order of the length order for a checklist
+     */
     @Test(timeout = 80)
     public void TestLengthOrder() {
         tm.changePriority(tasks, "LENGTH");
@@ -58,6 +69,9 @@ public class TaskManagerTest {
         assertEquals(tasks.incomplete, order);
     }
 
+    /**
+     * Tests the order of the importance order for a checklist
+     */
     @Test(timeout = 80)
     public void TestImportanceOrder() {
         tm.changePriority(tasks, "IMPORTANCE");
@@ -70,6 +84,9 @@ public class TaskManagerTest {
         assertEquals(tasks.incomplete, order);
     }
 
+    /**
+     * Tests the order of the weight order for a checklist
+     */
     @Test(timeout = 80)
     public void TestWeightOrder() {
         tm.changePriority(tasks, "WEIGHT");
@@ -82,6 +99,9 @@ public class TaskManagerTest {
         assertEquals(tasks.incomplete, order);
     }
 
+    /**
+     * Tests the complete function
+     */
     @Test(timeout = 80)
     public void TestComplete() {
         ArrayList<Task> order = new ArrayList<>();

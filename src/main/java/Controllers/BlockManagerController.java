@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Controller for all elements and pop-ups windows in the Study Block Manager scene.
@@ -31,11 +32,11 @@ public class BlockManagerController {
      */
     @FXML
     private ListView<String> sBlockView = new ListView<>();
-    private List<String> sBlockStringList = new ArrayList<>();
-    private ObservableList<String> sBlockObservableList = FXCollections.observableArrayList();
+    private final List<String> sBlockStringList = new ArrayList<>();
+    private final ObservableList<String> sBlockObservableList = FXCollections.observableArrayList();
 
 
-    private DataAccessInterface Data = MainGUI.Data;
+    private final DataAccessInterface Data = MainGUI.Data;
 
     /**
      * Changes scene to Main Menu.
@@ -45,7 +46,8 @@ public class BlockManagerController {
     @FXML
     protected void changeSceneToMainMenuButton(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent mainMenuParent = FXMLLoader.load(getClass().getResource("main-view.fxml"));
+
+        Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Scene mainMenuScene = new Scene(mainMenuParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
@@ -69,11 +71,10 @@ public class BlockManagerController {
 
     /**
      * Exports the selected StudyBlock
-     * @param actionEvent on click.
      * @throws IOException if there is an issue.
      */
     @FXML
-    protected void exportStudyBlock(ActionEvent actionEvent) throws IOException {
+    protected void exportStudyBlock() throws IOException {
         Schedulable currStudyBlock = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
         currStudyBlock.writeICS();
     }

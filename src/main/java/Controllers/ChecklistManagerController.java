@@ -1,6 +1,9 @@
 package Controllers;
 
-import Constants.*;
+import Constants.DueDateSingleton;
+import Constants.ImportanceSingleton;
+import Constants.LengthSingleton;
+import Constants.WeightSingleton;
 import Entities.Checklist;
 import Entities.Task;
 import UseCases.DataAccessInterface;
@@ -8,7 +11,6 @@ import UseCases.TaskManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,12 +21,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 
 
 /**
@@ -69,8 +70,8 @@ public class ChecklistManagerController {
      */
     @FXML
     private ListView<String> listView;
-    private List<String> stringList = new ArrayList<>();
-    private ObservableList<String> observableList = FXCollections.observableArrayList();
+    private final List<String> stringList = new ArrayList<>();
+    private final ObservableList<String> observableList = FXCollections.observableArrayList();
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
@@ -115,7 +116,7 @@ public class ChecklistManagerController {
     @FXML
     protected void changeSceneToMainMenuButton(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent mainMenuParent = FXMLLoader.load(getClass().getResource("main-view.fxml"));
+        Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Scene mainMenuScene = new Scene(mainMenuParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
@@ -134,7 +135,7 @@ public class ChecklistManagerController {
     @FXML
     protected void openAddTaskPopUp(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent newTaskParent = FXMLLoader.load(getClass().getResource("add-task-view.fxml"));
+        Parent newTaskParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add-task-view.fxml")));
         Scene newTaskScene = new Scene(newTaskParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
@@ -165,7 +166,7 @@ public class ChecklistManagerController {
     @FXML
     protected void openCreateChecklistPopUp(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent newChecklistParent = FXMLLoader.load(getClass().getResource("create-checklist-view.fxml"));
+        Parent newChecklistParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("create-checklist-view.fxml")));
         Scene newChecklistScene = new Scene(newChecklistParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
