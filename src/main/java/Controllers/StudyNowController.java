@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -50,9 +51,18 @@ public class StudyNowController {
      * Instance variables for use by SetlistView, the listview in the study now view.
      */
     @FXML
-    private ListView<Checklist> studyNowListView = new ListView<>();
-    private List<Checklist> checkListArrayList = new ArrayList<>();
-    private ObservableList<Checklist> observableCheckList = FXCollections.observableArrayList();
+
+    private ListView<Checklist> listView = new ListView<>();
+    private final List<Checklist> checkListArrayList = new ArrayList<>();
+    private final ObservableList<Checklist> observableCheckList = FXCollections.observableArrayList();
+
+    /**
+     * Instance variables for use by ChoiceBox for displaying Checklist choices.
+     */
+    @FXML
+    public ChoiceBox chooseChecklist = new ChoiceBox();
+    private final ObservableList<Checklist> checklistObservableList = FXCollections.observableArrayList();
+    private final List<Checklist> listOfChecklists = new ArrayList<>();
 
 
     /**
@@ -101,7 +111,7 @@ public class StudyNowController {
     @FXML
     protected void openStudyBlockPopUp(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent newStudyBlockParent = FXMLLoader.load(getClass().getResource("studynow-studyblock-view.fxml"));
+        Parent newStudyBlockParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-view.fxml")));
         Scene newStudyBlockScene = new Scene(newStudyBlockParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
@@ -127,7 +137,7 @@ public class StudyNowController {
     @FXML
     protected void changeSceneToMainMenuButton(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent mainMenuParent = FXMLLoader.load(getClass().getResource("main-view.fxml"));
+        Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Scene mainMenuScene = new Scene(mainMenuParent);
 
         // Casts the action event to obtain the Stage where the button was clicked
@@ -139,10 +149,9 @@ public class StudyNowController {
     /**
      * Changes scene back to BlockManager.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating block-manager-view.fxml
      */
     @FXML
-    protected void changeSceneToBlockManagerButton(ActionEvent actionEvent) throws IOException {
+    protected void changeSceneToBlockManagerButton(ActionEvent actionEvent) {
         // Loads FXML file and creates a new Scene
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
@@ -166,10 +175,9 @@ public class StudyNowController {
     /**
      * Saves the created StudyBlock from one or more checklists and adds it to StudyBlocklist.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating main-view.fxml
      */
     @FXML
-    public void saveStudyBlock(ActionEvent actionEvent) throws IOException {
+    public void saveStudyBlock(ActionEvent actionEvent) {
         String name = studyBlockNameTextField.getText();
         String length = studyBlockLengthTextField.getText();
         StudyMethod method = Data.getStudyMethod();
@@ -200,7 +208,7 @@ public class StudyNowController {
      */
     @FXML
     public void openStudyBlockCheckListPopUp(ActionEvent actionEvent) throws IOException {
-        Parent newStudyBlockChecklistParent = FXMLLoader.load(getClass().getResource("studynow-studyblock-selected-Checklist-view.fxml"));
+        Parent newStudyBlockChecklistParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-selected-Checklist-view.fxml")));
         Scene newStudyBlockCheckListScene = new Scene(newStudyBlockChecklistParent);
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -225,7 +233,7 @@ public class StudyNowController {
      */
     @FXML
     public void openStudyBlockPriorityPopUp(ActionEvent actionEvent) throws IOException {
-        Parent newStudyBlockPriorityParent = FXMLLoader.load(getClass().getResource("studynow-studyblock-priority-view.fxml"));
+        Parent newStudyBlockPriorityParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-priority-view.fxml")));
         Scene newStudyBlockPriorityScene = new Scene(newStudyBlockPriorityParent);
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
