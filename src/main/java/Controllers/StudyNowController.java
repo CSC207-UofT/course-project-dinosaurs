@@ -38,6 +38,7 @@ public class StudyNowController {
      */
     @FXML
     private ListView<Checklist> studyNowListView = new ListView<>();
+    @FXML
     private ListView<String> manageStudyBlockListView = new ListView<>();
     private List<String> checkListNamesArrayList = new ArrayList<>();
     private ObservableList<String> observableCheckListNames = FXCollections.observableArrayList();
@@ -56,15 +57,6 @@ public class StudyNowController {
     private ListView<Checklist> listView = new ListView<>();
     private final List<Checklist> checkListArrayList = new ArrayList<>();
     private final ObservableList<Checklist> observableCheckList = FXCollections.observableArrayList();
-
-    /**
-     * Instance variables for use by ChoiceBox for displaying Checklist choices.
-     */
-    @FXML
-    public ChoiceBox chooseChecklist = new ChoiceBox();
-    private final ObservableList<Checklist> checklistObservableList = FXCollections.observableArrayList();
-    private final List<Checklist> listOfChecklists = new ArrayList<>();
-
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
