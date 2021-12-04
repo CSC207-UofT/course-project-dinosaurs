@@ -1,6 +1,7 @@
 package Entities;
 
 import UseCases.Schedulable;
+import UseCases.TaskManager;
 import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
@@ -26,7 +27,7 @@ public class StudyBlock implements Schedulable, Serializable {
     private ArrayList<String> listTODO;
     public String name;
     public int length;
-    public ArrayList<String> assignedTasks;
+    public ArrayList<Task> assignedTasks;
 
     /**
      * Constructor for the BlockScheduler.
@@ -35,13 +36,15 @@ public class StudyBlock implements Schedulable, Serializable {
      * @param checklist List of Tasks to be completed.
      */
     public StudyBlock(String name, StudyMethod studyMethod,
-                      Checklist checklist, int length) {
+                      Checklist checklist, int length){
+        TaskManager tm = new TaskManager();
         this.studyMethod = studyMethod;
-        this.checklist = checklist;
+        this.checklist = tm.copy(checklist);
         this.listTODO = new ArrayList<>();
         this.name = name;
         this.length = length;
         this.assignedTasks = new ArrayList<>();
+        buildListTODO();
     }
 
     public StudyMethod getStudyMethod() {
@@ -114,13 +117,13 @@ public class StudyBlock implements Schedulable, Serializable {
         ArrayList<String> msg = new ArrayList<>();
         ArrayList<Integer> tL = new ArrayList<>(t_length);
         HashMap<ArrayList<String>, ArrayList<Integer>> map =
-                new HashMap<ArrayList<String>, ArrayList<Integer>>();
+                new HashMap<>();
         int t_left = array[0];
         int task_length = tL.get(0);
 
         if (task_length == t_left && t_length.size() == 1){
             msg.add(checklist.incomplete.get(task).name + " | " + t_length.get(0) + " min");
-            assignedTasks.add(checklist.incomplete.get(task).name);
+            assignedTasks.add(checklist.incomplete.get(task));
             tL.remove(0);
             map.put(msg, tL);
             return map;
@@ -146,7 +149,7 @@ public class StudyBlock implements Schedulable, Serializable {
                 return map;
             } else {
                 msg.add(task_name + " | " + task_length + " min");
-                assignedTasks.add(task_name);
+                assignedTasks.add(checklist.incomplete.get(x));
                 int left = t_left - task_length;
                 t_left = left;
                 tL.remove(0);

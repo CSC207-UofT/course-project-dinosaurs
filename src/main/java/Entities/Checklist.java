@@ -1,14 +1,9 @@
 package Entities;
 
 import Constants.DueDateSingleton;
-import Entities.Task;
-import HelperFunctions.DueDateComparator;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.Objects;
+import java.util.*;
 
 
 public class Checklist implements Serializable, Iterable<Task>{
@@ -83,7 +78,6 @@ public class Checklist implements Serializable, Iterable<Task>{
             throw new UnsupportedOperationException("Not supported.");
         }
     }
-
 
 
 

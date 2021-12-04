@@ -5,7 +5,7 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 
-public class Task implements Serializable {
+public class Task implements Serializable{
     /**
      * A task for a student. Records the weight, due date, importance, completed status
      * and estimated length of a given task.
@@ -99,7 +99,6 @@ public class Task implements Serializable {
                 "Importance: " + this.importance + "\n" +
                 "Length: " + this.length;
     }
-
 
 
 

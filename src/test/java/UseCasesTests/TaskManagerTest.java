@@ -1,4 +1,7 @@
+import Constants.Constants;
 import Entities.Checklist;
+import Entities.StudyBlock;
+import Entities.StudyMethod;
 import Entities.Task;
 import UseCases.TaskManager;
 import org.junit.*;
@@ -28,6 +31,9 @@ public class TaskManagerTest {
     Task t3 = new Task("t3", 55, d4, 2, 7);
 //    Task t4 = new Task("t4", 75, d2, 3, 1);
     Task t4 = tm.addTaskHelper("t4", "75", d2, "3", "1");
+
+    StudyMethod method = new StudyMethod(Constants.POMODORO);
+
 
     /**
      * Adds tasks to checklist tasks
@@ -126,4 +132,67 @@ public class TaskManagerTest {
     }
 
 
+    /**
+     * Tests the copying function of the checklist.
+     */
+    @Test
+    public void TestCopy(){
+        Checklist copy = tm.copy(tasks);
+        copy.incomplete.remove(0);
+        assertNotEquals(copy, tasks);
+        assertEquals(tasks.incomplete.size(), 4);
+        assertEquals(copy.incomplete.size(), 3);
+    }
+
+    /**
+     * Tests the copying function of the checklist.
+     */
+    @Test
+    public void TestCopyName(){
+        Checklist copy = tm.copy(tasks);
+        assertEquals(tasks.toString(), copy.toString());
+    }
+
+    /**
+     * Tests that an entire checklist can be completed.
+     */
+    @Test
+    public void TestUpdateChecklist(){
+        StudyBlock block = new StudyBlock("studyBlock", method, tasks, 60);
+        tm.updateChecklist(tasks, block);
+        assertEquals(tasks.toString(), "[C1]\n\n");
+    }
+
+    /**
+     * Tests that an entire checklist can be completed.
+     */
+    @Test
+    public void TestUpdateHalfChecklist(){
+        t1.setLength(60);
+        StudyBlock block = new StudyBlock("studyBlock", method, tasks, 60);
+        tm.updateChecklist(tasks, block);
+        assertEquals(2, tasks.incomplete.size());
+    }
+
+    /**
+     * Tests that an entire checklist can be completed.
+     */
+    @Test
+    public void TestUpdateNoneChecklist(){
+        t2.setLength(65);
+        StudyBlock block = new StudyBlock("studyBlock", method, tasks, 60);
+        tm.updateChecklist(tasks, block);
+        assertEquals(4, tasks.incomplete.size());
+    }
+
+    /**
+     * Tests that an entire checklist can be completed.
+     */
+    @Test
+    public void TestUpdateOneChecklist(){
+        t2.setLength(50);
+        StudyBlock block = new StudyBlock("studyBlock", method, tasks, 60);
+        tm.updateChecklist(tasks, block);
+        assertEquals(3, tasks.incomplete.size());
+    }
 }

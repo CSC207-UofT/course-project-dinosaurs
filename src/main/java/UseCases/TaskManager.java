@@ -1,6 +1,7 @@
 package UseCases;
 
 import Entities.Checklist;
+import Entities.StudyBlock;
 import Entities.Task;
 import Constants.*;
 
@@ -14,7 +15,6 @@ public class TaskManager {
      * Sorts the Checklist, adds/completes tasks and retrieves completed and
      * incomplete lists from the Checklist based on controller input.
      * Constructor for TaskManager.
-     * TODO look into clean architecture for creating a task from user interface.
      */
 
     public TaskManager(){
@@ -101,15 +101,31 @@ public class TaskManager {
      * of the Entities.Checklist. Due Date is sorted from earliest to latest.
      * Importance and weight are sorted from highest to lowest. Length is sorted
      * from shortest to longest.
-     * TODO: Should we implement a reverse order sorting function?
      */
-
     private void sort(Checklist checklist) {
         checklist.incomplete.sort(Constants.COMPARE.get(checklist.priority));
     }
 
+    /**
+     * Makes a shallow copy of the checklist.
+     * @return the copy of the checklist.
+     */
+    @SuppressWarnings("unchecked")
+    public Checklist copy(Checklist checklist){
+        Checklist copy = new Checklist(checklist.name);
+        copy.incomplete = (ArrayList<Task>) checklist.incomplete.clone();
+        copy.complete = (ArrayList<Task>) checklist.complete.clone();
+        copy.priority = checklist.priority;
+        sort(copy);
+        return copy;
+    }
 
-
-
-
+    /**
+     * Updates a checklist based on the study block made from it.
+     */
+    public void updateChecklist(Checklist checklist, StudyBlock studyBlock){
+        for (Task task : studyBlock.assignedTasks){
+            completeTask(checklist, task);
+        }
+    }
 }
