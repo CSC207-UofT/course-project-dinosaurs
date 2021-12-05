@@ -61,4 +61,16 @@ public class TaskTest {
                 "Weight: 15\nImportance: 5\nLength: 3");
     }
 
+    /**
+     * Test the revert method for task
+     */
+    @Test(timeout = 80)
+    public void TestRevert(){
+        assertFalse(t1.completed);
+        t1.complete();
+        assertTrue(t1.completed);
+        t1.revert();
+        assertFalse(t1.completed);
+
+    }
 }
