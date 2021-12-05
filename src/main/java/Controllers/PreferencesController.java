@@ -16,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Controller for all buttons and pop-up windows for the Preferences menu.
@@ -39,7 +40,7 @@ public class PreferencesController {
     @FXML
     protected void changeSceneToMainMenuButton(ActionEvent actionEvent) throws IOException {
         // Loads FXML file and creates a new Scene
-        Parent mainMenuParent = FXMLLoader.load(getClass().getResource("main-view.fxml"));
+        Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
         Scene mainMenuScene = new Scene(mainMenuParent);
 
         // Casts the action event to obtain the Stage where the button was clicked

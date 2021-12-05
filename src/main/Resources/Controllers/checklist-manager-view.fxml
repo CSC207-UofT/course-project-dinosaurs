@@ -28,7 +28,9 @@
     </HBox>
     <HBox alignment="TOP_CENTER" layoutX="57.0" layoutY="500.0" prefHeight="25.0" prefWidth="485.0" spacing="10.0">
         <Button mnemonicParsing="false" onAction="#openAddTaskPopUp" text="Add Task" />
-        <Button fx:id="deleteSelectedTask" mnemonicParsing="false" text="Delete Selected Task" />
+      <Button mnemonicParsing="false" onAction="#markTaskComplete" text="Mark Task Complete" />
+        <Button fx:id="deleteSelectedTask" onAction="#deleteSelectedTask" mnemonicParsing="false" text="Delete Selected Task" />
+
       <MenuButton fx:id="sortMenuButton" mnemonicParsing="false" text="Sorting Options">
         <items>
           <MenuItem fx:id="menuItemDue" mnemonicParsing="false" onAction="#sortChecklistButtonDue" text="Due Date (Sooner to Later)" />
@@ -39,8 +41,10 @@
       </MenuButton>
     </HBox>
     <VBox alignment="TOP_CENTER" layoutX="203.0" layoutY="545.0" prefHeight="122.0" prefWidth="193.0" spacing="10.0">
+      <Button mnemonicParsing="false" onAction="#openCompletedTasksPopUp" text="View Completed Tasks" />
         <Button mnemonicParsing="false" onAction="#openCreateChecklistPopUp" text="Create New Checklist" />
         <Button mnemonicParsing="false" onAction="#deleteSelectedChecklist" text="Delete Current Checklist" />
         <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu" />
     </VBox>
+    <ListView fx:id="completedListView" layoutX="288.0" opacity="0.0" prefHeight="7.0" prefWidth="11.0" />
 </AnchorPane>

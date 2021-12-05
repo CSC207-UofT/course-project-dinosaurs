@@ -13,8 +13,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
  * Controller for all elements and pop-up windows for creating a StudyBlock with a chosen priority.
  */
@@ -30,10 +28,9 @@ public class StudyNowStudyBlockPriorityView {
      * Saves the created StudyBlock with a chosen priority using a temp Checklist containing all tasks
      * and adds it to StudyBlocklist.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating main-view.fxml
      */
     @FXML
-    public void savePriorityStudyBlock(ActionEvent actionEvent)throws IOException {
+    public void savePriorityStudyBlock(ActionEvent actionEvent) {
         String name = SBPriorityNameTextField.getText();
         String length = studyBlockLengthTextField.getText();
         StudyMethod method = Data.getStudyMethod();
@@ -71,7 +68,6 @@ public class StudyNowStudyBlockPriorityView {
     /**
      * Changes scene back to BlockManager.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating block-manager-view.fxml
      */
     @FXML
     public void changeSceneToBlockManagerButton(ActionEvent actionEvent){

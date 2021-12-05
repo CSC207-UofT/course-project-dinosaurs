@@ -60,6 +60,30 @@ public class StudyBlockReadWriterTest {
         block2.setLength(90);
     }
 
+    /**
+     * Tests if two studyblocks can be successfully saved and read
+     * @throws IOException Error in file saving/reading
+     * @throws ClassNotFoundException thrown if readwriter is not capable of finding the class
+     */
+    @Test(timeout = 80)
+    public void TestStudyBlockReadAndSave() throws IOException, ClassNotFoundException {
+
+        StudyBlockReadWriter readWriter = new StudyBlockReadWriter();
+        try {
+            readWriter.saveToFile(block.name, block);
+        } catch (IOException e) {
+            System.out.println(block.name + " did not save.");
+        }
+        StudyBlock s1 = readWriter.readFromFile(tasks.name);
+
+        assertEquals(s1.name, block.name);
+    }
+
+    /**
+     * Tests if two study blocks can be successfully saved and read
+     * @throws IOException Error in file saving/reading
+     * @throws ClassNotFoundException thrown if readwriter is not capable of finding the class
+     */
     @Test(timeout = 180)
     public void TestStudyBlockSave() throws IOException, ClassNotFoundException {
 

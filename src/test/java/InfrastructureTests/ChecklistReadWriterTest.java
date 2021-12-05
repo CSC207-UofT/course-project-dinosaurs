@@ -12,7 +12,9 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.*;
 
-
+/**
+ * Tests for checklist readwriter, both saving and reading functions
+ */
 public class ChecklistReadWriterTest {
 
     Checklist tasks = new Checklist("Checklist 1");
@@ -39,11 +41,11 @@ public class ChecklistReadWriterTest {
     StudyMethod methodChosen = new StudyMethod(Constants.POMODORO);
     StudyBlock block2 = new StudyBlock("StudyBlock 2", methodChosen, taskSB, 90);
 
-    StudyBlock block = new StudyBlock("StudyBlock 1", methodChosen, taskSB, 60);
-
     Checklist tasks2 = new Checklist("Checklist 2");
 
-
+    /**
+     * Creates checklists tasks and tasks2 for testing
+     */
     @Before
     public void setUp() {
         tm.addTask(tasks, t1);
@@ -61,8 +63,13 @@ public class ChecklistReadWriterTest {
         block2.setLength(90);
     }
 
+    /**
+     * Tests if tasks can be successfully saved and read
+     * @throws IOException Error in file saving/reading
+     * @throws ClassNotFoundException thrown if readwriter is not capable of finding the class
+     */
     @Test(timeout = 80)
-    public void TestChecklistSave() throws IOException, ClassNotFoundException {
+    public void TestChecklistReadAndSave() throws IOException, ClassNotFoundException {
 
         ChecklistReadWriter readWriter = new ChecklistReadWriter();
         try {
@@ -75,9 +82,13 @@ public class ChecklistReadWriterTest {
         assertEquals(c1.complete, tasks.complete);
     }
 
-
+    /**
+     * Tests if two checklists can be successfully saved and read
+     * @throws IOException Error in file saving/reading
+     * @throws ClassNotFoundException thrown if readwriter is not capable of finding the class
+     */
     @Test(timeout = 180)
-    public void TestChecklistSaveTwo() throws IOException, ClassNotFoundException {
+    public void TestChecklistReadAndSaveTwo() throws IOException, ClassNotFoundException {
 
         ChecklistReadWriter readWriter = new ChecklistReadWriter();
         try {
