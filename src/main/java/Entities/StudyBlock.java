@@ -26,7 +26,7 @@ public class StudyBlock implements Schedulable, Serializable {
     private ArrayList<String> listTODO;
     public String name;
     public int length;
-    public ArrayList<String> assignedTasks;
+    public ArrayList<Task> assignedTasks;
 
     /**
      * Constructor for the BlockScheduler.
@@ -114,13 +114,13 @@ public class StudyBlock implements Schedulable, Serializable {
         ArrayList<String> msg = new ArrayList<>();
         ArrayList<Integer> tL = new ArrayList<>(t_length);
         HashMap<ArrayList<String>, ArrayList<Integer>> map =
-                new HashMap<ArrayList<String>, ArrayList<Integer>>();
+                new HashMap<>();
         int t_left = array[0];
         int task_length = tL.get(0);
 
         if (task_length == t_left && t_length.size() == 1){
             msg.add(checklist.incomplete.get(task).name + " | " + t_length.get(0) + " min");
-            assignedTasks.add(checklist.incomplete.get(task).name);
+            assignedTasks.add(checklist.incomplete.get(task));
             tL.remove(0);
             map.put(msg, tL);
             return map;
@@ -146,9 +146,8 @@ public class StudyBlock implements Schedulable, Serializable {
                 return map;
             } else {
                 msg.add(task_name + " | " + task_length + " min");
-                assignedTasks.add(task_name);
-                int left = t_left - task_length;
-                t_left = left;
+                assignedTasks.add(checklist.incomplete.get(task));
+                t_left = t_left - task_length;
                 tL.remove(0);
                 x++;
             }
