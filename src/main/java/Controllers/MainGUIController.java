@@ -339,6 +339,9 @@ public class MainGUIController {
         }
     }
 
+    /**
+     * Saves all checklists to checklists folder in current directory.
+     */
     public void saveAllChecklists() {
         ChecklistReadWriter checklistReadWriter = new ChecklistReadWriter();
         for (Checklist checklist : Data.getChecklistList()) {
@@ -376,6 +379,9 @@ public class MainGUIController {
         return studyBlockFolder.mkdir();
     }
 
+    /**
+     * Deletes all studyblocks in studyblocks folder in current directory.
+     */
     public static void deleteAllStudyBlocks() {
         File studyBlockDir = new File(System.getProperty("user.dir") + "\\StudyBlocks\\");
         File[] studyBlockFileList = studyBlockDir.listFiles();
@@ -390,6 +396,9 @@ public class MainGUIController {
         }
     }
 
+    /**
+     * Saves all studyblocks to studyblocks folder in current directory.
+     */
     public void saveAllStudyBlocks() {
         StudyBlockReadWriter studyBlockReadWriter = new StudyBlockReadWriter();
         for (StudyBlock studyBlock : Data.getStudyBlockList()){
@@ -428,6 +437,17 @@ public class MainGUIController {
     }
 
     /**
+     * Saves the studymethod to preferences folder in current directory.
+     */
+    public void savePreferences() {
+        PreferencesReadWriter preferencesReadWriter = new PreferencesReadWriter();
+        try {
+            preferencesReadWriter.saveToFile(System.getProperty("user.dir") + "\\Preferences\\" + "StudyMethod", Data.getStudyMethod());
+        } catch (IOException e) {
+            System.out.println("StudyMethod did not save.");
+        }
+    }
+    /**
      * Allows user to save current checklists.
      * @param actionEvent on click
      * @throws IOException if there is an issue saving files.
@@ -441,8 +461,6 @@ public class MainGUIController {
             System.out.println("Study Block folder created!");
         }
 
-
-        PreferencesReadWriter preferencesReadWriter = new PreferencesReadWriter();
         if (createPreferencesFolder()){
             System.out.println("Preferences folder created!");
         }
@@ -451,13 +469,7 @@ public class MainGUIController {
         deleteAllStudyBlocks();
         saveAllChecklists();
         saveAllStudyBlocks();
-
-
-        try {
-            preferencesReadWriter.saveToFile(System.getProperty("user.dir") + "\\Preferences\\" + "StudyMethod", Data.getStudyMethod());
-        } catch (IOException e) {
-            System.out.println("StudyMethod did not save.");
-        }
+        savePreferences();
 
 
         // Loads FXML file and creates a new Scene
