@@ -29,7 +29,7 @@
     <HBox alignment="TOP_CENTER" layoutX="57.0" layoutY="500.0" prefHeight="25.0" prefWidth="485.0" spacing="10.0">
         <Button mnemonicParsing="false" onAction="#openAddTaskPopUp" text="Add Task" />
       <Button mnemonicParsing="false" onAction="#markTaskComplete" text="Mark Task Complete" />
-        <Button fx:id="deleteSelectedTask" mnemonicParsing="false" text="Delete Selected Task" />
+        <Button fx:id="deleteSelectedTask" onAction="#deleteSelectedTask" mnemonicParsing="false" text="Delete Selected Task" />
 
       <MenuButton fx:id="sortMenuButton" mnemonicParsing="false" text="Sorting Options">
         <items>
