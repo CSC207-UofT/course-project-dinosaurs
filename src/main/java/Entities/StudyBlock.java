@@ -58,17 +58,10 @@ public class StudyBlock implements Schedulable, Serializable {
         this.checklist = checklist;
     }
 
-    public ArrayList<String> getListTODO() {
-        return listTODO;
-    }
-
     public void setStudyMethod(StudyMethod studyMethod) {
         this.studyMethod = studyMethod;
     }
 
-    public void setListTODO(ArrayList<String> listTODO) {
-        this.listTODO = listTODO;
-    }
 
     /**
      * Builds an ArrayList, <listTodo>, that incorporates the studyMethod and checklist.

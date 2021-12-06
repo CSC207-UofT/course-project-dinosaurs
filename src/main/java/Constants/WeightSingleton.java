@@ -19,7 +19,4 @@ public class WeightSingleton {
         return weight;
     }
 
-    public void setWeight(String weight) {
-        this.weight = weight;
-    }
 }

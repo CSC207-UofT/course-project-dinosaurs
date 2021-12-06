@@ -1,4 +1,3 @@
-package EntitiesTests;
 
 import Constants.Constants;
 import Entities.Checklist;
@@ -57,6 +56,41 @@ Checklist tasks = new Checklist("Checklist 1");
         tm.addTask(taskSB, t5);
         tm.addTask(taskSB, t6);
         block.setLength(60);
+    }
+
+    /**
+     * Tests get study method.
+     */
+    @Test
+    public void TestGetStudyMethod(){
+        assertEquals(block.getStudyMethod(), methodChosen);
+    }
+
+    /**
+     * Tests get checklist.
+     */
+    @Test
+    public void TestGetChecklist(){
+        assertEquals(block.getChecklist(), taskSB);
+    }
+
+    /**
+     * Tests set checklist.
+     */
+    @Test
+    public void TestSetChecklist(){
+        block.setChecklist(tasks);
+        assertEquals(block.getChecklist(), tasks);
+    }
+
+    /**
+     * Tests set study method.
+     */
+    @Test
+    public void TestSetStudyMethod(){
+        StudyMethod method2 = new StudyMethod(Constants.DESKTIME);
+        block.setStudyMethod(method2);
+        assertEquals(block.getStudyMethod(), method2);
     }
 
     /**
@@ -326,6 +360,19 @@ Checklist tasks = new Checklist("Checklist 1");
         msg.add("Break | 5 min");
         ArrayList<String> msg2 = block.assignTasks(array);
         assertEquals(msg, msg2);
+    }
+
+    /**
+     * Tests toString
+     */
+    @Test
+    public void TestToString() {
+        block.setLength(10);
+        int[][] array = new int[][]{{10, 0}};
+        assertArrayEquals(array, block.breakUpStudyBlock());
+        String msg = " --- TODO List --- \nt1 | 5 min\nt2 | 5 min\n";
+        t5.setLength(5);
+        assertEquals(msg, block.toString());
     }
 }
 

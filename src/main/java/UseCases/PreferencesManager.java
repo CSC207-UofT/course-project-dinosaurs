@@ -3,14 +3,13 @@ package UseCases;
 
 import Entities.StudyMethod;
 
+/**
+ * A PreferencesManager class that changes stored preferences based on user input.
+ * Includes StudyMethod helper for now, but could be expanded to include username or filepath preferences.
+ */
 public class PreferencesManager {
 
-    /**
-     * A PreferencesManager class that changes stored preferences based on user input.
-     * Includes StudyMethod helper for now, but could be expanded to include username or filepath preferences.
-     */
-    public PreferencesManager() {
-    }
+
 
     /**
      * Takes user input Strings and creates a new StudyMethod matching their specifications.

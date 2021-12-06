@@ -19,8 +19,5 @@ public class ImportanceSingleton {
         return importance;
     }
 
-    public void setImportance(String importance) {
-        this.importance = importance;
-    }
 
 }
