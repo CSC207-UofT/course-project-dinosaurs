@@ -1,10 +1,13 @@
 package Entities;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
 public class StudyMethod implements Serializable {
     private ArrayList<Integer> preferred_method;
+//    @Serial
+//    private static final long serialVersionUID = 42L;
 
     /**
      * Constructor for the Entities.StudyMethod.
@@ -43,6 +46,15 @@ public class StudyMethod implements Serializable {
 
     public void setMethod(int activeTime, int breakTime) {
         this.preferred_method = new ArrayList<>(Arrays.asList(activeTime, breakTime));
+    }
+
+    /**
+     * Prints current Study Method active time and break time.
+     * @return Study Method string
+     */
+    @Override
+    public String toString() {
+        return "Active Time: " + this.preferred_method.get(0) + " Break Time: " + this.preferred_method.get(1);
     }
 }
 
