@@ -1,4 +1,3 @@
-package UseCasesTests;
 
 import Entities.Checklist;
 import Entities.Task;

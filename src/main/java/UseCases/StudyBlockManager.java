@@ -10,9 +10,6 @@ import Entities.StudyMethod;
  */
 public class StudyBlockManager {
 
-    public StudyBlockManager(){
-
-    }
 
     /**
      * Helper method to construct a task from user input strings and add it to given StudyBlock

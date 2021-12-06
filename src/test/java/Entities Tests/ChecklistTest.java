@@ -25,7 +25,7 @@ public class ChecklistTest {
     Task t1 = new Task("t1", 15, d3, 5, 3);
     Task t2 = new Task("t2", 35, d1, 4, 2);
     Task t3 = new Task("t3", 55, d4, 2, 7);
-    Task t4 = new Task("t3", 75, d2, 3, 1);
+    Task t4 = new Task("t4", 75, d2, 3, 1);
 
     /**
      * Adds tasks to the checklist using taskmanager.
@@ -56,7 +56,7 @@ public class ChecklistTest {
      */
     @Test(timeout = 80)
     public void TestToString() {
-        assertEquals(tasks.toString(), "[Checklist]\n\n" + t2.toString() +"\n\n" + t3.toString() + "\n\n" +
-                t1.toString() + "\n\n" + t4.toString() + "\n\n");
+        assertEquals(tasks.toString(), "[Checklist]\n\n" + t2.toString() +"\n\n" + t4.toString() + "\n\n" +
+                t1.toString() + "\n\n" + t3.toString() + "\n\n");
     }
 }

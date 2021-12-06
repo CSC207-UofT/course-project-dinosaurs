@@ -7,19 +7,17 @@ import Constants.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * A task manager class which handles the management of a Checklist.
+ * Sorts the Checklist, adds/completes tasks and retrieves completed and
+ * incomplete lists from the Checklist based on controller input.
+ * Constructor for TaskManager.
+ */
 public class TaskManager {
 
-    /**
-     * A task manager class which handles the management of a Checklist.
-     * Sorts the Checklist, adds/completes tasks and retrieves completed and
-     * incomplete lists from the Checklist based on controller input.
-     * Constructor for TaskManager.
-     * TODO look into clean architecture for creating a task from user interface.
-     */
 
-    public TaskManager(){
 
-    }
+
 
     /**
      * Adds a task into the Entities.Checklist. Then sorts the task based on
