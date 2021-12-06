@@ -16,9 +16,10 @@ import java.util.Set;
 
 public class StudyBlock implements Schedulable, Serializable {
     /**
-     * Creates a new UseCases.StudyBlock based on the selected blockLength,
-     * studyMethod, chosenTasks, and priorityType.
+     * Creates a new Entities.StudyBlock based on the selected length,
+     * studyMethod, checklist.
      *
+     * Holds an ArrayList<Task> assignedTasks that contains all the Tasks that were used in creating a StudyBlock
      */
 
     private StudyMethod studyMethod;
@@ -30,9 +31,10 @@ public class StudyBlock implements Schedulable, Serializable {
 
     /**
      * Constructor for the BlockScheduler.
-     *
+     * @param name The name of the StudyBlock
      * @param studyMethod Preferred study scheduling method.
      * @param checklist List of Tasks to be completed.
+     * @param length Length of the StudyBlock
      */
     public StudyBlock(String name, StudyMethod studyMethod,
                       Checklist checklist, int length) {
@@ -58,21 +60,13 @@ public class StudyBlock implements Schedulable, Serializable {
         this.checklist = checklist;
     }
 
-    public ArrayList<String> getListTODO() {
-        return listTODO;
-    }
-
     public void setStudyMethod(StudyMethod studyMethod) {
         this.studyMethod = studyMethod;
     }
 
-    public void setListTODO(ArrayList<String> listTODO) {
-        this.listTODO = listTODO;
-    }
-
     /**
      * Builds an ArrayList, <listTodo>, that incorporates the studyMethod and checklist.
-     * Creates ArrayList, <assignedTasks>, that hold all the used task names
+     * Builds an ArrayList, <assignedTasks>, that hold all the used task names.
      */
     public void buildListTODO() {
         this.listTODO = assignTasks(breakUpStudyBlock());
@@ -87,6 +81,7 @@ public class StudyBlock implements Schedulable, Serializable {
      * Breaks up the study block into a two dimensional Array which stores the
      * different increments of active and break time.
      */
+
     public int[][] breakUpStudyBlock(){
         // We first need the number of full blocks we'll have and the amount of extra time leftover.
         // Note that extra + blocks == length
@@ -109,6 +104,16 @@ public class StudyBlock implements Schedulable, Serializable {
         }
         return array;
     }
+
+    /**
+     * Builds a subblock for the full Studyblock. Is a helper function for assignTasks
+     *
+     * @param t_length An ArrayList<Integer> that holds the length of each task in the checklist
+     * @param array Contains the studytime and breaktime for the subblock
+     * @param checklist The checklist that contains the tasks
+     * @param task The task index that is being used
+     * @return A hashmap that stores the string of the subblock
+     */
 
     public HashMap<ArrayList<String>, ArrayList<Integer>> fillblock(ArrayList<Integer> t_length, int[] array, Checklist checklist, int task) {
         ArrayList<String> msg = new ArrayList<>();
@@ -155,6 +160,13 @@ public class StudyBlock implements Schedulable, Serializable {
         map.put(msg, tL);
         return map;
     }
+
+    /**
+     * Builds a studyblock based on the given array by breakUpStudyBlock()
+     *
+     * @param array Contains the studytime and breaktime for the subblock given by breakUpStudyBlock
+     * @return an ArrayList<String> that holds (task.name + " | " + task.length + " min");
+     */
 
     public ArrayList<String> assignTasks(int[][] array) {
 //      A subblock refers to a StudyMethod's [study, break] (ie. [25, 5] or [52, 17])
@@ -227,6 +239,8 @@ public class StudyBlock implements Schedulable, Serializable {
         Summary summary = event.setSummary(this.name);
         summary.setLanguage("en-us");
         event.setDescription(toString());
+        // the duration here is set to 75 minutes always due to time limitation and the preference of
+        // not breaking clean architecture through taking the duration information from the controller class
         Duration duration = new Duration.Builder().minutes(75).build();
         event.setDuration(duration);
         return event;
@@ -241,7 +255,7 @@ public class StudyBlock implements Schedulable, Serializable {
         ICalendar cal = makeCalendar();
         cal.addEvent(makeEvent());
         String studyBlock = Biweekly.write(cal).go();
-        FileWriter writer = new FileWriter("StudyBlock.ics");
+        FileWriter writer = new FileWriter(this.name+".ics");
         writer.write(studyBlock);
         writer.close();
     }
