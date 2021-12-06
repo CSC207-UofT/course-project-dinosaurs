@@ -26,8 +26,8 @@ public class TaskManagerTest {
     Task t1 = new Task("t1", 15, d3, 5, 3);
     Task t2 = new Task("t2", 35, d1, 4, 2);
     Task t3 = new Task("t3", 55, d4, 2, 7);
-//    Task t4 = new Task("t4", 75, d2, 3, 1);
-    Task t4 = tm.addTaskHelper("t4", "75", d2, "3", "1");
+//    add call to static helper method
+    Task t4 = TaskManager.addTaskHelper("t4", 75, d2, 3, "1");
 
     /**
      * Adds tasks to checklist tasks
@@ -125,5 +125,17 @@ public class TaskManagerTest {
         assertEquals(tasks.complete, complete);
     }
 
+    /**
+     * Tests the revert function.
+     */
+    @Test(timeout = 80)
+    public void TestRevert() {
+        assertTrue(tasks.complete.isEmpty());
+        tm.completeTask(tasks, t1);
+        assertTrue(tasks.complete.contains(t1));
+        tm.revertTask(tasks, t1);
+        assertFalse(tasks.complete.contains(t1));
+        assertTrue(tasks.complete.isEmpty());
+    }
 
 }
