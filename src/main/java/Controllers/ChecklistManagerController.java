@@ -344,8 +344,7 @@ public class ChecklistManagerController {
      */
     @FXML
     protected void createNewChecklist(ActionEvent actionEvent) {
-        Checklist newChecklist = new Checklist(checklistNameField.getText());
-        Data.addToChecklistList(newChecklist);
+        Data.addToChecklistList(TaskManager.addChecklistHelper(checklistNameField.getText()));
         // Casts the action event to obtain the Stage where the button was clicked
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.close();
