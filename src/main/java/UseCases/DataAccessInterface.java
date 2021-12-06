@@ -101,6 +101,6 @@ public interface DataAccessInterface {
      * Sets current StudyMethod.
      * @param method method to be saved as preference.
      */
-    void setStudyMethod(ArrayList<Integer> method);
+    void setStudyMethod(StudyMethod method);
 
 }

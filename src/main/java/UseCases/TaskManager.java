@@ -100,7 +100,7 @@ public class TaskManager {
     }
 
     /**
-     * Helper method to construct a task from user input strings and add it to given checklist
+     * Helper method to construct a task from user input strings.
      * @param name String name of the Task
      * @param weight String percentage weight of the Task
      * @param dueDate LocalDate Task is due
@@ -111,6 +111,14 @@ public class TaskManager {
                               String length) {
         return new Task(name, (int)weight, dueDate, (int)importance,
                 Integer.parseInt(length));
+    }
+
+    /**
+     * Helper method to construct a new empty checklist from user input strings.
+     * @param name String name of the Checklist to be created.
+     */
+    public static Checklist addChecklistHelper(String name) {
+        return new Checklist(name);
     }
 
     /**

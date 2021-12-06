@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="305.0" prefWidth="508.0" xmlns="http://javafx.com/javafx/11.0.2"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PreferencesController">
+   <Label layoutX="34.0" layoutY="22.0" text="Change Study Method">
+      <font>
+         <Font name="Calibri" size="18.0"/>
+      </font>
+   </Label>
+   <VBox layoutX="34.0" layoutY="70.0" prefHeight="200.0" prefWidth="462.0" spacing="10.0">
+      <HBox prefHeight="36.0" prefWidth="462.0" spacing="10.0">
+         <Label text="Current Study Method"/>
+         <Label fx:id="currStudyMethod" text="Label"/>
+      </HBox>
+      <Label prefHeight="41.0" prefWidth="165.0" text="New Study Method Parameters"/>
+      <HBox prefHeight="25.0" prefWidth="462.0" spacing="10.0">
+         <Label text="Active Time"/>
+         <TextField fx:id="newActiveTimeField" prefHeight="25.0" prefWidth="240.0"
+                    promptText="int minutes to work"/>
+      </HBox>
+      <HBox prefHeight="27.0" prefWidth="462.0" spacing="13.0">
+         <Label text="Break Time"/>
+         <TextField fx:id="newBreakTimeField" prefHeight="25.0" prefWidth="241.0"
+                    promptText="int minutes of break between active times"/>
+      </HBox>
+      <HBox prefHeight="31.0" prefWidth="462.0" spacing="10.0">
+         <Button mnemonicParsing="false" onAction="#setNewStudyMethodButton" text="Save Study Method"/>
+         <Button mnemonicParsing="false" onAction="#closeChangeStudyMethodWindowButton" text="Cancel"/>
+      </HBox>
+   </VBox>
+</AnchorPane>

@@ -17,10 +17,13 @@
         </font>
     </Label>
     <VBox alignment="TOP_CENTER" layoutX="190.0" layoutY="211.0" prefHeight="202.0" prefWidth="219.0" spacing="10.0">
-        <Button mnemonicParsing="false" text="Set Study Method"/>
+        <Button mnemonicParsing="false" onAction="#openChangeStudyMethodButton" text="Set Study Method"/>
         <Button mnemonicParsing="false" text="Choose Folder for Export"/>
         <Button mnemonicParsing="false" text="Change Student Name"/>
         <Button mnemonicParsing="false" text="Change Password"/>
         <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu"/>
     </VBox>
+    <Label fx:id="currStudyMethod" text="Label" opacity="0"/>
+    <TextField fx:id="newActiveTimeField" opacity="0"/>
+    <TextField fx:id="newBreakTimeField" opacity="0"/>
 </AnchorPane>
