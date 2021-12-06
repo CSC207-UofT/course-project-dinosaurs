@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 /**
  * Controller for all elements and pop-up windows for creating a StudyBlock with a chosen priority.
  */
-public class StudyNowStudyBlockPriorityController {
+public class StudyNowStudyBlockPriorityView {
 
     public TextField studyBlockLengthTextField;
     public ChoiceBox<String> choosePriority = new ChoiceBox<>();
