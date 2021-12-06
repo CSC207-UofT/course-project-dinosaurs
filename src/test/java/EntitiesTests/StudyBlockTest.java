@@ -1,4 +1,3 @@
-package EntitiesTests;
 
 import Constants.Constants;
 import Entities.Checklist;
@@ -257,6 +256,26 @@ Checklist tasks = new Checklist("Checklist 1");
         assertEquals(msg, msg2);
     }
 
+    /**
+     * Splits studyblock into one even subblock with 3 tasks
+     */
+    @Test
+    public void TestAssignTask8() {
+        block.setLength(30);
+        Task t7 = new Task("t3", 35, d3, 3, 2);
+        tm.addTask(taskSB, t7);
+        int[][] array = new int[][]{{25, 5}, {0, 0}};
+        assertArrayEquals(array, block.breakUpStudyBlock());
+        ArrayList<String> msg = new ArrayList<>();
+        t5.setLength(20);
+        t6.setLength(3);
+        msg.add("t1 | 20 min");
+        msg.add("t2 | 3 min");
+        msg.add("t3 | 2 min");
+        msg.add("Break | 5 min");
+        ArrayList<String> msg2 = block.assignTasks(array);
+        assertEquals(msg, msg2);
+    }
 
     /**
      * Split studybloack when using StudyMethod to DESKTIME
