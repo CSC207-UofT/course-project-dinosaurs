@@ -1,3 +1,5 @@
+package UseCasesTests;
+
 import Entities.Checklist;
 import Entities.Task;
 import UseCases.TaskManager;
@@ -26,8 +28,11 @@ public class TaskManagerTest {
     Task t1 = new Task("t1", 15, d3, 5, 3);
     Task t2 = new Task("t2", 35, d1, 4, 2);
     Task t3 = new Task("t3", 55, d4, 2, 7);
+
+
 //    add call to static helper method
     Task t4 = TaskManager.addTaskHelper("t4", 75, d2, 3, "1");
+
 
     /**
      * Adds tasks to checklist tasks
