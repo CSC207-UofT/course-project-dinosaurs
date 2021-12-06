@@ -20,7 +20,4 @@ public class DueDateSingleton {
         return dueDate;
     }
 
-    public void setDueDate(String dueDate) {
-        this.dueDate = dueDate;
-    }
 }

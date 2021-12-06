@@ -74,7 +74,7 @@ public class StudyBlockReadWriterTest {
         } catch (IOException e) {
             System.out.println(block.name + " did not save.");
         }
-        StudyBlock s1 = readWriter.readFromFile(tasks.name);
+        StudyBlock s1 = readWriter.readFromFile(block.name);
 
         assertEquals(s1.name, block.name);
     }
