@@ -34,7 +34,7 @@ click "Set Study Method". From here, you can customize the break and active stud
 
 Note: You may have to use the "<" and ">" buttons to refresh the list view after adding a checklist or task.
 
-Happy studying!
+Happy Studying!
 
 #Creators - Team dinosaurs <br>
 Pooja Ajit <br>
