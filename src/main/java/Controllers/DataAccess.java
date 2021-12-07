@@ -8,6 +8,7 @@ import UseCases.DataAccessInterface;
 import javafx.fxml.FXML;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataAccess implements DataAccessInterface {
 
@@ -17,8 +18,8 @@ public class DataAccess implements DataAccessInterface {
      * for all controllers to access and update. It is saved to disk when
      * the user chooses "Save and Exit".
      */
-    @FXML static private ArrayList<StudyBlock> studyBlockList;
-    @FXML static private ArrayList<Checklist> checklistList;
+    @FXML static private List<StudyBlock> studyBlockList;
+    @FXML static private List<Checklist> checklistList;
     @FXML static private StudyMethod chosenMethod;
     @FXML static private int checklistListIndex;
     @FXML static private int studyBlockListIndex;
@@ -38,7 +39,7 @@ public class DataAccess implements DataAccessInterface {
      */
     @Override
     public ArrayList<Checklist> getChecklistList(){
-        return checklistList;
+        return (ArrayList<Checklist>) checklistList;
     }
 
     /**
@@ -103,7 +104,7 @@ public class DataAccess implements DataAccessInterface {
      */
     @Override
     public ArrayList<StudyBlock> getStudyBlockList(){
-        return studyBlockList;
+        return (ArrayList<StudyBlock>) studyBlockList;
     }
 
     /**

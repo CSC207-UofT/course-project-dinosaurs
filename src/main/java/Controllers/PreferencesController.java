@@ -35,44 +35,54 @@ public class PreferencesController {
     /**
      * Changes scene to Main Menu.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating main-view.fxml
      */
     @FXML
-    protected void changeSceneToMainMenuButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
-        Scene mainMenuScene = new Scene(mainMenuParent);
+    protected void changeSceneToMainMenuButton(ActionEvent actionEvent) {
+        try {
+            // Loads FXML file and creates a new Scene
+            Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
+            Scene mainMenuScene = new Scene(mainMenuParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
-        stage.show();
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(mainMenuScene);
+            stage.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("main-view.fxml not found");
+        }
     }
 
     /**
      * Opens the Change Study Method pop up window.
      * @param actionEvent on click
-     * @throws IOException
      */
     @FXML
-    protected void openChangeStudyMethodButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent changeStudyMethodParent = FXMLLoader.load(getClass().getResource("change-study-method-view.fxml"));
-        Scene changeStudyMethodScene = new Scene(changeStudyMethodParent);
+    protected void openChangeStudyMethodButton(ActionEvent actionEvent) {
+        try {
+            // Loads FXML file and creates a new Scene
+            Parent changeStudyMethodParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("change-study-method-view.fxml")));
+            Scene changeStudyMethodScene = new Scene(changeStudyMethodParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Change Study Method");
-        popUpWindow.setScene(changeStudyMethodScene);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Change Study Method");
+            popUpWindow.setScene(changeStudyMethodScene);
 
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("change-study-method-view.fxml not found");
+        }
     }
 
     /**

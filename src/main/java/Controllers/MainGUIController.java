@@ -21,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import jdk.jshell.spi.ExecutionControlProvider;
 
 import java.io.File;
 import java.io.IOException;
@@ -93,8 +94,8 @@ public class MainGUIController {
      * Initializes scene and populates ListView.
      */
     @FXML
-    void initialize() throws IOException, ClassNotFoundException{
-        if (!MainGUI.loaded){
+    void initialize() {
+        if (!MainGUI.loaded) {
             loadAll();
             MainGUI.loaded = true;
         }
@@ -106,118 +107,140 @@ public class MainGUIController {
     /**
      * Loads all checklists from folder "Checklists" and all study blocks from folder
      * "StudyBlocks". Loads saved StudyMethod from folder "StudyMethod".
-     * @throws IOException File is not found
-     * @throws ClassNotFoundException Either folder is not found
      */
-    private void loadAll() throws IOException, ClassNotFoundException{
+    private void loadAll() {
+        try {
+            if (checklistFolderExists()) {
+                ChecklistReadWriter checklistReadWriter = new ChecklistReadWriter();
+                File checklistDir = new File(System.getProperty("user.dir") + "//Checklists");
+                File[] checklists = checklistDir.listFiles();
+                if (checklists != null) {
+                    for (File file : checklists) {
 
-        if (checklistFolderExists()) {
-            ChecklistReadWriter checklistReadWriter = new ChecklistReadWriter();
-            File checklistDir = new File(System.getProperty("user.dir") + "//Checklists");
-            File[] checklists = checklistDir.listFiles();
-            if (checklists != null) {
-                for (File file : checklists) {
-
-                    // Deserializes files.
-                    Checklist checklist = checklistReadWriter.readFromFile(file.getPath());
-                    Data.addToChecklistList(checklist);
+                        // Deserializes files.
+                        Checklist checklist = checklistReadWriter.readFromFile(file.getPath());
+                        Data.addToChecklistList(checklist);
+                    }
                 }
             }
-        }
-        if (studyBlockFolderExists()) {
-            StudyBlockReadWriter studyBlockReadWriter = new StudyBlockReadWriter();
-            File studyBlockDir = new File(System.getProperty("user.dir") + "//StudyBlocks");
-            File[] studyBlocks = studyBlockDir.listFiles();
-            if (studyBlocks != null) {
-                for (File file : studyBlocks) {
+            if (studyBlockFolderExists()) {
+                StudyBlockReadWriter studyBlockReadWriter = new StudyBlockReadWriter();
+                File studyBlockDir = new File(System.getProperty("user.dir") + "//StudyBlocks");
+                File[] studyBlocks = studyBlockDir.listFiles();
+                if (studyBlocks != null) {
+                    for (File file : studyBlocks) {
 
-                    // Deserializes files.
-                    StudyBlock studyBlock = studyBlockReadWriter.readFromFile(file.getPath());
-                    Data.addToStudyBlockList(studyBlock);
+                        // Deserializes files.
+                        StudyBlock studyBlock = studyBlockReadWriter.readFromFile(file.getPath());
+                        Data.addToStudyBlockList(studyBlock);
+                    }
                 }
             }
-        }
-        if (preferencesFolderExists()) {
-            PreferencesReadWriter preferencesReadWriter = new PreferencesReadWriter();
-            File preferencesDir = new File(System.getProperty("user.dir") + "//Preferences");
-            File[] preferences = preferencesDir.listFiles();
-            if (preferences != null) {
-                for (File file : preferences) {
+            if (preferencesFolderExists()) {
+                PreferencesReadWriter preferencesReadWriter = new PreferencesReadWriter();
+                File preferencesDir = new File(System.getProperty("user.dir") + "//Preferences");
+                File[] preferences = preferencesDir.listFiles();
+                if (preferences != null) {
+                    for (File file : preferences) {
 
-                    // Deserializes files.
-                    StudyMethod studyMethod = preferencesReadWriter.readFromFile(file.getPath());
-                    Data.setStudyMethod(studyMethod);
+                        // Deserializes files.
+                        StudyMethod studyMethod = preferencesReadWriter.readFromFile(file.getPath());
+                        Data.setStudyMethod(studyMethod);
+                    }
                 }
             }
+        } catch (IOException e) {
+            System.out.println("Problem loading Checklist or Studyblock file");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Problem locating Checklist or Studyblock folder in current directory");
         }
     }
 
     /**
      * Changes scene to Study now.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating study-now-view.fxml
      */
     @FXML
-    protected void changeSceneToStudyNowButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent studyNowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("study-now-view.fxml")));
-        Scene studyNowScene = new Scene(studyNowParent);
+    protected void changeSceneToStudyNowButton(ActionEvent actionEvent) {
+        try { // Loads FXML file and creates a new Scene
+            Parent studyNowParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("study-now-view.fxml")));
+            Scene studyNowScene = new Scene(studyNowParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(studyNowScene);
-        stage.show();
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(studyNowScene);
+            stage.show();
+        } catch (IOException | NullPointerException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("study-now-view.fxml not found");
+        }
     }
 
     /**
      * Changes scene to Study Block Manager.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating block-manager-view.fxml
      */
     @FXML
-    protected void changeSceneToBlockManagerButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent blockManagerParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("block-manager-view.fxml")));
-        Scene blockManagerScene = new Scene(blockManagerParent);
+    protected void changeSceneToBlockManagerButton(ActionEvent actionEvent) {
+        try {
+            // Loads FXML file and creates a new Scene
+            Parent blockManagerParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("block-manager-view.fxml")));
+            Scene blockManagerScene = new Scene(blockManagerParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(blockManagerScene);
-        stage.show();
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(blockManagerScene);
+            stage.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("block-manager-view.fxml not found");
+        }
     }
 
     /**
      * Changes scene to Checklist Manager.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating checklist-manager-view.fxml
      */
     @FXML
-    protected void changeSceneToChecklistManagerButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent checklistManagerParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("checklist-manager-view.fxml")));
-        Scene checklistManagerScene = new Scene(checklistManagerParent);
+    protected void changeSceneToChecklistManagerButton(ActionEvent actionEvent) {
+        try {
+            // Loads FXML file and creates a new Scene
+            Parent checklistManagerParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("checklist-manager-view.fxml")));
+            Scene checklistManagerScene = new Scene(checklistManagerParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(checklistManagerScene);
-        stage.show();
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(checklistManagerScene);
+            stage.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("checklist-manager-view.fxml not found");
+        }
     }
 
     /**
      * Changes scene to Preferences menu.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating preferences-view.fxml
      */
     @FXML
-    protected void changeSceneToPreferencesButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent preferencesParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("preferences-view.fxml")));
-        Scene preferencesScene = new Scene(preferencesParent);
+    protected void changeSceneToPreferencesButton(ActionEvent actionEvent) {
+        try {
+            Parent preferencesParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("preferences-view.fxml")));
+            Scene preferencesScene = new Scene(preferencesParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(preferencesScene);
-        stage.show();
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(preferencesScene);
+            stage.show(); // Loads FXML file and creates a new Scene
+        } catch(NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("preferences-view.fxml not found");
+        }
+
     }
 
     /**
@@ -225,27 +248,32 @@ public class MainGUIController {
      * by the current stage, and must be dismissed before user can interact with
      * the rest of the program again.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating no-save-confirm-view.fxml
      */
     @FXML
-    protected void openExitConfirmWindowButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent saveConfirmParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("no-save-confirm-view.fxml")));
-        Scene saveConfirmScene = new Scene(saveConfirmParent);
+    protected void openExitConfirmWindowButton(ActionEvent actionEvent) {
+        try {
+            // Loads FXML file and creates a new Scene
+            Parent saveConfirmParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("no-save-confirm-view.fxml")));
+            Scene saveConfirmScene = new Scene(saveConfirmParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Confirm Exit Without Saving");
-        popUpWindow.setScene(saveConfirmScene);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Confirm Exit Without Saving");
+            popUpWindow.setScene(saveConfirmScene);
 
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("no-save-confirm-view.fxml not found");
+        }
     }
 
     /**
@@ -272,27 +300,31 @@ public class MainGUIController {
      * by the current stage, and must be dismissed before user can interact with
      * the rest of the program again.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating no-save-confirm-view.fxml
      */
     @FXML
-    protected void openSaveAllButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent saveChecklistsParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("save-everything-view.fxml")));
-        Scene saveChecklistsScene = new Scene(saveChecklistsParent);
+    protected void openSaveAllButton(ActionEvent actionEvent) {
+        try {// Loads FXML file and creates a new Scene
+            Parent saveChecklistsParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("save-everything-view.fxml")));
+            Scene saveChecklistsScene = new Scene(saveChecklistsParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Confirm Save");
-        popUpWindow.setScene(saveChecklistsScene);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Confirm Save");
+            popUpWindow.setScene(saveChecklistsScene);
 
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("save-everything-view.fxml not found");
+        }
     }
 
     /**
@@ -331,7 +363,7 @@ public class MainGUIController {
         if (checklistFileList != null) {
             for (File file : checklistFileList) {
                 if (file.delete()) {
-                    System.out.println(file.getName() + " was deleted successfully.");
+                    System.out.println(file.getName() + " was overwritten successfully.");
                 } else {
                     System.out.println("Failed to overwrite files.");
                 }
@@ -388,7 +420,7 @@ public class MainGUIController {
         if (studyBlockFileList != null) {
             for (File file : studyBlockFileList) {
                 if (file.delete()) {
-                    System.out.println(file.getName() + " was deleted successfully.");
+                    System.out.println(file.getName() + " was overwritten successfully.");
                 } else {
                     System.out.println("Failed to overwrite files.");
                 }
@@ -450,10 +482,9 @@ public class MainGUIController {
     /**
      * Allows user to save current checklists.
      * @param actionEvent on click
-     * @throws IOException if there is an issue saving files.
      */
     @FXML
-    protected void saveAllButton(ActionEvent actionEvent) throws IOException {
+    protected void saveAllButton(ActionEvent actionEvent) {
         if (createChecklistFolder()){
             System.out.println("Checklist folder created!");
         }
@@ -471,24 +502,29 @@ public class MainGUIController {
         saveAllStudyBlocks();
         savePreferences();
 
+        try {
+            // Loads FXML file and creates a new Scene
+            Parent saveChecklistsParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("confirm-save-view.fxml")));
+            Scene saveChecklistsScene = new Scene(saveChecklistsParent);
 
-        // Loads FXML file and creates a new Scene
-        Parent saveChecklistsParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("confirm-save-view.fxml")));
-        Scene saveChecklistsScene = new Scene(saveChecklistsParent);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Save Confirmation");
+            popUpWindow.setScene(saveChecklistsScene);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Save Confirmation");
-        popUpWindow.setScene(saveChecklistsScene);
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
-
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("confirm-save-view.fxml not found");
+        }
 
     }
 
