@@ -4,7 +4,7 @@ package Constants;
  * Class holding the constant representing the importance of tasks
  */
 public class ImportanceSingleton {
-    private String importance;
+    private final String importance;
     private static final ImportanceSingleton instance = new ImportanceSingleton();
 
     private ImportanceSingleton() {

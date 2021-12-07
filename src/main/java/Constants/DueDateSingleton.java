@@ -5,7 +5,7 @@ package Constants;
  */
 
 public class DueDateSingleton {
-    private String dueDate;
+    private final String dueDate;
     private static final DueDateSingleton instance = new DueDateSingleton();
 
     private DueDateSingleton() {

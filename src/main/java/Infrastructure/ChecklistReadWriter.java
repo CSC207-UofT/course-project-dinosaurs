@@ -1,7 +1,6 @@
 package Infrastructure;
 
 import Entities.Checklist;
-import Infrastructure.ReadWriter;
 
 import java.io.*;
 

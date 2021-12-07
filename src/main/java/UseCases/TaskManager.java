@@ -5,7 +5,6 @@ import Entities.Task;
 import Constants.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * A task manager class which handles the management of a Checklist.
@@ -36,17 +35,14 @@ public class TaskManager {
     /**
      * Deletes a task from Entities.Checklist.
      * @param task The task to be removed from Entities.Checklist.
-     * @return Returns true iff the task was successfully removed from Entities.Checklist
      */
-    public boolean removeTask(Checklist checklist, Task task) {
-        boolean removed;
+    public void removeTask(Checklist checklist, Task task) {
         if (task.completed){
-            removed = checklist.complete.remove(task);
+            checklist.complete.remove(task);
         }
         else {
-            removed = checklist.incomplete.remove(task);
+            checklist.incomplete.remove(task);
         }
-        return removed;
     }
 
     /**
@@ -54,18 +50,14 @@ public class TaskManager {
      * Removes it from the incomplete list and adds it to the completed
      * list.
      * @param task The task which was completed.
-     * @return true if the task was completed successfully.
-     * Returns false if the task was not on the incomplete list.
      */
-    public boolean completeTask(Checklist checklist, Task task){
+    public void completeTask(Checklist checklist, Task task){
 
         if (checklist.incomplete.contains(task)){
             checklist.incomplete.remove(task);
             task.complete();
             checklist.complete.add(task);
-            return true;
         }
-        else {return false;}
     }
 
     /**
@@ -73,16 +65,13 @@ public class TaskManager {
      * Removes it from the completed list and adds it to the incomplete list.
      * @param checklist the Checklist on which the Task appears.
      * @param task The task to revert.
-     * @return false if the task was not on the completed list.
      */
-    public boolean revertTask(Checklist checklist, Task task) {
+    public void revertTask(Checklist checklist, Task task) {
         if (checklist.complete.contains(task)) {
             checklist.complete.remove(task);
             task.revert();
             checklist.incomplete.add(task);
-            return true;
         }
-        else {return false;}
     }
 
     /**

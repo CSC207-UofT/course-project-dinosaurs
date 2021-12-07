@@ -40,8 +40,8 @@ public class StudyNowController {
     private ListView<Checklist> studyNowListView = new ListView<>();
     @FXML
     private ListView<String> manageStudyBlockListView = new ListView<>();
-    private List<String> checkListNamesArrayList = new ArrayList<>();
-    private ObservableList<String> observableCheckListNames = FXCollections.observableArrayList();
+    private final List<String> checkListNamesArrayList = new ArrayList<>();
+    private final ObservableList<String> observableCheckListNames = FXCollections.observableArrayList();
 
     DataAccessInterface Data = MainGUI.Data;
 
@@ -54,7 +54,6 @@ public class StudyNowController {
      */
     @FXML
 
-    private ListView<Checklist> listView = new ListView<>();
     private final List<Checklist> checkListArrayList = new ArrayList<>();
     private final ObservableList<Checklist> observableCheckList = FXCollections.observableArrayList();
 

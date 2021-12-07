@@ -1,9 +1,7 @@
 package Controllers;
 
-import Entities.StudyBlock;
 import UseCases.DataAccessInterface;
 import UseCases.PreferencesManager;
-import UseCases.StudyBlockManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +21,7 @@ import java.util.Objects;
  */
 public class PreferencesController {
 
-    private DataAccessInterface Data = MainGUI.Data;
+    private final DataAccessInterface Data = MainGUI.Data;
 
     /**
      * Variables for displaying and receiving user input.
