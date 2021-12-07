@@ -5,7 +5,7 @@ package Constants;
  */
 
 public class LengthSingleton {
-    private String length;
+    private final String length;
     private static final LengthSingleton instance = new LengthSingleton();
 
     private LengthSingleton() {

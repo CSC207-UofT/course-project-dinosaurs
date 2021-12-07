@@ -1,6 +1,5 @@
 package Constants;
 
-import Entities.Task;
 import HelperFunctions.DueDateComparator;
 import HelperFunctions.ImportanceComparator;
 import HelperFunctions.LengthComparator;

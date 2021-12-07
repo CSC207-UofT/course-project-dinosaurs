@@ -5,7 +5,6 @@ import Entities.StudyBlock;
 import Entities.StudyMethod;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 /**
  * An interface for the DataAccess file. Controllers call
@@ -61,11 +60,6 @@ public interface DataAccessInterface {
      */
     ArrayList<StudyBlock> getStudyBlockList();
 
-    /**
-     * Get StudyBlock with name from StudyBlockList
-     * @return StudyBlock.
-     */
-    StudyBlock getStudyBlockWithName(String name);
 
     /**
      * Adds studyblock to studyBlockList.

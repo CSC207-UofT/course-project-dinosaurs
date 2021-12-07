@@ -143,18 +143,6 @@ public class DataAccess implements DataAccessInterface {
         studyBlockListIndex = index;
     }
 
-    /**
-     * Get Checklist with name from checklistList
-     * @return checklist.
-     */
-    @Override
-    public StudyBlock getStudyBlockWithName(String name){
-        for (StudyBlock studyBlock : studyBlockList){
-            if (studyBlock.name.equals(name)){
-                return studyBlock;
-            }
-        } return null;
-    }
 
 
     /**

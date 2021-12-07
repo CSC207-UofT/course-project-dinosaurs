@@ -4,7 +4,7 @@ package Constants;
  * Class holding the constant representing the weightage of tasks
  */
 public class WeightSingleton {
-    private String weight;
+    private final String weight;
     private static final WeightSingleton instance = new WeightSingleton();
 
     private WeightSingleton() {

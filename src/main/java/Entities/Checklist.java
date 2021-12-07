@@ -1,14 +1,11 @@
 package Entities;
 
 import Constants.DueDateSingleton;
-import Entities.Task;
-import HelperFunctions.DueDateComparator;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Objects;
 
 
 public class Checklist implements Serializable, Iterable<Task>{

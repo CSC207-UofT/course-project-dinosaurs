@@ -1,13 +1,10 @@
 package Entities;
 
-//import java.io.Serial;
 import java.io.Serializable;
 import java.util.*;
 
 public class StudyMethod implements Serializable {
     private ArrayList<Integer> preferred_method;
-//    @Serial
-//    private static final long serialVersionUID = 42L;
 
     /**
      * Constructor for the Entities.StudyMethod.
