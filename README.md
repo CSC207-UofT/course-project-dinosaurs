@@ -38,7 +38,7 @@ Happy studying!
 
 #Creators - Team dinosaurs <br>
 Pooja Ajit <br>
-Ken Bashualdo <br>
+Kenneth Bashualdo <br>
 Zoya Haroun <br>
 Paridhi Kshitij <br>
 Jeb Thomas-Mitchell <br>
