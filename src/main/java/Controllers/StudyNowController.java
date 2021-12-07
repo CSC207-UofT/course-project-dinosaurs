@@ -99,44 +99,54 @@ public class StudyNowController {
     /**
      * Opens a pop-up window showing the newly created Study Block with options to Save or cancel
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating studynow-studyblock-view.fxml
      */
     @FXML
-    protected void openStudyBlockPopUp(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent newStudyBlockParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-view.fxml")));
-        Scene newStudyBlockScene = new Scene(newStudyBlockParent);
+    protected void openStudyBlockPopUp(ActionEvent actionEvent) {
+        try {
+            // Loads FXML file and creates a new Scene
+            Parent newStudyBlockParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-view.fxml")));
+            Scene newStudyBlockScene = new Scene(newStudyBlockParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Your New Study Block");
-        popUpWindow.setScene(newStudyBlockScene);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Your New Study Block");
+            popUpWindow.setScene(newStudyBlockScene);
 
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("studynow-studyblock-view.fxml not found");
+        }
     }
 
     /**
      * Changes scene to Main Menu.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating main-view.fxml
      */
     @FXML
-    protected void changeSceneToMainMenuButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
-        Scene mainMenuScene = new Scene(mainMenuParent);
+    protected void changeSceneToMainMenuButton(ActionEvent actionEvent) {
+        try {
+            // Loads FXML file and creates a new Scene
+            Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
+            Scene mainMenuScene = new Scene(mainMenuParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
-        stage.show();
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(mainMenuScene);
+            stage.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("main-view.fxml not found");
+        }
     }
 
     /**
@@ -197,49 +207,59 @@ public class StudyNowController {
     /**
      * Opens a pop-up window showing the option to create Study Block from a checklist
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating studynow-studyblock-selected-Checklist-view.fxml
      */
     @FXML
-    public void openStudyBlockCheckListPopUp(ActionEvent actionEvent) throws IOException {
-        Parent newStudyBlockChecklistParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-selected-Checklist-view.fxml")));
-        Scene newStudyBlockCheckListScene = new Scene(newStudyBlockChecklistParent);
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Your New Study Block From Selected Checklist");
-        popUpWindow.setScene(newStudyBlockCheckListScene);
+    public void openStudyBlockCheckListPopUp(ActionEvent actionEvent) {
+        try {
+            Parent newStudyBlockChecklistParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-selected-Checklist-view.fxml")));
+            Scene newStudyBlockCheckListScene = new Scene(newStudyBlockChecklistParent);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Your New Study Block From Selected Checklist");
+            popUpWindow.setScene(newStudyBlockCheckListScene);
 
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("studynow-studyblock-selected-Checklist-view.fxml not found");
+        }
     }
 
     /**
      * Opens a pop-up window showing the option to create Study Block based on priority using a temp checklist
      * containing all tasks instead of a specific CheckList
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating studynow-studyblock-priority-view.fxml
      */
     @FXML
-    public void openStudyBlockPriorityPopUp(ActionEvent actionEvent) throws IOException {
-        Parent newStudyBlockPriorityParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-priority-view.fxml")));
-        Scene newStudyBlockPriorityScene = new Scene(newStudyBlockPriorityParent);
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Your New Study Block by Priority");
-        popUpWindow.setScene(newStudyBlockPriorityScene);
+    public void openStudyBlockPriorityPopUp(ActionEvent actionEvent) {
+        try {
+            Parent newStudyBlockPriorityParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("studynow-studyblock-priority-view.fxml")));
+            Scene newStudyBlockPriorityScene = new Scene(newStudyBlockPriorityParent);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Your New Study Block by Priority");
+            popUpWindow.setScene(newStudyBlockPriorityScene);
 
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("studynow-studyblock-priority-view.fxml not found");
+        }
     }
 }

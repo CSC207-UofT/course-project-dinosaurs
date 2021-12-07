@@ -41,29 +41,32 @@ public class BlockManagerController {
     /**
      * Changes scene to Main Menu.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating main-view.fxml
      */
     @FXML
-    protected void changeSceneToMainMenuButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
+    protected void changeSceneToMainMenuButton(ActionEvent actionEvent) {
+        try {// Loads FXML file and creates a new Scene
 
-        Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
-        Scene mainMenuScene = new Scene(mainMenuParent);
+            Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
+            Scene mainMenuScene = new Scene(mainMenuParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
-        stage.show();
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(mainMenuScene);
+            stage.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("main-view.fxml not found");
+        }
     }
 
     /**
      * Opens a pop-up window showing the newly created Study Block with options to Save, Export,
      * and Delete.
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating studynow-studyblock-view.fxml
      */
     @FXML
-    protected void openStudyBlockPopUp(ActionEvent actionEvent) throws IOException {
+    protected void openStudyBlockPopUp(ActionEvent actionEvent) {
         StudyNowController SNC = new StudyNowController();
         SNC.openStudyBlockPopUp(actionEvent);
     }
@@ -71,12 +74,17 @@ public class BlockManagerController {
 
     /**
      * Exports the selected StudyBlock
-     * @throws IOException if there is an issue.
      */
     @FXML
-    protected void exportStudyBlock() throws IOException {
-        Schedulable currStudyBlock = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
-        currStudyBlock.writeICS();
+    protected void exportStudyBlock(ActionEvent actionEvent) {
+        try {
+            Schedulable currStudyBlock = Data.getStudyBlockList().get(Data.getStudyBlockListIndex());
+            currStudyBlock.writeICS();
+        } catch (IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("Error exporting StudyBlock");
+        }
     }
 
     /**

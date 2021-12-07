@@ -78,8 +78,8 @@ public class ChecklistManagerController {
      */
     @FXML
     private ListView<String> completedListView;
-    private List<String> completedStringList = new ArrayList<>();
-    private ObservableList<String> completedObservableList = FXCollections.observableArrayList();
+    private final List<String> completedStringList = new ArrayList<>();
+    private final ObservableList<String> completedObservableList = FXCollections.observableArrayList();
 
     /**
      * Adds all Tasks to stringList and creates an observable list to display them in
@@ -127,18 +127,22 @@ public class ChecklistManagerController {
      * Changes scene to Main Menu.
      *
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating main-view.fxml
      */
     @FXML
-    protected void changeSceneToMainMenuButton(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
-        Scene mainMenuScene = new Scene(mainMenuParent);
+    protected void changeSceneToMainMenuButton(ActionEvent actionEvent) {
+        try {// Loads FXML file and creates a new Scene
+            Parent mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main-view.fxml")));
+            Scene mainMenuScene = new Scene(mainMenuParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.setScene(mainMenuScene);
-        stage.show();
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            stage.setScene(mainMenuScene);
+            stage.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("main-view.fxml not found");
+        }
     }
 
     /**
@@ -146,29 +150,34 @@ public class ChecklistManagerController {
      * be dismissed before user can interact with the rest of the program again.
      *
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating add-task-view.fxml
      */
     @FXML
-    protected void openAddTaskPopUp(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent newTaskParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add-task-view.fxml")));
-        Scene newTaskScene = new Scene(newTaskParent);
+    protected void openAddTaskPopUp(ActionEvent actionEvent) {
+        try {// Loads FXML file and creates a new Scene
+            Parent newTaskParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("add-task-view.fxml")));
+            Scene newTaskScene = new Scene(newTaskParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Add a Task");
-        popUpWindow.setScene(newTaskScene);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Add a Task");
+            popUpWindow.setScene(newTaskScene);
 
-        // Modality restricts user action to this stage
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            // Modality restricts user action to this stage
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        // Offset by (50,50) to help differentiate the new window
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            // Offset by (50,50) to help differentiate the new window
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        }
+        catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("add-task-view.fxml not found");
+        }
     }
 
     /**
@@ -177,29 +186,33 @@ public class ChecklistManagerController {
      * of the program again.
      *
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating create-checklist-view.fxml
      */
     @FXML
-    protected void openCreateChecklistPopUp(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent newChecklistParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("create-checklist-view.fxml")));
-        Scene newChecklistScene = new Scene(newChecklistParent);
+    protected void openCreateChecklistPopUp(ActionEvent actionEvent) {
+        try {// Loads FXML file and creates a new Scene
+            Parent newChecklistParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("create-checklist-view.fxml")));
+            Scene newChecklistScene = new Scene(newChecklistParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Create New Checklist");
-        popUpWindow.setScene(newChecklistScene);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Create New Checklist");
+            popUpWindow.setScene(newChecklistScene);
 
-        // Modality restricts user action to this stage
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            // Modality restricts user action to this stage
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        // Offset by (50,50) to help differentiate the new window
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            // Offset by (50,50) to help differentiate the new window
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("create-checklist-view.fxml not found");
+        }
     }
 
     /**
@@ -208,29 +221,33 @@ public class ChecklistManagerController {
      * of the program again.
      *
      * @param actionEvent on click
-     * @throws IOException if there is an issue locating create-checklist-view.fxml
      */
     @FXML
-    protected void openCompletedTasksPopUp(ActionEvent actionEvent) throws IOException {
-        // Loads FXML file and creates a new Scene
-        Parent newChecklistParent = FXMLLoader.load(getClass().getResource("completed-task-view.fxml"));
-        Scene newChecklistScene = new Scene(newChecklistParent);
+    protected void openCompletedTasksPopUp(ActionEvent actionEvent) {
+        try {// Loads FXML file and creates a new Scene
+            Parent newChecklistParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("completed-task-view.fxml")));
+            Scene newChecklistScene = new Scene(newChecklistParent);
 
-        // Casts the action event to obtain the Stage where the button was clicked
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Stage popUpWindow = new Stage();
-        popUpWindow.setTitle("Completed Tasks");
-        popUpWindow.setScene(newChecklistScene);
+            // Casts the action event to obtain the Stage where the button was clicked
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage popUpWindow = new Stage();
+            popUpWindow.setTitle("Completed Tasks");
+            popUpWindow.setScene(newChecklistScene);
 
-        // Modality restricts user action to this stage
-        popUpWindow.initModality(Modality.WINDOW_MODAL);
-        popUpWindow.initOwner(stage);
+            // Modality restricts user action to this stage
+            popUpWindow.initModality(Modality.WINDOW_MODAL);
+            popUpWindow.initOwner(stage);
 
-        // Offset by (50,50) to help differentiate the new window
-        popUpWindow.setX(stage.getX() + 50);
-        popUpWindow.setY(stage.getY() + 50);
+            // Offset by (50,50) to help differentiate the new window
+            popUpWindow.setX(stage.getX() + 50);
+            popUpWindow.setY(stage.getY() + 50);
 
-        popUpWindow.show();
+            popUpWindow.show();
+        } catch (NullPointerException | IOException e) {
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            ExceptionController.exceptionPopUp(stage);
+            System.out.println("completed-task-view.fxml not found");
+        }
     }
 
     /**
@@ -429,12 +446,6 @@ public class ChecklistManagerController {
         resetListView();
         setListView();
     }
-
-//    @FXML
-//    protected void deleteSelectedChecklist() {
-//        Checklist currChecklist = Data.getChecklistList().get(Data.getChecklistListIndex());
-//        Data.getChecklistList().remove(currChecklist);
-//    }
 
 
     /**

@@ -27,14 +27,17 @@ public class MainGUI extends Application {
     /**
      * Starts the stage.
      * @param stage passed in automatically
-     * @throws IOException if there is an issue locating main-view.fxml
      */
     @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainGUI.class.getResource("main-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Study Planner");
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(MainGUI.class.getResource("main-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Study Planner");
+            stage.setScene(scene);
+            stage.show();
+        } catch(IOException e) {
+            System.out.println("Problem loading program: main-view.fxml not found");
+        }
     }
 }
