@@ -4,26 +4,22 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PreferencesController">
+<AnchorPane prefHeight="700.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.PreferencesController">
     <Label layoutX="209.0" layoutY="35.0" text="Study Planner">
         <font>
-            <Font name="Calibri" size="32.0"/>
+            <Font name="Calibri" size="32.0" />
         </font>
     </Label>
     <Label alignment="CENTER" layoutX="256.0" layoutY="83.0" text="Preferences">
         <font>
-          <Font name="Calibri" size="18.0"/>
+          <Font name="Calibri" size="18.0" />
         </font>
     </Label>
     <VBox alignment="TOP_CENTER" layoutX="190.0" layoutY="211.0" prefHeight="202.0" prefWidth="219.0" spacing="10.0">
-        <Button mnemonicParsing="false" onAction="#openChangeStudyMethodButton" text="Set Study Method"/>
-        <Button mnemonicParsing="false" text="Choose Folder for Export"/>
-        <Button mnemonicParsing="false" text="Change Student Name"/>
-        <Button mnemonicParsing="false" text="Change Password"/>
-        <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu"/>
+        <Button mnemonicParsing="false" onAction="#openChangeStudyMethodButton" text="Set Study Method" />
+        <Button mnemonicParsing="false" onAction="#changeSceneToMainMenuButton" text="Back to Main Menu" />
     </VBox>
-    <Label fx:id="currStudyMethod" text="Label" opacity="0"/>
-    <TextField fx:id="newActiveTimeField" opacity="0"/>
-    <TextField fx:id="newBreakTimeField" opacity="0"/>
+    <Label fx:id="currStudyMethod" opacity="0" text="Label" />
+    <TextField fx:id="newActiveTimeField" opacity="0" />
+    <TextField fx:id="newBreakTimeField" opacity="0" />
 </AnchorPane>
